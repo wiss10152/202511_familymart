@@ -1,0 +1,172 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+	padding-top: 60px;
+}
+
+.navbar {
+	overflow: hidden;
+	background-color: #6AE6FF;
+	font-family: Arial;
+	height: 60px;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+}
+
+/* The dropdown container */
+.btn {
+	float: left;
+	overflow: hidden;
+}
+
+/* Dropdown button */
+.btn .btn2 {
+	cursor: pointer;
+	font-size: 16px;
+	border: none;
+	outline: none;
+	color: white;
+	padding: 14px 16px;
+	background-color: inherit;
+	font-family: inherit;
+	/* Important for vertical align on mobile phones */
+	margin: 0; /* Important for vertical align on mobile phones */
+}
+
+.button-panel {
+	display: flex;
+	margin-top: 15px;
+	margin-right: 10px
+}
+
+.button-panel a {
+	display: inline-block;
+}
+
+.dropdown:hover {
+	background-color: #90EE90;
+}
+
+.button-panel {
+	display: flex;
+	margin-top: 15px;
+	margin-right: 10px
+}
+
+.button-panel a {
+	display: inline-block;
+}
+
+.footer {
+	width: 100%;
+	background: #6AE6FF;
+	text-align: center;
+	padding: 12px 0;
+	font-size: 14px;
+	color: #ffffff;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.15);
+	letter-spacing: 1px;
+}
+
+.grid-container {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr); /* 3 item mỗi hàng */
+	gap: 30px;
+	width: 90%;
+	margin: 30px auto;
+}
+
+.grid-item {
+	text-align: center;
+}
+
+.grid-item img {
+	width: 100%;
+	max-width: 200px;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.grid-item img:hover {
+	transform: scale(1.1);
+}
+
+.genre-name {
+	font-size: 22px;
+	font-weight: bold;
+}
+
+.sidenav {
+	height: calc(100% - 60px);
+	width: 160px;
+	position: fixed;
+	top: 60px;
+	left: 0;
+	background-color: #76FF03;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.sidenav p {
+	padding: 12px 14px;
+	margin: 0;
+	font-size: 20px;
+	font-weight: bold;
+	color: #2A2A2A;
+	background: rgba(0, 0, 0, 0.10);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.sidenav a {
+	padding: 10px 14px;
+	margin: 0;
+	text-decoration: none;
+	font-size: 18px;
+	color: #1F1F1F;
+	display: block;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+	transition: background-color .2s, color .2s;
+}
+
+.sidenav a:hover {
+	background-color: rgba(0, 0, 0, 0.10);
+	color: #000;
+}
+
+.menu{
+	margin-left:60px;
+}
+.menu h1{
+	display:flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.footer {
+	width: 100%;
+	background: #6AE6FF;
+	text-align: center;
+	padding: 12px 0;
+	font-size: 14px;
+	color: #ffffff;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.15);
+	letter-spacing: 1px;
+}
+
+.footer span {
+	opacity: 0.9;
+}

@@ -27,7 +27,7 @@ public class USshow extends HttpServlet {
 	 */
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
+			throws ServletException, IOException {
 
 		List<HashMap<String, String>> userList = new ArrayList<HashMap<String, String>>();
 		Boolean adminflg = true;
@@ -42,7 +42,7 @@ public class USshow extends HttpServlet {
 			ResultSet rs = null;
 			rs = model.getResultSet(sql);
 
-			while(rs.next()) {
+			while (rs.next()) {
 				HashMap<String, String> userInfo = new HashMap<String, String>();
 
 				userInfo.put("userName", rs.getString("user_name"));
@@ -56,12 +56,18 @@ public class USshow extends HttpServlet {
 
 			model.close();
 
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		request.setAttribute("userList", userList);
 		RequestDispatcher dispatch = request.getRequestDispatcher("view/USview.jsp");
 		dispatch.forward(request, response);
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
 	}
 }

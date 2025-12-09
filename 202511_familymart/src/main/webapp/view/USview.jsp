@@ -14,6 +14,8 @@
 <meta charset="UTF-8"  />
 <link href="<%= request.getContextPath() %>/view/css/W0051.css"
 	rel="stylesheet" type="text/css" />
+	<link href="<%=request.getContextPath()%>/view/css/W0052.css"
+	rel="stylesheet" type="text/css" />
 <title>FamilyMartユーザ管理画面</title>
 
 <script type="text/javascript">
@@ -26,15 +28,49 @@
 			<% session.setAttribute("firstlogin", false);%>		//これ以降ユーザアラートが出ないように設定
 		<% } %>
 	}
+	
+	//11月
+	function moveShopItem(){
+	window.location.href = "<%=request.getContextPath()%>/view/SHtest.jsp";
+	}
+
+	function movePrefecture(){
+	window.location.href = "<%=request.getContextPath()%>/view/FMtest.jsp";
+	}
+
+	function moveUserList(){
+	window.location.href = "<%=request.getContextPath()%>/USshow";
+	}
+
+	function moveRank(){
+	window.location.href = "<%=request.getContextPath()%>/view/FMrank1.jsp";
+	}
 
 	function logOut(){
-		if(confirm("ログアウトします。よろしいですか？")){
-			document.MyForm.action = "<%= request.getContextPath() %>/FMlogout"
-			document.MyForm.submit();
-		} else {
-			return;
-		}
+	if(confirm("ログアウトします。よろしいですか？")){
+	    window.location.href = "<%=request.getContextPath()%>/view/login.jsp";
 	}
+	}
+
+	function moveHome(){
+	window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
+	}
+
+
+
+
+
+	
+	
+
+<!--	function logOut(){-->
+<!--		if(confirm("ログアウトします。よろしいですか？")){-->
+<!--			document.MyForm.action = "<%= request.getContextPath() %>/FMlogout"-->
+<!--			document.MyForm.submit();-->
+<!--		} else {-->
+<!--			return;-->
+<!--		}-->
+<!--	}-->
 
 	function go_access(num){
 		var len = num;
@@ -112,10 +148,10 @@
 		}
 	}
 
-	function movePrefecture(){
-		document.MyForm.action = "<%= request.getContextPath() %>/view/USgeneral.jsp"
-		document.MyForm.submit();
-	}
+<!--	function movePrefecture(){-->
+<!--		document.MyForm.action = "<%= request.getContextPath() %>/view/USgeneral.jsp"-->
+<!--		document.MyForm.submit();-->
+<!--	}-->
 
 	//jspへの直アクセスを防ぐ
 <%
@@ -130,7 +166,56 @@
 </head>
 
 <body>
-<div class="center">
+
+<div>
+<%
+		Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
+		%>
+
+		<div class="navbar">
+			<img src="<%=request.getContextPath()%>/view/img/familymart.png"
+				style="height: 50px; margin: 5px; float: left;">
+
+			<div class="btn">
+				<button class="btn2" onclick="moveHome();">ホーム</button>
+			</div>
+
+			<div class="btn">
+				<button class="btn2" onClick="moveShopItem();">商品</button>
+			</div>
+
+			<div class="btn">
+				<button class="btn2" onClick="movePrefecture();">店舗</button>
+			</div>
+
+			<div class="btn">
+				<button class="btn2" onClick="moveRank();">ランキング</button>
+			</div>
+
+			<%
+			if (Boolean.TRUE.equals(adminFlg)) {
+			%>
+			<div class="btn">
+				<button class="btn2" onclick="moveUserList();">ユーザ管理</button>
+			</div>
+			<%
+			}
+			%>
+
+			<div class="button-panel">
+				<%
+				out.print("ユーザ名 : " + session.getAttribute("userName"));
+				%>
+				<a style="margin-left: 20px" class="button" name="logout"
+					onClick="logOut();"> <img
+					src="<%=request.getContextPath()%>/view/img/153.142.124.217 (2).gif">
+				</a>
+			</div>
+		</div>
+		<div class="sidenav">
+			<p></p>
+			<a href="#"></a> <a href="#"></a> <a href="#"></a>
+		</div>
 <%--ここから、曲を流すプログラム --%>
 	<%  boolean music  = (boolean)session.getAttribute("music");    //7月新規
 		String   manege = (String)  session.getAttribute("manegement");
@@ -144,10 +229,9 @@
 			<% session.setAttribute("manegement", "LOW");	//これで、次にユーザ管理画面に行かない限り音楽は流れない
 		} %>
 <%--ここまで --%>
-
-	<br>
+ 
 	<form name="MyForm" method="POST" action="<%= request.getContextPath() %>/FMlogout">
-
+<%--
 		<div class="button-panel">
 			<% out.print("ユーザ名 : " + session.getAttribute("userName"));%>
 			<a style="margin-left: 20px" class="button" name="logout" onClick="logOut();"><img
@@ -157,7 +241,7 @@
 		<div class="button2">
 			<input type="submit" class="button" value="ユーザページへ" onclick="movePrefecture();">
 		</div>
-
+--%>
 		<div class="end">
 			<a href="#" onclick=go_portal();><img src="<%= request.getContextPath() %>/view/img/familymart.png"></a>
 
@@ -264,6 +348,8 @@
 
 	</form>
 </div>
-
+<div class="footer">
+		<span>© 2025 FamilyMart System — All Rights Reserved.</span>
+	</div>
 </body>
 </html>

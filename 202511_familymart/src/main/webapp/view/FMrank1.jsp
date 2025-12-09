@@ -1,8 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import = "java.util.HashMap"%>
-<%@ page import = "java.util.List" %>
-<%@ page import = "java.util.Date" %>
-<%@ page import = "jakarta.servlet.http.HttpSession" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page import="java.util.HashMap"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="jakarta.servlet.http.HttpSession"%>
 
 <!DOCTYPE HTML>
 <html lang="ja">
@@ -10,7 +10,9 @@
 <meta charset="UTF-8">
 <link href="<%= request.getContextPath() %>/view/css/W0051.css"
 	rel="stylesheet" type="text/css" />
-<title>FamilyMart　都道府県別商品ランキング</title>
+<link href="<%=request.getContextPath()%>/view/css/W0052.css"
+	rel="stylesheet" type="text/css" />
+<title>FamilyMart 都道府県別商品ランキング</title>
 <script type="text/javascript">
 
 <%
@@ -20,6 +22,43 @@
 		pageContext.forward("/view/login.jsp");
 	}
 %>
+
+//11月
+function moveShopItem(){
+window.location.href = "<%=request.getContextPath()%>/view/SHtest.jsp";
+}
+
+function movePrefecture(){
+window.location.href = "<%=request.getContextPath()%>/view/FMtest.jsp";
+}
+
+function moveUserList(){
+window.location.href = "<%=request.getContextPath()%>/USshow";
+}
+
+function moveRank(){
+window.location.href = "<%=request.getContextPath()%>/view/FMrank1.jsp";
+}
+
+function logOut(){
+if(confirm("ログアウトします。よろしいですか？")){
+    window.location.href = "<%=request.getContextPath()%>/view/login.jsp";
+}
+}
+
+function moveHome(){
+window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
+}
+
+
+
+
+
+
+
+
+
+
 	// 8月　ページ遷移しないように変更。変更箇所は後述のコメントアウト。
 	function send() {
 		var idx = document.getElementById("pre").selectedIndex;
@@ -36,26 +75,26 @@
 		waku.location = "<%= request.getContextPath() %>\/FMrank?pre=" + encodeURI(text) + "&edit=" + encodeURI(edit);
 	}
 
-	var flag = false;
-	function logout() {
-		if(confirm("ログアウトします。よろしいですか？")){
-			flag = true;
-			document.Logout.action = "<%= request.getContextPath()%>/FMlogout"
-			document.Logout.submit();
-		} else {
-			return;
-		}
-	}
+<!--	var flag = false;-->
+<!--	function logout() {-->
+<!--		if(confirm("ログアウトします。よろしいですか？")){-->
+<!--			flag = true;-->
+<!--			document.Logout.action = "<%= request.getContextPath()%>/FMlogout"-->
+<!--			document.Logout.submit();-->
+<!--		} else {-->
+<!--			return;-->
+<!--		}-->
+<!--	}-->
 
-	function movePrefecture(){
-		document.MyForm.action = "<%= request.getContextPath()%>/view/FMtest.jsp"
-		document.MyForm.submit();
-	}
+<!--	function movePrefecture(){-->
+<!--		document.MyForm.action = "<%= request.getContextPath()%>/view/FMtest.jsp"-->
+<!--		document.MyForm.submit();-->
+<!--	}-->
 
-	function moveUserList(){
-		document.MyForm.action = "<%= request.getContextPath() %>/view/USgeneral.jsp"
-		document.MyForm.submit();
-	}
+<!--	function moveUserList(){-->
+<!--		document.MyForm.action = "<%= request.getContextPath() %>/view/USgeneral.jsp"-->
+<!--		document.MyForm.submit();-->
+<!--	}-->
 
 	// 8月　プルダウンメニューの項目をラジオボタンで切り替えるため、JavaScript側で導入する。
 	//		頭の悪そうなプログラムなので、DBで管理するのも一考？
@@ -140,9 +179,60 @@
 </head>
 
 <body>
-<br>
-<div class="center">
-	<form name="Logout" method="POST" action="#" onsubmit="return flag;">
+	<div>
+
+		<%
+		Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
+		%>
+
+		<div class="navbar">
+			<img src="<%=request.getContextPath()%>/view/img/familymart.png"
+				style="height: 50px; margin: 5px; float: left;">
+
+			<div class="btn">
+				<button class="btn2" onclick="moveHome();">ホーム</button>
+			</div>
+
+			<div class="btn">
+				<button class="btn2" onClick="moveShopItem();">商品</button>
+			</div>
+
+			<div class="btn">
+				<button class="btn2" onClick="movePrefecture();">店舗</button>
+			</div>
+
+			<div class="btn">
+				<button class="btn2" onClick="moveRank();">ランキング</button>
+			</div>
+
+			<%
+			if (Boolean.TRUE.equals(adminFlg)) {
+			%>
+			<div class="btn">
+				<button class="btn2" onclick="moveUserList();">ユーザ管理</button>
+			</div>
+			<%
+			}
+			%>
+
+			<div class="button-panel">
+				<%
+				out.print("ユーザ名 : " + session.getAttribute("userName"));
+				%>
+				<a style="margin-left: 20px" class="button" name="logout"
+					onClick="logOut();"> <img
+					src="<%=request.getContextPath()%>/view/img/153.142.124.217 (2).gif">
+				</a>
+			</div>
+		</div>
+		<div class="sidenav">
+			<p></p>
+			<a href="#"></a> <a href="#"></a> <a href="#"></a>
+		</div>
+		
+		
+		
+		<%--<form name="Logout" method="POST" action="#" onsubmit="return flag;">
 		<div  class="button-panel">
 			<% out.print("ユーザ名 : " + session.getAttribute("userName")); %>
 			<a style="margin-left: 20px" class="button" onClick="logout();">
@@ -159,40 +249,41 @@
 			<input type="submit" class="button" value="都道府県データへ"onclick="movePrefecture();">
 		</div>
 	</form>
-
-	<div class="end">
-		<h1>ランキングページ</h1>
-	</div>
-	<br>
-
-	<div class="select">
-		<!-- フォント変更の応急処置 -->
-		<div class ="subh">--表示したいジャンルを選択してください--</div>
+--%>
+		<div class="end">
+			<h1>ランキングページ</h1>
+		</div>
 		<br>
 
-		<!-- 8月　ラジオボタンで選択したジャンルを、プルダウンメニューに表示する。
+		<div class="select">
+			<!-- フォント変更の応急処置 -->
+			<div class="subh">--表示したいジャンルを選択してください--</div>
+			<br>
+
+			<!-- 8月　ラジオボタンで選択したジャンルを、プルダウンメニューに表示する。
 			 HTML側に書かれていた項目はすべてJavaScript側に引っ越している。 -->
-		<form name="f1">
-			<input id="label1" type="radio" name="radio1" onclick="Items()">
-				<label for="label1">商品ランキング</label>
-			<input id="label2" type="radio" name="radio1" onclick="City()">
-				<label for="label2">都道府県ランキング</label><br>
+			<form name="f1">
+				<input id="label1" type="radio" name="radio1" onclick="Items()">
+				<label for="label1">商品ランキング</label> <input id="label2" type="radio"
+					name="radio1" onclick="City()"> <label for="label2">都道府県ランキング</label><br>
 
-			<!-- 8月　ここにJavaScript側で入れた項目を入れる。 -->
-			項目選択：<select name="selectName" id="pre"></select>
-		</form>
+				<!-- 8月　ここにJavaScript側で入れた項目を入れる。 -->
+				項目選択：<select name="selectName" id="pre"></select>
+			</form>
 
-		<br>
-		<!-- 送信ボタン。プルダウンで選択された項目を送る。 -->
-		<input type="submit" class="button" value="売上順位表示" id="pre" onclick="send();">
-		<br><br>
+			<br>
+			<!-- 送信ボタン。プルダウンで選択された項目を送る。 -->
+			<input type="submit" class="button" value="売上順位表示" id="pre"
+				onclick="send();"> <br>
+			<br>
+		</div>
+
+		<!-- 8月　インラインフレームでFMrank2.jspを表示する。最初は白紙。属性名wakuはsend関数で使用 -->
+		<iframe src="about:blank" name="waku" width="90%" height="500"></iframe>
+
 	</div>
-
-	<!-- 8月　インラインフレームでFMrank2.jspを表示する。最初は白紙。属性名wakuはsend関数で使用 -->
-	<iframe src="about:blank" name="waku" width="90%" height="500"></iframe>
-
-</div>
-
-<div id="dsparea"></div>
+	<div class="footer">
+		<span>© 2025 FamilyMart System — All Rights Reserved.</span>
+	</div>
 </body>
 </html>

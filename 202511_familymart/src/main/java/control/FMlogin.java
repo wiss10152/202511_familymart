@@ -79,13 +79,8 @@ public class FMlogin extends HttpServlet {
 			session.setAttribute("firstlogin",firstlogin); // 8月新規
 			request.setAttribute("disp_alert", "0"); // loginアラートを出したいがためのフラグ…未解決
 
-			if(adminflg){	// adminであるケース。ここがtrueなら、管理者ページへ
-				RequestDispatcher dispatch = request.getRequestDispatcher("/USshow");
-				dispatch.forward(request, response);
-			} else {		// adminではないケース
-				RequestDispatcher dispatch = request.getRequestDispatcher("view/USgeneral.jsp");// USgeneral
-				dispatch.forward(request, response);
-			}
+			response.sendRedirect(request.getContextPath() + "/view/USgeneral.jsp");
+
 
 		} else {				  // パスワードとIDが間違っているとき
 			request.setAttribute("disp_alert", "1"); // loginアラートを出したいがためのフラグ…未解決
