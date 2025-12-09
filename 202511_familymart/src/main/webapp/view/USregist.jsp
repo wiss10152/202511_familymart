@@ -1,8 +1,8 @@
 <%@ page import="java.sql.*, java.net.*, model.MyDBAccess"%>
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import = "jakarta.servlet.http.HttpSession" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page import="jakarta.servlet.http.HttpSession"%>
 
-<%@ page pageEncoding="UTF-8" %>
+<%@ page pageEncoding="UTF-8"%>
 
 <!DOCTYPE html >
 <html lang="ja">
@@ -10,8 +10,42 @@
 <meta charset="UTF-8">
 <link href="<%= request.getContextPath() %>/view/css/W0051.css"
 	rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/view/css/W0052.css"
+	rel="stylesheet" type="text/css" />
 <title>FamilyMartユーザ管理画面</title>
 <script type="text/javascript">
+//11月
+function moveShopItem(){
+window.location.href = "<%=request.getContextPath()%>/view/SHtest.jsp";
+}
+
+function movePrefecture(){
+window.location.href = "<%=request.getContextPath()%>/view/FMtest.jsp";
+}
+
+function moveUserList(){
+window.location.href = "<%=request.getContextPath()%>/USshow";
+}
+
+function moveRank(){
+window.location.href = "<%=request.getContextPath()%>/view/FMrank1.jsp";
+}
+
+function logOut(){
+if(confirm("ログアウトします。よろしいですか？")){
+    window.location.href = "<%=request.getContextPath()%>/view/login.jsp";
+}
+}
+
+function moveHome(){
+window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
+}
+
+
+
+
+
+
 
 <% if((Boolean)session.getAttribute("isRegisteredUserId")){	//登録時同じIDを使っている人がいた場合のアラートのプログラム
 	session.setAttribute("isRegisteredUserId", false);
@@ -47,17 +81,17 @@
 		change  = "登録";
 	}
 %>
-	var flag = false;
+<!--	var flag = false;-->
 
-	function logout() {
-		if(confirm("ログアウトします。よろしいですか？")){
-			flag = true;
-			document.MyForm.action = "<%= request.getContextPath() %>/FMlogout";
-			document.MyForm.submit();
-		} else {
-			return;
-		}
-	}
+<!--	function logout() {-->
+<!--		if(confirm("ログアウトします。よろしいですか？")){-->
+<!--			flag = true;-->
+<!--			document.MyForm.action = "<%= request.getContextPath() %>/FMlogout";-->
+<!--			document.MyForm.submit();-->
+<!--		} else {-->
+<!--			return;-->
+<!--		}-->
+<!--	}-->
 
 	function Registration(actionId){
 		// 8月　エラーメッセージが一番上のものしか表示されていなかったので、エラー項目をすべて表示するように修正
@@ -112,66 +146,132 @@
 </script>
 </head>
 
-<body> <%--7月追加 --%>
-<br>
-<div class="center">
-<form name="MyForm" method="POST" action="#" onsubmit="return false;" onkeyup="if(event.keyCode == 13){Registration('<%= actionId %>');}">
-									<%--ここで、Enter keyを押した場合の処理を行っている。キャンセルすると送信されない。↑ --%>
-	<div class="button-panel">
-		<% out.print("ユーザ名 : " + session.getAttribute("userName"));%>
-		<a style="margin-left: 20px" class="button" onClick="logout();">
-		<img src="<%= request.getContextPath() %>/view/img/153.142.124.217 (2).gif"></a>
-	</div>
-
-	<div class="button1">
-		<input type="submit" class="button" value="戻る" onclick="history_back();">
-	</div>
+<body>
 	<%
-		String userid = (String)request.getAttribute("userId");
-		String userName = (String)request.getAttribute("userName");
-	%>
-	<div class="end">
-		<img src="<%= request.getContextPath() %>/view/img/familymart.png">
-		<h1>ユーザ<%= change %>画面</h1>
+			Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
+			%>
+
+	<div class="navbar">
+		<img src="<%=request.getContextPath()%>/view/img/familymart.png"
+			style="height: 50px; margin: 5px; float: left;">
+
+		<div class="btn">
+			<button class="btn2" onclick="moveHome();">ホーム</button>
+		</div>
+
+		<div class="btn">
+			<button class="btn2" onClick="moveShopItem();">商品</button>
+		</div>
+
+		<div class="btn">
+			<button class="btn2" onClick="movePrefecture();">店舗</button>
+		</div>
+
+		<div class="btn">
+			<button class="btn2" onClick="moveRank();">ランキング</button>
+		</div>
+
+		<%
+				if (Boolean.TRUE.equals(adminFlg)) {
+				%>
+		<div class="btn">
+			<button class="btn2" onclick="moveUserList();">ユーザ管理</button>
+		</div>
+		<%
+				}
+				%>
+
+		<div class="button-panel">
+			<%
+					out.print("ユーザ名 : " + session.getAttribute("userName"));
+					%>
+			<a style="margin-left: 20px" class="button" name="logout"
+				onClick="logOut();"> <img
+				src="<%=request.getContextPath()%>/view/img/153.142.124.217 (2).gif">
+			</a>
+		</div>
 	</div>
-
-<br>
-<div class="center">
-	<table border="1" align="center" style="table-layout:fixed;">
-		<tr>
-			<td align="left">ユーザID(半角英数字)：</td>
-			<td><input pattern=^[0-9A-Za-z]+$ type="text"  name="userId"
-				style="ime-mode:disabled" size="40" maxlength="8" required  value="<%= user_id %>" <%= disabled %> />
-			</td>
-		</tr>
-
-		<tr>
-			<td align="left">ユーザ名(半角文字)：</td>
-			<td><input pattern=^[0-9A-Za-z]+$ type="text" id="username" name="username"
-				style="ime-mode:disabled" size="40" maxlength="8"required value="<%= user_name %>">
-			</td>
-		</tr>
-
-		<% if(actionId.equals("userRegist")){ %>
-			<tr><td align="left">パスワード(半角文字)：</td>
-				<td><input pattern=^([a-zA-Z0-9]{8,})$ type="password" name="passWord"
-					style="ime-mode:disabled" size="40" maxlength="40" required ></td></tr>
-			<tr><td align="left">確認用パスワード：</td>
-				<td><input pattern=^([a-zA-Z0-9]{8,})$ type="password" name="conPassword"
-					style="ime-mode:disabled" size="40" maxlength="40" required></td></tr>
-		<% } %>
-	</table>
-</div>
-
-	<div>
-		<input type ="hidden" name ="actionId"	  value ="<%= actionId %>">
-		<input type ="hidden" name ="passWord"	  value ="dummy">
-		<input type ="hidden" name ="conPassword" value ="dummy">
-		<input type ="hidden" name ="passWord"	  value ="dummy2">
-		<input type ="hidden" name ="conPassword" value ="dummy2">
-		<input type ="submit" onClick="Registration('<%= actionId %>')" value = "<%= change %>" title = "<%= change %>" autofocus>
+	<div class="sidenav">
+		<p></p>
+		<a href="#"></a> <a href="#"></a> <a href="#"></a>
 	</div>
-	</form>
-</div>
+	<br>
+	<div class="center">
+		<form name="MyForm" method="POST" action="#" onsubmit="return false;"
+			onkeyup="if(event.keyCode == 13){Registration('<%= actionId %>');}">
+			<%--ここで、Enter keyを押した場合の処理を行っている。キャンセルすると送信されない。↑ --%>
+			<!--	<div class="button-panel">-->
+			<!--		<% out.print("ユーザ名 : " + session.getAttribute("userName"));%>-->
+			<!--		<a style="margin-left: 20px" class="button" onClick="logout();">-->
+			<!--		<img src="<%= request.getContextPath() %>/view/img/153.142.124.217 (2).gif"></a>-->
+			<!--	</div>-->
+
+			<div class="button1">
+				<input type="submit" class="button" value="戻る"
+					onclick="history_back();">
+			</div>
+			<%
+			String userid = (String) request.getAttribute("userId");
+			String userName = (String) request.getAttribute("userName");
+			%>
+			<div class="end">
+				<img src="<%=request.getContextPath()%>/view/img/familymart.png">
+				<h1>
+					ユーザ<%=change%>画面
+				</h1>
+			</div>
+
+			<br>
+			<div class="center">
+				<table border="1" align="center" style="table-layout: fixed;">
+					<tr>
+						<td align="left">ユーザID(半角英数字)：</td>
+						<td><input pattern=^[0-9A-Za-z]+$ type="text" name="userId"
+							style="ime-mode: disabled" size="40" maxlength="8" required
+							value="<%=user_id%>" <%=disabled%> /></td>
+					</tr>
+
+					<tr>
+						<td align="left">ユーザ名(半角文字)：</td>
+						<td><input pattern=^[0-9A-Za-z]+$ type="text" id="username"
+							name="username" style="ime-mode: disabled" size="40"
+							maxlength="8" required value="<%=user_name%>"></td>
+					</tr>
+
+					<%
+					if (actionId.equals("userRegist")) {
+					%>
+					<tr>
+						<td align="left">パスワード(半角文字)：</td>
+						<td><input pattern=^([a-zA-Z0-9]{8,})$ type="password"
+							name="passWord" style="ime-mode: disabled" size="40"
+							maxlength="40" required></td>
+					</tr>
+					<tr>
+						<td align="left">確認用パスワード：</td>
+						<td><input pattern=^([a-zA-Z0-9]{8,})$ type="password"
+							name="conPassword" style="ime-mode: disabled" size="40"
+							maxlength="40" required></td>
+					</tr>
+					<%
+					}
+					%>
+				</table>
+			</div>
+
+			<div>
+				<input type="hidden" name="actionId" value="<%=actionId%>">
+				<input type="hidden" name="passWord" value="dummy"> <input
+					type="hidden" name="conPassword" value="dummy"> <input
+					type="hidden" name="passWord" value="dummy2"> <input
+					type="hidden" name="conPassword" value="dummy2"> <input
+					type="submit" onClick="Registration('<%=actionId%>')"
+					value="<%=change%>" title="<%=change%>" autofocus>
+			</div>
+		</form>
+	</div>
+	<div class="footer">
+		<span>© 2025 FamilyMart System — All Rights Reserved.</span>
+	</div>
 </body>
 </html>
