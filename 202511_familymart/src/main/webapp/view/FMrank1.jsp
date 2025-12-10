@@ -61,8 +61,7 @@ window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
 
 	// 8月　ページ遷移しないように変更。変更箇所は後述のコメントアウト。
 	function send() {
-		var idx = document.getElementById("pre").selectedIndex;
-		var text = document.getElementById("pre").options[idx].text;
+		var text = selectedItemText;
 
 		radiobtn2 = document.getElementById("label2");
 		if(radiobtn2.checked){
@@ -100,85 +99,86 @@ window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
 	//		頭の悪そうなプログラムなので、DBで管理するのも一考？
 	// 8月　商品ジャンルデータを追加
 	function Items(){
-		document.f1.selectName.length=19;
-		document.f1.selectName.options[0].text	="おにぎり";
-		document.f1.selectName.options[1].text	="パン";
-		document.f1.selectName.options[2].text	="そば";
-		document.f1.selectName.options[3].text	="うどん";
-		document.f1.selectName.options[4].text	="パスタ";
-		document.f1.selectName.options[5].text	="サラダ";
-		document.f1.selectName.options[6].text	="ホットスナック";
-		document.f1.selectName.options[7].text	="お菓子";
-		document.f1.selectName.options[8].text	="飲料";
-		document.f1.selectName.options[9].text	="お酒";
-		document.f1.selectName.options[10].text ="アイス";
-		document.f1.selectName.options[11].text ="冷凍食品";
-		document.f1.selectName.options[12].text ="日用品";
-		document.f1.selectName.options[13].text ="お弁当";
-		document.f1.selectName.options[14].text ="中華まん";
-		document.f1.selectName.options[15].text ="おでん";
-		document.f1.selectName.options[16].text ="ファミデリカ";
-		document.f1.selectName.options[17].text ="新商品";
-		document.f1.selectName.options[18].text ="総合";
-	}
+		var listContainer = document.getElementById("itemSelectionList");
+		listContainer.innerHTML = '';
 
+		var items = [
+		"総合","おにぎり","パン","そば","うどん","パスタ","サラダ","ホットスナック",
+		"お菓子","飲料","お酒","アイス","冷凍食品","日用品","お弁当","中華まん","おでん",
+		"ファミデリカ","新商品"
+		];
+
+		items.forEach(function(text, index){
+			var item = document.createElement('p');
+			item.className = 'selectable-item';
+			item.textContent = text;
+			item.setAttribute('data-text', text);
+
+			item.onclick = function(){
+				selectItem(this);
+			};
+
+			listContainer.appendChild(item);
+		});
+
+		if(listContainer.children.length > 0){
+			selectItem(listContainer.children[0]);
+		}
+		}
+	
 	// 8月　都道府県データを追加
 	function City(){
-		document.f1.selectName.length=48;
-		document.f1.selectName.options[0].text ="北海道";
-		document.f1.selectName.options[1].text ="青森県";
-		document.f1.selectName.options[2].text ="岩手県";
-		document.f1.selectName.options[3].text ="宮城県";
-		document.f1.selectName.options[4].text ="秋田県";
-		document.f1.selectName.options[5].text ="山形県";
-		document.f1.selectName.options[6].text ="福島県";
-		document.f1.selectName.options[7].text ="茨城県";
-		document.f1.selectName.options[8].text ="栃木県";
-		document.f1.selectName.options[9].text ="群馬県";
-		document.f1.selectName.options[10].text="埼玉県";
-		document.f1.selectName.options[11].text="千葉県";
-		document.f1.selectName.options[12].text="東京都";
-		document.f1.selectName.options[13].text="神奈川県";
-		document.f1.selectName.options[14].text="新潟県";
-		document.f1.selectName.options[15].text="富山県";
-		document.f1.selectName.options[16].text="石川県";
-		document.f1.selectName.options[17].text="福井県";
-		document.f1.selectName.options[18].text="山梨県";
-		document.f1.selectName.options[19].text="長野県";
-		document.f1.selectName.options[20].text="岐阜県";
-		document.f1.selectName.options[21].text="静岡県";
-		document.f1.selectName.options[22].text="愛知県";
-		document.f1.selectName.options[23].text="三重県";
-		document.f1.selectName.options[24].text="滋賀県";
-		document.f1.selectName.options[25].text="京都府";
-		document.f1.selectName.options[26].text="大阪府";
-		document.f1.selectName.options[27].text="兵庫県";
-		document.f1.selectName.options[28].text="奈良県";
-		document.f1.selectName.options[29].text="和歌山県";
-		document.f1.selectName.options[30].text="鳥取県";
-		document.f1.selectName.options[31].text="島根県";
-		document.f1.selectName.options[32].text="岡山県";
-		document.f1.selectName.options[33].text="広島県";
-		document.f1.selectName.options[34].text="山口県";
-		document.f1.selectName.options[35].text="徳島県";
-		document.f1.selectName.options[36].text="香川県";
-		document.f1.selectName.options[37].text="愛媛県";
-		document.f1.selectName.options[38].text="高知県";
-		document.f1.selectName.options[39].text="福岡県";
-		document.f1.selectName.options[40].text="佐賀県";
-		document.f1.selectName.options[41].text="長崎県";
-		document.f1.selectName.options[42].text="熊本県";
-		document.f1.selectName.options[43].text="大分県";
-		document.f1.selectName.options[44].text="宮崎県";
-		document.f1.selectName.options[45].text="鹿児島県";
-		document.f1.selectName.options[46].text="沖縄県";
-		document.f1.selectName.options[47].text="総合";
+		var listContainer = document.getElementById("itemSelectionList");
+        
+        listContainer.innerHTML = ''; 
+
+		var items = [
+            "総合", "北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", 
+            "茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県", 
+            "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", "岐阜県", 
+            "静岡県", "愛知県", "三重県", "滋賀県", "京都府", "大阪府", "兵庫県", 
+            "奈良県", "和歌山県", "鳥取県", "島根県", "岡山県", "広島県", "山口県", 
+            "徳島県", "香川県", "愛媛県", "高知県", "福岡県", "佐賀県", "長崎県", 
+            "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"
+        ];
+        
+        items.forEach(function(text, index) {
+            var item = document.createElement('p');
+            item.className = 'selectable-item';
+            item.textContent = text;
+            item.setAttribute('data-text', text);
+            
+            item.onclick = function() {
+                selectItem(this);
+            };
+            
+            listContainer.appendChild(item);
+        });
+
+        if (listContainer.children.length > 0) {
+            selectItem(listContainer.children[0]);
+        }
+	}
+
+	var selectedItemText = "総合";
+
+	function selectItem(clickedElement){
+	var allItems = clickedElement.parentNode.querySelectorAll('.selectable-item');
+	allItems.forEach(function(item){
+		item.classList.remove('selected');
+		});
+
+	clickedElement.classList.add('selected');
+
+	selectedItemText = clickedElement.getAttribute('data-text');
+
+	send();
 	}
 
 </script>
 </head>
 
-<body>
+<body onload="Items()">
 	<div>
 
 		<%
@@ -226,9 +226,34 @@ window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
 			</div>
 		</div>
 		<div class="sidenav">
-			<p></p>
-			<a href="#"></a> <a href="#"></a> <a href="#"></a>
+	<div class="selection-panel">
+	
+		<p class="selection-title">ジャンル選択</p>
+		<form name="f1" class="genre-form">
+			<label for="label1" class="radio-label">
+				<input id="label1" type="radio" name=radio1 onclick="Items()" checked>
+				商品
+				</label>
+				&nbsp;&nbsp;
+				<label for="label2" class="radio-label">
+					<input id="label2" type="radio" name="radio1" onclick="City()">
+					店舗
+				</label>
+			</form>
+			
+			<div style="margin-bottom: 15px;"></div>
+			
+			<p class="selection-title">項目選択</p>
+				<div id="itemSelectionList" class="item-list-container">
+					</div>
+			</div>
+			<span class="item-count-label"></span>
+			
+			<div style="margin-bottom: 20px;"></div>
+			
+			<input type="submit" class="rank-button" value="売上順位表示" onclick="send();" style="display: none;">
 		</div>
+			</div>
 		
 		
 		
@@ -250,37 +275,14 @@ window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
 		</div>
 	</form>
 --%>
+			<div class="main-content-area">
 		<div class="end">
 			<h1>ランキングページ</h1>
 		</div>
 		<br>
-
-		<div class="select">
-			<!-- フォント変更の応急処置 -->
-			<div class="subh">--表示したいジャンルを選択してください--</div>
-			<br>
-
-			<!-- 8月　ラジオボタンで選択したジャンルを、プルダウンメニューに表示する。
-			 HTML側に書かれていた項目はすべてJavaScript側に引っ越している。 -->
-			<form name="f1">
-				<input id="label1" type="radio" name="radio1" onclick="Items()">
-				<label for="label1">商品ランキング</label> <input id="label2" type="radio"
-					name="radio1" onclick="City()"> <label for="label2">都道府県ランキング</label><br>
-
-				<!-- 8月　ここにJavaScript側で入れた項目を入れる。 -->
-				項目選択：<select name="selectName" id="pre"></select>
-			</form>
-
-			<br>
-			<!-- 送信ボタン。プルダウンで選択された項目を送る。 -->
-			<input type="submit" class="button" value="売上順位表示" id="pre"
-				onclick="send();"> <br>
-			<br>
-		</div>
-
-		<!-- 8月　インラインフレームでFMrank2.jspを表示する。最初は白紙。属性名wakuはsend関数で使用 -->
-		<iframe src="about:blank" name="waku" width="90%" height="500"></iframe>
-
+		<iframe src="about:blank" name="waku" class="ranking-iframe"></iframe>
+	</div>
+	
 	</div>
 	<div class="footer">
 		<span>© 2025 FamilyMart System — All Rights Reserved.</span>
