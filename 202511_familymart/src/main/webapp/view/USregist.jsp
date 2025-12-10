@@ -13,8 +13,55 @@
 <link href="<%=request.getContextPath()%>/view/css/W0052.css"
 	rel="stylesheet" type="text/css" />
 <title>FamilyMartユーザ管理画面</title>
+<style>
+.password-wrapper {
+	position: relative;
+	display: inline-block;
+}
+
+.eye-icon {
+	position: absolute;
+	right: 8px;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+	user-select: none;
+	font-size: 18px;
+}
+
+</style>
 <script type="text/javascript">
-//11月
+
+window.onload = function () {
+
+    const pwd0 = document.querySelectorAll("password0")[0];
+    const pwd1 = document.querySelectorAll("password1")[0];
+       const eye0 = document.("eyeIcon0");
+       const eye1 = document.("eyeIcon1");
+       
+    eye0.addEventListener("mouseover", function () {
+        pwd0.type = "text";
+    });
+    eye0.addEventListener("mouseout", function () {
+        pwd0.type = "password";
+    });
+    
+    eye1.addEventListener("mouseover", function () {
+        pwd1.type = "text";
+    });
+    eye1.addEventListener("mouseout", function () {
+        pwd1.type = "password";
+    });
+   
+  
+	
+};
+
+
+
+
+
+
 function moveShopItem(){
 window.location.href = "<%=request.getContextPath()%>/view/SHtest.jsp";
 }
@@ -42,7 +89,17 @@ window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
 }
 
 
-
+for (let i = 0; i < 2; i++) {
+function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon) {
+	  if (input.type === 'password') {
+	    input.type = 'text';
+	   
+	  } else {
+	    input.type = 'password';
+	    
+	  }
+}
+			}
 
 
 
@@ -215,60 +272,72 @@ window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
 			String userName = (String) request.getAttribute("userName");
 			%>
 			<div class="end">
-				<img src="<%=request.getContextPath()%>/view/img/familymart.png">
+<!--				<img src="<%=request.getContextPath()%>/view/img/familymart.png">-->
 				<h1>
 					ユーザ<%=change%>画面
 				</h1>
 			</div>
 
 			<br>
-			<div class="center">
-				<table border="1" align="center" style="table-layout: fixed;">
-					<tr>
-						<td align="left">ユーザID(半角英数字)：</td>
-						<td><input pattern=^[0-9A-Za-z]+$ type="text" name="userId"
-							style="ime-mode: disabled" size="40" maxlength="8" required
-							value="<%=user_id%>" <%=disabled%> /></td>
-					</tr>
 
-					<tr>
-						<td align="left">ユーザ名(半角文字)：</td>
-						<td><input pattern=^[0-9A-Za-z]+$ type="text" id="username"
-							name="username" style="ime-mode: disabled" size="40"
-							maxlength="8" required value="<%=user_name%>"></td>
-					</tr>
+			<form name="myForm" method="POST" action="#">
 
-					<%
-					if (actionId.equals("userRegist")) {
-					%>
-					<tr>
-						<td align="left">パスワード(半角文字)：</td>
-						<td><input pattern=^([a-zA-Z0-9]{8,})$ type="password"
-							name="passWord" style="ime-mode: disabled" size="40"
-							maxlength="40" required></td>
-					</tr>
-					<tr>
-						<td align="left">確認用パスワード：</td>
-						<td><input pattern=^([a-zA-Z0-9]{8,})$ type="password"
-							name="conPassword" style="ime-mode: disabled" size="40"
-							maxlength="40" required></td>
-					</tr>
-					<%
-					}
-					%>
-				</table>
-			</div>
+				<div class="center">
+					<table border="1" align="center" style="table-layout: fixed;">
+						<tr>
+							<td align="left">ユーザID(半角英数字)：</td>
+							<td><input pattern=^[0-9A-Za-z]+$ type="text" name="userId"
+								style="ime-mode: disabled" size="40" maxlength="8" required
+								value="<%=user_id%>" <%=disabled%> /></td>
+						</tr>
 
-			<div>
-				<input type="hidden" name="actionId" value="<%=actionId%>">
-				<input type="hidden" name="passWord" value="dummy"> <input
-					type="hidden" name="conPassword" value="dummy"> <input
-					type="hidden" name="passWord" value="dummy2"> <input
-					type="hidden" name="conPassword" value="dummy2"> <input
-					type="submit" onClick="Registration('<%=actionId%>')"
-					value="<%=change%>" title="<%=change%>" autofocus>
-			</div>
-		</form>
+						<tr>
+							<td align="left">ユーザ名(半角文字)：</td>
+							<td><input pattern=^[0-9A-Za-z]+$ type="text" id="username"
+								name="username" style="ime-mode: disabled" size="40"
+								maxlength="8" required value="<%=user_name%>"></td>
+						</tr>
+
+						<%
+						if (actionId.equals("userRegist")) {
+						%>
+						<tr>
+							<td align="left">パスワード(半角文字)：</td>
+							<td><div class="password-wrapper">
+									<input pattern=^([a-zA-Z0-9]{8,})$ type="password"
+										name="password0"  style="ime-mode: disabled" size="40"
+										maxlength="40" required> <span id="eyeIcon0"
+										class="eye-icon">👁</span>
+								</div></td>
+						</tr>
+						<tr>
+							<td align="left">確認用パスワード：</td>
+							<td>
+								<div class="password-wrapper">
+									<input pattern=^([a-zA-Z0-9]{8,})$ type="password"
+										name="password1"  style="ime-mode: disabled" size="40"
+										maxlength="40" required> <span id="eyeIcon1"
+										class="eye-icon" >👁</span>
+								</div>
+
+						</td>
+						</tr>
+						<%
+						}
+						%>
+					</table>
+				</div>
+
+				<div>
+					<input type="hidden" name="actionId" value="<%=actionId%>">
+					<input type="hidden" name="passWord" value="dummy"> <input
+						type="hidden" name="conPassword" value="dummy"> <input
+						type="hidden" name="passWord" value="dummy2"> <input
+						type="hidden" name="conPassword" value="dummy2"> <input
+						type="submit" onClick="Registration('<%=actionId%>')"
+						value="<%=change%>" title="<%=change%>" autofocus>
+				</div>
+			</form>
 	</div>
 	<div class="footer">
 		<span>© 2025 FamilyMart System — All Rights Reserved.</span>
