@@ -28,16 +28,15 @@
 	user-select: none;
 	font-size: 18px;
 }
-
 </style>
 <script type="text/javascript">
 
 window.onload = function () {
 
-    const pwd0 = document.querySelectorAll("password0")[0];
-    const pwd1 = document.querySelectorAll("password1")[0];
-       const eye0 = document.("eyeIcon0");
-       const eye1 = document.("eyeIcon1");
+    const pwd0 = document.getElementsByName("password0")[0];
+    const pwd1 = document.getElementsByName("password1")[0];
+       const eye0 = document.getElementById("eyeIcon0");
+       const eye1 = document.getElementById("eyeIcon1");
        
     eye0.addEventListener("mouseover", function () {
         pwd0.type = "text";
@@ -53,8 +52,6 @@ window.onload = function () {
         pwd1.type = "password";
     });
    
-  
-	
 };
 
 
@@ -272,7 +269,7 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 			String userName = (String) request.getAttribute("userName");
 			%>
 			<div class="end">
-<!--				<img src="<%=request.getContextPath()%>/view/img/familymart.png">-->
+				<!--				<img src="<%=request.getContextPath()%>/view/img/familymart.png">-->
 				<h1>
 					ユーザ<%=change%>画面
 				</h1>
@@ -305,7 +302,7 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 							<td align="left">パスワード(半角文字)：</td>
 							<td><div class="password-wrapper">
 									<input pattern=^([a-zA-Z0-9]{8,})$ type="password"
-										name="password0"  style="ime-mode: disabled" size="40"
+										name="password0" style="ime-mode: disabled" size="40"
 										maxlength="40" required> <span id="eyeIcon0"
 										class="eye-icon">👁</span>
 								</div></td>
@@ -315,12 +312,12 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 							<td>
 								<div class="password-wrapper">
 									<input pattern=^([a-zA-Z0-9]{8,})$ type="password"
-										name="password1"  style="ime-mode: disabled" size="40"
+										name="password1" style="ime-mode: disabled" size="40"
 										maxlength="40" required> <span id="eyeIcon1"
-										class="eye-icon" >👁</span>
+										class="eye-icon">👁</span>
 								</div>
 
-						</td>
+							</td>
 						</tr>
 						<%
 						}
