@@ -67,6 +67,12 @@ public class SHcontrol extends HttpServlet{
 				+ "CAST('2017/08/08' AS DATE) > 販売日 AND 販売日 >= CAST('2017/07/01' AS DATE)"
 				+ "ORDER BY "
 				+ "販売日 desc;";
+			
+		} else if(pre.equals("総合")) {
+			sql ="SELECT "
+					+ "商品コード,商品名,販売会社,ジャンル,to_Char(販売日, 'YYYY/MM/DD')販売日,価格,画像 "
+					+ "FROM "
+					+ "商品データ;";
 
 		} else { // ここが最初にあったコード
 			sql ="SELECT "
