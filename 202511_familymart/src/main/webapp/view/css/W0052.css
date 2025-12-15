@@ -119,6 +119,7 @@ body {
 	padding: 10px 0;
 }
 
+
 /* .sidenav p {
 	padding: 12px 14px;
 	margin: 0;
@@ -248,4 +249,217 @@ body {
     background-color: #1a73e8; /* 売上順位表示ボタンの色に合わせる */
     color: white;
     font-weight: bold;
+}
+
+.sidebar-search-container{
+	padding: 15px 10px;
+	background-color: white;
+	border-bottom: 1px solid white;
+}
+
+.sidebar-radio-group{
+	padding: 0 5px 0;
+}
+
+.sidebar-radio-group .status-title{
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 3px;
+	color: black;
+	padding: 0;
+	margin-top: 0;
+}
+
+.sidebar-radio-group .status-label{
+	display: block;
+	margin-bottom: 3px;
+	font-size: 13px;
+}
+
+.sidebar-radio-group .status-label input[type="radio"]{
+	cursor: pointer;
+	margin-left: 5px;
+}
+
+.search-input-group{
+	display: flex;
+	margin-bottom: 5px;
+}
+
+.sidebar-search-group{
+	padding: 10px 5px 0;
+}
+
+.sidebar-search-title{
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 5px;
+	color: black;
+	padding: 0;
+	margin-top: 0;
+}
+.sidebar-search-input{
+	padding: 6px 8px;
+	box-sizing: border-box;
+	border: 1px solid white;
+	border-right: none;
+	margin-left: 0;
+	border-radius: 4px 0 0 4px;
+	font-size: 14px;
+	margin-bottom: 0;
+	width: 100px;
+}
+
+.sidebar-search-button{
+	width: 40px;
+	flex-shrink: 0;
+	padding: 6px 4px;
+	background-color: #1a73e8;
+	color: white;
+	border: none;
+	margin-right: 0;
+	border-radius: 0 4px 4px 0;
+	cursor: pointer;
+	font-size: 14px;
+	line-height: 1.1;
+	height: auto;
+	transition: background-color 0.3s;
+}
+
+.sidebar-search-button:hover{
+	background-color: #006633;
+}
+
+.sidebar-region-group{
+	padding: 10px 5px 0;
+}
+
+.sidebar-region-group .status-title{
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 5px;
+	color: black;
+	padding: 0;
+	margin-top: 0;
+}
+
+.toggle-all-buttons{
+	padding: 5px 0 10px;
+	text-align: center;
+}
+
+.toggle-all-buttons button{
+	background: #1a73e8;
+	color: white;
+	border: none;
+	padding: 5px 8px;
+	cursor: pointer;
+	border-radius: 3px;
+	font-size: 12px;
+}
+
+.toggle-all-buttons button:hover{
+	background-color: #006633;
+}
+
+.region-list-scroll-area{
+	max-height: 400px;
+	overflow-y: auto;
+	padding-right: 5px;
+	margin-bottom: 10px;
+}
+
+.region-header{
+	background-color: white;
+	color: black;
+	padding: 5px 8px;
+	border: 1px solid black;
+	font-weight: bold;
+	font-size: 13px;
+	transition: background-color 0.2s;
+}
+
+.region-header:hover{
+	background-color: white;
+}
+
+.toggle-icon{
+	display: inline-block;
+	cursor: pointer;
+	margin-right: 5px;
+	font-weight: normal;
+	transition: transform 0.3s;
+}
+
+.region-content{
+	padding: 0 0 0 10px;
+	background-color: white;
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.3s ease-out;
+	border-left: 1px solid white;
+	border-right: 1px solid white;
+	border-bottom: 1px solid white;
+}
+
+.region-content .status-label{
+	display: block;
+	padding: 2px 0 2px 5px;
+	margin-left: 0;
+}
+
+.region-content .all-in-section{
+	display: block;
+	padding: 2px 0 2px 5px;
+	margin-left: 0;
+}
+
+.region-item.all-region .region-label{
+	font-weight: bold;
+	font-size: 14px;
+	border: 1px solid black;
+	padding: 5px 8px;
+	background-color: white;
+	display: block;
+}
+
+.sidenav,
+.region-list-scroll-area{
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.global-prefecture-search-button{
+	display: block;
+	width: 95%;
+	margin: 10px auto 0 auto;
+	padding: 8px;
+	background-color: #1a73e8;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.global-prefecture-search-button:hover{
+	background-color: #006633;
+}
+
+.sidenav::-webkit-scrollbar,
+.region-list-scroll-area::-webkit-scrollbar{
+	display: none;
+	width: 0 !important;
+	height: 0 !important;
+}
+
+input[type="checkbox" i]{
+	background-color: initial;
+	cursor: pointer;
+	appearance: auto;
+	box-sizing: border-box;
+	margin: 3px 3px 3px 4px;
+	padding: initial;
+	border: initial;
 }

@@ -36,36 +36,32 @@ tableHTML += "<tr bgcolor=\"000080\"><td><font color=\"white\">店舗名</font><
 		+ "<td><font color=\"white\">出店日</font></td>" + "<td><font color=\"white\">住所</font></td>"
 		+ "<td><font color=\"white\">店舗状況</font></td></tr>";
 
-if (shp != "" || "1".equals(skey)) { //店舗名を入力したかの判断
-	if (shopname.size() > 0) {
+if (shopname != null && shopname.size() > 0) { //店舗名を入力したかの判断
 		Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
 		if (Boolean.TRUE.equals(adminFlg)) {
-	for (Shopinfo shop : shopname) {
+			for (Shopinfo shop : shopname) {
 		// テーブル用HTMLを作成
-		tableHTML += "<tr><td><a href='GScontrol?shop=" + shop.uriShopName + "' target='_self'>" + shop.shopName
-				+ "</td><td>" + shop.openDate + "</td>"
-				+ "<td align=\"left\"><a href='https://www.google.co.jp/maps/place/" + shop.uriShopAdr
-				+ "' target='_blank'>" + shop.shopAdr + "</a></td><td><input type='button' value='" + editView
-				+ "' align='right' onclick=\"data('" + shop.shopid + "','" + pre + "','" + edit
-				+ "');\"></td></tr>";
-	}
-		} else {
-	for (Shopinfo shop : shopname) {
+				tableHTML += "<tr><td><a href='GScontrol?shop=" + shop.uriShopName + "' target='_self'>" + shop.shopName
+					+ "</td><td>" + shop.openDate + "</td>"
+					+ "<td align=\"left\"><a href='https://www.google.co.jp/maps/place/" + shop.uriShopAdr
+					+ "' target='_blank'>" + shop.shopAdr + "</a></td><td><input type='button' value='" + editView
+					+ "' align='right' onclick=\"data('" + shop.shopid + "','" + pre + "','" + edit
+					+ "');\"></td></tr>";
+			}
+		}else {
+			for (Shopinfo shop : shopname) {
 		// テーブル用HTMLを作成
 		tableHTML += "<tr><td><a href='GScontrol?shop=" + shop.uriShopName + "' target='_self'>" + shop.shopName
 				+ "</td><td>" + shop.openDate + "</td>"
 				+ "<td align=\"left\"><a href='https://www.google.co.jp/maps/place/" + shop.uriShopAdr
 				+ "' target='_blank'>" + shop.shopAdr + "</a></td><td><a>" + shopType + "</a></td></tr>";
-	}
+			}
 		}
+		
 		tableHTML += "</table>";
 
-	} else {
+}else {
 		tableHTML = "<div class=\"font\">条件に合った店舗が存在しません。</div>";
-	}
-
-} else {
-	tableHTML = "<div class=\"font\">店舗名が入力されていません。</div>";
 }
 %>
 

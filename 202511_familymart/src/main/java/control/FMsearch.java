@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import jakarta.servlet.RequestDispatcher;
@@ -34,45 +35,70 @@ public class FMsearch extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
+    	
+    	request.setCharacterEncoding("UTF-8");
+    	
+		String shp = request.getParameter("shp");// 検索窓に入力されたデータ
+		if(shp == null) {
+			shp = "";
+		}
+		String edit = request.getParameter("edit");// 出店済みか否か(TorF)の情報取得
+		
+		String prefecturesParam = request.getParameter("prefectures");
+		List<String> selectedPrefs = null;
+		if(prefecturesParam != null && !prefecturesParam.isEmpty()) {
+			selectedPrefs = Arrays.asList(prefecturesParam.split(","));
+		}
+		
+		if(edit == null) {
+			edit = "all";
+		}
 
-		String shp = request.getParameter("shp"); // 検索窓に入力されたデータ
-		String edit = request.getParameter("edit"); // 出店済みか否か(TorF)の情報取得
-
-		request.setAttribute("shopdata", ShopDataList(shp, edit)); // 表示する店舗データ
+		request.setAttribute("shopdata", ShopDataList(shp, edit, selectedPrefs)); // 表示する店舗データ
+		
 		request.setAttribute("skey", "2"); // hiddenに渡す
 		request.setAttribute("shp", shp);
 		request.setAttribute("edit", edit);
+		
+		request.setAttribute("prefectures",  prefecturesParam);
+		
 		RequestDispatcher dispatch = request.getRequestDispatcher("view/FMview.jsp");
 		dispatch.forward(request, response);
 	}
 
 	// 8月　検索窓データから店舗を取得するSQLをセットする。ShopDataListで呼び出している 9/22
-	private String SendSQLSentence(String shp, String edit) {
-		String sql = null;
+	private String SendSQLSentence(String shp, String edit, List<String> selectedPrefs) {
+		String sql = "SELECT 店舗名, to_char(出店日, 'YYYY年MM月DD日')出店日, 住所, deleted, 店舗id FROM 出店計画 WHERE 店舗名 LIKE '%" + shp + "%'";
 
-		if(edit.equals("true")){ // 店舗名を取得
-			sql = "SELECT "
-					+ "店舗名,to_char(出店日, 'YYYY年MM月DD日')出店日,住所,	deleted,店舗id "
-					+ "FROM "
-					+ "出店計画 "
-					+ "WHERE "
-					+ "店舗名 LIKE '%" + shp + "%'"
-					+ "AND deleted='true'";
-		} else {
-			sql = "SELECT "
-					+ "店舗名,to_char(出店日, 'YYYY年MM月DD日')出店日,住所,	deleted,店舗id "
-					+ "FROM "
-					+ "出店計画 "
-					+ "WHERE "
-					+ "店舗名 LIKE '%" + shp + "%'"
-					+ "AND deleted='false'";
+		if(edit != null){
+			if(edit.equals("true")) {
+				sql += " AND deleted='true'";
+		}else if(edit.equals("false")) {
+				sql += " AND deleted='false'";
 		}
-
+		
+		}
+		
+		if(selectedPrefs != null && !selectedPrefs.isEmpty()) {
+			StringBuilder prefCondition = new StringBuilder();
+			prefCondition.append(" AND (");
+			for(int i=0; i<selectedPrefs.size(); i++) {
+				String pref = selectedPrefs.get(i);
+			prefCondition.append("住所 LIKE '%").append(pref).append("%'");
+			if(i<selectedPrefs.size() -1) {
+				prefCondition.append(" OR ");
+			}
+			
+			}
+			prefCondition.append(")");
+			sql += prefCondition.toString();
+		}
+		
 		return sql;
 	}
 
 	// 8月　店舗のデータをリストに入れる。リクエストで呼び出している 9/22
-	private List<Shopinfo> ShopDataList(String shp, String edit){
+	private List<Shopinfo> ShopDataList(String shp, String edit, List<String> selectedPrefs){
 		List<Shopinfo> ShopList = new ArrayList<Shopinfo>();
 
 		MyDBAccess model = new MyDBAccess();
@@ -80,7 +106,7 @@ public class FMsearch extends HttpServlet {
 			model.open();
 
 			ResultSet rs = null;
-			rs = model.getResultSet(SendSQLSentence(shp, edit));
+			rs = model.getResultSet(SendSQLSentence(shp, edit, selectedPrefs));
 
 			while(rs.next()) {
 				Shopinfo setShop = new Shopinfo() ;
