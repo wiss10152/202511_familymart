@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import jakarta.servlet.RequestDispatcher;
@@ -16,110 +15,100 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import model.MyDBAccess;
 
-/*
- * Servlet implementation class FMsearch
- */
 @WebServlet("/FMsearch")
 public class FMsearch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/*
-	 * @see HttpServlet#HttpServlet()
-	 */
-    public FMsearch() {
-        super();
-    }
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
 
-	/*
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
-    	
-    	request.setCharacterEncoding("UTF-8");
-    	
-		String shp = request.getParameter("shp");// 検索窓に入力されたデータ
-		if(shp == null) {
-			shp = "";
-		}
-		String edit = request.getParameter("edit");// 出店済みか否か(TorF)の情報取得
-		
-		String prefecturesParam = request.getParameter("prefectures");
-		List<String> selectedPrefs = null;
-		if(prefecturesParam != null && !prefecturesParam.isEmpty()) {
-			selectedPrefs = Arrays.asList(prefecturesParam.split(","));
-		}
-		
-		if(edit == null) {
-			edit = "all";
-		}
+	    request.setCharacterEncoding("windows-31j");
 
-		request.setAttribute("shopdata", ShopDataList(shp, edit, selectedPrefs)); // 表示する店舗データ
-		
-		request.setAttribute("skey", "2"); // hiddenに渡す
-		request.setAttribute("shp", shp);
-		request.setAttribute("edit", edit);
-		
-		request.setAttribute("prefectures",  prefecturesParam);
-		
-		RequestDispatcher dispatch = request.getRequestDispatcher("view/FMview.jsp");
-		dispatch.forward(request, response);
+	    String shp  = request.getParameter("shp");
+	    String edit = request.getParameter("edit");
+	    String prefectures = request.getParameter("prefectures");
+
+	    if (shp == null) shp = "";
+	    shp = shp.trim();
+
+	    if (edit == null) edit = "false";
+
+	    int page = 1;
+	    if (request.getParameter("page") != null) {
+	        try {
+	            page = Integer.parseInt(request.getParameter("page"));
+	        } catch (Exception e) {
+	            page = 1;
+	        }
+	    }
+
+	    List<Shopinfo> list = ShopDataList(shp, edit, prefectures);
+
+	    request.setAttribute("shopdata", list);
+	    request.setAttribute("page", page);
+	    request.setAttribute("shp", shp);
+	    request.setAttribute("edit", edit);
+	    request.setAttribute("prefectures", prefectures);
+
+
+	    RequestDispatcher dispatch =
+	        request.getRequestDispatcher("view/FMview.jsp");
+	    dispatch.forward(request, response);
 	}
 
-	// 8月　検索窓データから店舗を取得するSQLをセットする。ShopDataListで呼び出している 9/22
-	private String SendSQLSentence(String shp, String edit, List<String> selectedPrefs) {
-		String sql = "SELECT 店舗名, to_char(出店日, 'YYYY年MM月DD日')出店日, 住所, deleted, 店舗id FROM 出店計画 WHERE 店舗名 LIKE '%" + shp + "%'";
+	
+	private String SendSQLSentence(String shp, String edit, String prefectures) {
 
-		if(edit != null){
-			if(edit.equals("true")) {
-				sql += " AND deleted='true'";
-		}else if(edit.equals("false")) {
-				sql += " AND deleted='false'";
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("SELECT 店舗名, ");
+		sql.append("to_char(出店日,'YYYY年MM月DD日') 出店日, ");
+		sql.append("住所, deleted, 店舗id ");
+		sql.append("FROM 出店計画 ");
+		sql.append("WHERE 店舗名 LIKE '%").append(shp).append("%' ");
+
+		if ("true".equals(edit)) {
+			sql.append("AND deleted = true ");
+		} else if ("false".equals(edit)) {
+			sql.append("AND deleted = false ");
 		}
-		
-		}
-		
-		if(selectedPrefs != null && !selectedPrefs.isEmpty()) {
-			StringBuilder prefCondition = new StringBuilder();
-			prefCondition.append(" AND (");
-			for(int i=0; i<selectedPrefs.size(); i++) {
-				String pref = selectedPrefs.get(i);
-			prefCondition.append("住所 LIKE '%").append(pref).append("%'");
-			if(i<selectedPrefs.size() -1) {
-				prefCondition.append(" OR ");
+
+		if (prefectures != null && !prefectures.isEmpty()) {
+			String[] pres = prefectures.split(",");
+			sql.append("AND (");
+			for (int i = 0; i < pres.length; i++) {
+				if (i > 0) sql.append(" OR ");
+				sql.append("住所 LIKE '%").append(pres[i]).append("%'");
 			}
-			
-			}
-			prefCondition.append(")");
-			sql += prefCondition.toString();
+			sql.append(") ");
 		}
-		
-		return sql;
+
+		return sql.toString();
 	}
 
-	// 8月　店舗のデータをリストに入れる。リクエストで呼び出している 9/22
-	private List<Shopinfo> ShopDataList(String shp, String edit, List<String> selectedPrefs){
-		List<Shopinfo> ShopList = new ArrayList<Shopinfo>();
+	
+	private List<Shopinfo> ShopDataList(String shp, String edit, String prefectures) {
 
+		List<Shopinfo> list = new ArrayList<>();
 		MyDBAccess model = new MyDBAccess();
+
 		try {
 			model.open();
 
-			ResultSet rs = null;
-			rs = model.getResultSet(SendSQLSentence(shp, edit, selectedPrefs));
+			String sql = SendSQLSentence(shp, edit, prefectures);
+			ResultSet rs = model.getResultSet(sql);
 
-			while(rs.next()) {
-				Shopinfo setShop = new Shopinfo() ;
-
-				setShop.shopName	= rs.getString("店舗名");
-				setShop.uriShopName = URLEncoder.encode(setShop.shopName, "UTF-8");
-				setShop.openDate 	= rs.getString("出店日");
-				setShop.shopAdr		= rs.getString("住所");
-				setShop.uriShopAdr	= URLEncoder.encode(setShop.shopAdr, "UTF-8");
-				setShop.deleted		= rs.getBoolean("deleted");
-				setShop.shopid		= rs.getString("店舗id");
-
-				ShopList.add(setShop);
+			while (rs.next()) {
+				Shopinfo s = new Shopinfo();
+				s.shopName = rs.getString("店舗名");
+				s.uriShopName = URLEncoder.encode(s.shopName, "UTF-8");
+				s.openDate = rs.getString("出店日");
+				s.shopAdr = rs.getString("住所");
+				s.uriShopAdr = URLEncoder.encode(s.shopAdr, "UTF-8");
+				s.deleted = rs.getBoolean("deleted");
+				s.shopid = rs.getString("店舗id");
+				list.add(s);
 			}
 
 			model.close();
@@ -128,7 +117,6 @@ public class FMsearch extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		return ShopList;
+		return list;
 	}
-
 }

@@ -20,74 +20,70 @@ import model.MyDBAccess;
  */
 @WebServlet("/SHsearch")
 public class SHsearch extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/*
-	 * @see HttpServlet#HttpServlet()
-	 */
-    public SHsearch() {
-        super();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        request.setCharacterEncoding("windows-31j");
+
+        String str = request.getParameter("str");
+        if (str == null) str = "";
+        str = str.trim();
+
+        List<Itemfam> list = ItemDataList(str);
+
+        request.setAttribute("itemfam", list);
+        request.setAttribute("str", str);
+
+        RequestDispatcher dispatch =
+                request.getRequestDispatcher("/view/SHview.jsp");
+        dispatch.forward(request, response);
     }
 
-	/*
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
+    private String SendSQLSentence(String str) {
 
-		String str = request.getParameter("str"); // 検索窓に入力された文字列
+        String sql =
+            "SELECT * FROM 商品データ ";
 
-		request.setAttribute("itemfam", ItemDataList(str)); // strに該当する商品リスト
-		request.setAttribute("str", str);
-		RequestDispatcher dispatch = request.getRequestDispatcher("view/SHview.jsp");
-		dispatch.forward(request,response);
-	}
+        if (!str.isEmpty()) {
+            sql += " WHERE 商品名 LIKE '%" + str + "%'";
+        }
 
-	// 8月　検索文字列で得た店舗データを取得するSQLをセットする。ItemDataListで呼び出している 9/22
-	private String SendSQLSentence(String str) {
-		String sql = " SELECT" // 入力されたワードを含む商品名の検索SQL
-					+ " *"
-					+ " FROM"
-					+ " 商品データ"
-					+ " WHERE"
-					+ " 商品名 LIKE '%" + str + "%';";
+        return sql;
+    }
 
-		return sql;
-	}
+    private List<Itemfam> ItemDataList(String str) {
 
-	// 8月　検索した店舗データをリストに入れる。リクエストで呼び出している 9/22
-	private List<Itemfam> ItemDataList(String str){
-		List<Itemfam> ItemList = new ArrayList<Itemfam>();
+        List<Itemfam> ItemList = new ArrayList<>();
+        MyDBAccess model = new MyDBAccess();
 
-		MyDBAccess model = new MyDBAccess();
-		try{
-			model.open();
+        try {
+            model.open();
 
-			ResultSet rs = null;
-			rs = model.getResultSet(SendSQLSentence(str));
+            ResultSet rs = model.getResultSet(SendSQLSentence(str));
 
-			while(rs.next()){
-				Itemfam setItem = new Itemfam();
+            while (rs.next()) {
+                Itemfam setItem = new Itemfam();
 
-				setItem.ItemId 		 = rs.getString("商品コード");
-				setItem.ItemName	 = rs.getString("商品名");
-				setItem.uriItemName  = URLEncoder.encode(setItem.ItemName,"UTF-8");
-				setItem.maker		 = rs.getString("販売会社");
-				setItem.genre		 = rs.getString("ジャンル");
-				setItem.day			 = rs.getString("販売日");
-				setItem.price		 = rs.getInt("価格");
-				setItem.img			 = rs.getString("画像");
+                setItem.ItemId   = rs.getString("商品コード");
+                setItem.ItemName = rs.getString("商品名");
+                setItem.uriItemName = URLEncoder.encode(setItem.ItemName, "UTF-8");
+                setItem.maker    = rs.getString("販売会社");
+                setItem.genre    = rs.getString("ジャンル");
+                setItem.day      = rs.getString("販売日");
+                setItem.price    = rs.getInt("価格");
+                setItem.img      = rs.getString("画像");
 
-				ItemList.add(setItem);
-			}
+                ItemList.add(setItem);
+            }
 
-			model.close();
+            model.close();
 
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		return ItemList;
-	}
-
+        return ItemList;
+    }
 }

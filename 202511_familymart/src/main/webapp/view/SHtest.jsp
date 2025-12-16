@@ -13,6 +13,44 @@
 	rel="stylesheet" type="text/css" />
 <title>商品ジャンル選択</title>
 <style>
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+#contentWrapper {
+    position: absolute;
+    top: 60px;
+    left: 120px;
+    right: 0;
+    bottom: 60px;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+#wakuWrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+#wakuFrame {
+display:inline-block;
+margin-left:-50px;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: transparent;
+}
+#contentWrapper .select {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
 </style>
 
 <script>
@@ -176,10 +214,11 @@
 <!--			<div class="grid-container"></div>-->
 <!--		</div>-->
 
-		<div class="main-content-area">
-			<h1>商品一覧</h1>
-				<!--	 インラインフレームでSHview.jspを表示する。最初は白紙。属性名wakuはsenditemとsearchWordで使用 -->
-			<iframe src="about:blank" name="waku" width="90%" height="500"></iframe>
+		<div id="contentWrapper">
+			<!--			 8月　インラインフレームでSHview.jspを表示する。最初は白紙。属性名wakuはsenditemとsearchWordで使用 -->
+			<div id="wakuWrapper">
+				<iframe id="wakuFrame" name="waku" src="about:blank" frameborder="0"></iframe>
+			</div>
 		</div>
 	
 <!--	自動で総合を表示するscript-->
