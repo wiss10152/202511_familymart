@@ -14,6 +14,9 @@
 
 	String shop = request.getParameter("shop");
 	shop = new String(shop.getBytes("UTF-8"), "UTF-8"); // 文字コード変換
+	
+	String shopAddress = (String)request.getAttribute("shopAddress");
+	String encodeAddress = (String)request.getAttribute("encodeShopAddress");
 
 	// テーブル作成。従業員と給与は上段に表示する
 	String tableHTML = "<table align=\"center\" cellpadding=\"3\">";
@@ -70,6 +73,14 @@
 		</span>
 
 		<br>
+		
+		<% if(encodeAddress != null && !encodeAddress.isEmpty()){ %>
+			<iframe  class="iframe-display" width="80%" height="400" style="border:0; margin-bottom: 20px;"
+				loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+				src="https://maps.google.co.jp/maps?output=embed&q=<%= encodeAddress %>">
+			</iframe>
+		<% } %>
+		
 	    <input type="button" value="戻る" onclick="history.back(); return false;">
 	</div>
 

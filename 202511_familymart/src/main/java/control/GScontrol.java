@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,13 @@ public class GScontrol extends HttpServlet {
 
 		String shop = request.getParameter("shop"); // 店舗名
 		shop = new String(shop.getBytes("UTF-8"), "UTF-8");
+		
+		String shopAddress = getShopAddress(shop);
+		if(shopAddress != null) {
+			String encodeAddress = URLEncoder.encode(shopAddress, "UTF-8");
+			request.setAttribute("encodeShopAddress", encodeAddress);
+			request.setAttribute("shopAddress", shopAddress);
+		}
 
 		request.setAttribute("shopfam", ShopTopDetailList(shop));
 		request.setAttribute("shoppay", ShopDownDetailList(shop));
@@ -139,6 +147,23 @@ public class GScontrol extends HttpServlet {
 		}
 
 		return ShopList;
+	}
+	
+	private String getShopAddress(String shopName) {
+		MyDBAccess model = new MyDBAccess();
+		String address = null;
+		try {
+			model.open();
+			String sql = "SELECT 住所 FROM 出店計画 WHERE 店舗名='" + shopName + "'";
+			ResultSet rs = model.getResultSet(sql);
+			if(rs.next()) {
+				address = rs.getString("住所");
+			}
+			model.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return address;
 	}
 
 }
