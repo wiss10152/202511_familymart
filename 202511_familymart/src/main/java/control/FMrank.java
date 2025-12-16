@@ -14,145 +14,160 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import model.MyDBAccess;
 
-/*
- * Servlet implementation class FMrank
- */
 @WebServlet("/FMrank")
 public class FMrank extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/*
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public FMrank() {
 		super();
 	}
 
-	/*
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
+			throws ServletException, IOException {
 
-		String pre	= request.getParameter("pre");  // ジャンル情報を取得
-		String edit	= request.getParameter("edit"); // TorFの情報を取得。T=都道府県、F=商品選択。
+		String pre  = request.getParameter("pre");
+		String edit = request.getParameter("edit");
 
 		request.setAttribute("RANKInfo", RankingList(pre, edit));
 		request.setAttribute("pre", pre);
 		request.setAttribute("edit", edit);
+
 		RequestDispatcher dispatch = request.getRequestDispatcher("view/FMrank2.jsp");
 		dispatch.forward(request, response);
 	}
 
-	// 8月　ランキングデータを取得するSQLをセットする。RankingListで呼び出している 9/22
 	private String SendSQLSentence(String pre, String edit) {
 		String sql = null;
 
-		// 8月　追加sql文 長すぎてメインメソッドが行方不明になるので分離。簡潔に書ける場合は要修正…
-		if(edit.equals("true")) { // 店舗データ
-			if(pre.equals("総合")) { // 総合データを出すとき
-				sql = "SELECT "
-						+ " 店舗名, 住所, Sum(数量*価格) as 売上額, "
-						+ " DENSE_RANK() OVER(ORDER BY Sum(数量*価格) desc) AS 順位"
-						+ " FROM "
-						+ " 売上データ "
-						+ " inner join " + "出店計画 " + "on " + "出店計画.店舗id = 売上データ.店舗id "
-						+ " inner join " + "商品データ " + "on " + "売上データ.商品コード = 商品データ.商品コード "
-//						+ " where " 		<!-- 汎用SQLとの差別点 -->
-//						+ " 都道府県 = '"+ pre +"'"
-						+ " GROUP BY "
-						+ " 店舗名, 住所 ";
+		if (edit.equals("true")) { // 店舗ランキング
 
-			} else { // その他は汎用SQL
-				sql = "SELECT "
-						+ " 店舗名, 住所, Sum(数量*価格) as 売上額, "
-						+ " DENSE_RANK() OVER(ORDER BY Sum(数量*価格) desc) AS 順位"
-						+ " FROM "
-						+ " 売上データ "
-						+ " inner join " + "出店計画 " + "on " + "出店計画.店舗id = 売上データ.店舗id "
-						+ " inner join " + "商品データ " + "on " + "売上データ.商品コード = 商品データ.商品コード "
-						+ " where "
-						+ " 都道府県 = '"+ pre +"' "
-						+ " GROUP BY "
-						+ " 店舗名, 住所 ";
+			if (pre.equals("総合")) {
+				sql =
+					"SELECT " +
+					" 出店計画.店舗id, 店舗名, 住所, " +
+					" Sum(数量*価格) AS 売上_raw, " +
+					" Sum(数量*仕入れ値) AS 原価_raw, " +
+					" (Sum(数量*価格) - Sum(数量*仕入れ値)) AS 利益_raw, " +
+					" TO_CHAR(Sum(数量*価格), 'FM999,999,999円') AS 売上額, " +
+					" TO_CHAR((Sum(数量*価格) - Sum(数量*仕入れ値)), 'FM999,999,999円') AS 利益, " +
+					" DENSE_RANK() OVER(ORDER BY Sum(数量*価格) DESC) AS 順位 " +
+					" FROM 売上データ " +
+					" INNER JOIN 出店計画 ON 出店計画.店舗id = 売上データ.店舗id " +
+					" INNER JOIN 商品データ ON 売上データ.商品コード = 商品データ.商品コード " +
+					" GROUP BY 出店計画.店舗id, 店舗名, 住所 ";
+			} else {
+				sql =
+					"SELECT " +
+					" 出店計画.店舗id, 店舗名, 住所, " +
+					" Sum(数量*価格) AS 売上_raw, " +
+					" Sum(数量*仕入れ値) AS 原価_raw, " +
+					" (Sum(数量*価格) - Sum(数量*仕入れ値)) AS 利益_raw, " +
+					" TO_CHAR(Sum(数量*価格), 'FM999,999,999円') AS 売上額, " +
+					" TO_CHAR((Sum(数量*価格) - Sum(数量*仕入れ値)), 'FM999,999,999円') AS 利益, " +
+					" DENSE_RANK() OVER(ORDER BY Sum(数量*価格) DESC) AS 順位 " +
+					" FROM 売上データ " +
+					" INNER JOIN 出店計画 ON 出店計画.店舗id = 売上データ.店舗id " +
+					" INNER JOIN 商品データ ON 売上データ.商品コード = 商品データ.商品コード " +
+					" WHERE 都道府県 = '" + pre + "' " +
+					" GROUP BY 出店計画.店舗id, 店舗名, 住所 ";
 			}
 
-		} else if(edit.equals("false")) { // 商品データ
-			if(pre.equals("新商品")) { // 新商品の時はジャンルを無視して販売日に絞る
-				sql = "SELECT "
-						+ " 画像, 商品名, Sum(数量) AS 売上数, Sum(数量)*価格 AS 売上額, "
-						+ " DENSE_RANK() OVER(ORDER BY Sum(数量)*価格 desc) AS 順位"
-						+ " FROM "
-						+ " 商品データ "
-						+ " inner join " + "売上データ " + "on " + "商品データ.商品コード = 売上データ.商品コード "
-						+ " where "
-						+ " CAST('2017/08/08' AS DATE) > 販売日 AND 販売日 >= CAST('2017/07/01' AS DATE)" // 変更点
-						+ " GROUP BY "
-						+ " 商品名, 画像, 価格 ";
+		} else if (edit.equals("false")) { // 商品ランキング
 
-			} else if(pre.equals("総合")) { // 総合ランキングの時はジャンルを無視する
-				sql = "SELECT "
-						+ " 画像, 商品名, Sum(数量) AS 売上数, Sum(数量)*価格 AS 売上額, "
-						+ " DENSE_RANK() OVER(ORDER BY Sum(数量)*価格 desc) AS 順位"
-						+ " FROM "
-						+ " 商品データ "
-						+ " inner join " + "売上データ " + "on " + "商品データ.商品コード = 売上データ.商品コード "
-//						+ " where " 		<!-- 汎用SQL文との差別点 -->
-//						+ " ジャンル = '"+ pre +"' "
-						+ " GROUP BY "
-						+ " 商品名, 画像, 価格 ";
+			if (pre.equals("新商品")) {
+				sql =
+					"SELECT " +
+					" 画像, 商品名, " +
+					" Sum(数量) AS 売上数, " +
+					" Sum(数量)*価格 AS 売上_raw, " +
+					" Sum(数量*仕入れ値) AS 原価_raw, " +
+					" (Sum(数量)*価格 - Sum(数量*仕入れ値)) AS 利益_raw, " +
+					" TO_CHAR(Sum(数量)*価格, 'FM999,999,999円') AS 売上額, " +
+					" TO_CHAR((Sum(数量)*価格 - Sum(数量*仕入れ値)), 'FM999,999,999円') AS 利益, " +
+					" DENSE_RANK() OVER(ORDER BY Sum(数量)*価格 DESC) AS 順位 " +
+					" FROM 商品データ " +
+					" INNER JOIN 売上データ ON 商品データ.商品コード = 売上データ.商品コード " +
+					" WHERE CAST('2017/08/08' AS DATE) > 販売日 " +
+					" AND 販売日 >= CAST('2017/07/01' AS DATE) " +
+					" GROUP BY 商品名, 画像, 価格 ";
 
-			} else { // その他は汎用SQL
-				sql = "SELECT "
-						+ " 画像, 商品名, Sum(数量) AS 売上数, Sum(数量)*価格 AS 売上額, "
-						+ " DENSE_RANK() OVER(ORDER BY Sum(数量)*価格 desc) AS 順位"
-						+ " FROM "
-						+ " 商品データ "
-						+ " inner join " + "売上データ " + "on " + "商品データ.商品コード = 売上データ.商品コード "
-						+ " where "
-						+ " ジャンル = '"+ pre +"' "
-						+ " GROUP BY "
-						+ " 商品名, 画像, 価格 ";
+			} else if (pre.equals("総合")) {
+				sql =
+					"SELECT " +
+					" 画像, 商品名, " +
+					" Sum(数量) AS 売上数, " +
+					" Sum(数量)*価格 AS 売上_raw, " +
+					" Sum(数量*仕入れ値) AS 原価_raw, " +
+					" (Sum(数量)*価格 - Sum(数量*仕入れ値)) AS 利益_raw, " +
+					" TO_CHAR(Sum(数量)*価格, 'FM999,999,999円') AS 売上額, " +
+					" TO_CHAR((Sum(数量)*価格 - Sum(数量*仕入れ値)), 'FM999,999,999円') AS 利益, " +
+					" DENSE_RANK() OVER(ORDER BY Sum(数量)*価格 DESC) AS 順位 " +
+					" FROM 商品データ " +
+					" INNER JOIN 売上データ ON 商品データ.商品コード = 売上データ.商品コード " +
+					" GROUP BY 商品名, 画像, 価格 ";
+
+			} else {
+				sql =
+					"SELECT " +
+					" 画像, 商品名, " +
+					" Sum(数量) AS 売上数, " +
+					" Sum(数量)*価格 AS 売上_raw, " +
+					" Sum(数量*仕入れ値) AS 原価_raw, " +
+					" (Sum(数量)*価格 - Sum(数量*仕入れ値)) AS 利益_raw, " +
+					" TO_CHAR(Sum(数量)*価格, 'FM999,999,999円') AS 売上額, " +
+					" TO_CHAR((Sum(数量)*価格 - Sum(数量*仕入れ値)), 'FM999,999,999円') AS 利益, " +
+					" DENSE_RANK() OVER(ORDER BY Sum(数量)*価格 DESC) AS 順位 " +
+					" FROM 商品データ " +
+					" INNER JOIN 売上データ ON 商品データ.商品コード = 売上データ.商品コード " +
+					" WHERE ジャンル = '" + pre + "' " +
+					" GROUP BY 商品名, 画像, 価格 ";
 			}
 		}
 
 		return sql;
 	}
 
-	// 8月　ランキングデータをリストに入れる。リクエストで呼び出している 9/22
 	private List<RANKInfo> RankingList(String pre, String edit) {
-		List<RANKInfo> RankList = new ArrayList<RANKInfo>();
 
+		List<RANKInfo> RankList = new ArrayList<>();
 		MyDBAccess model = new MyDBAccess();
-		try{
+
+		try {
 			model.open();
 
-			ResultSet rs = null;
-			rs = model.getResultSet(SendSQLSentence(pre,edit));
+			ResultSet rs = model.getResultSet(SendSQLSentence(pre, edit));
 
-			if(edit.equals("true")) {
-				while(rs.next()) {
-					RANKInfo setRank = new RANKInfo();
+			if (edit.equals("true")) { // 店舗
 
-					setRank.shop_name = rs.getString("店舗名");
-					setRank.shop_add  = rs.getString("住所");
-					setRank.shop_sale = rs.getInt("売上額");
-					setRank.shop_rank = rs.getInt("順位");
+				while (rs.next()) {
+					RANKInfo r = new RANKInfo();
 
-					RankList.add(setRank);
+					r.shop_name = rs.getString("店舗名");
+					r.shop_add  = rs.getString("住所");
+					r.shop_rank = rs.getInt("順位");
+
+					// 文字列（FEはこれをそのまま表示）
+					r.shop_sale_str   = rs.getString("売上額");
+					r.shop_profit_str = rs.getString("利益");
+
+					RankList.add(r);
 				}
 
-			} else if(edit.equals("false")) {
-				while(rs.next()) {
-					RANKInfo setRank = new RANKInfo();
+			} else if (edit.equals("false")) { // 商品
 
-					setRank.product_img  		= rs.getString("画像");
-					setRank.product_name 		= rs.getString("商品名");
-					setRank.product_Sale 		= rs.getInt("売上数");
-					setRank.product_rank 		= rs.getInt("順位");
-					setRank.product_AmountSales = rs.getInt("売上額");
+				while (rs.next()) {
+					RANKInfo r = new RANKInfo();
 
-					RankList.add(setRank);
+					r.product_img  = rs.getString("画像");
+					r.product_name = rs.getString("商品名");
+					r.product_Sale = rs.getInt("売上数");
+					r.product_rank = rs.getInt("順位");
+
+					// 文字列（FEはこれをそのまま表示）
+					r.product_sale_str   = rs.getString("売上額");
+					r.product_profit_str = rs.getString("利益");
+
+					RankList.add(r);
 				}
 			}
 
@@ -165,5 +180,4 @@ public class FMrank extends HttpServlet {
 
 		return RankList;
 	}
-
 }

@@ -11,6 +11,12 @@ public class RANKInfo {
 	// 8月　追記
 	public String 	shop_name;		// ランキング店舗名
 	public String 	shop_add; 		// ランキング店舗住所
-	public int 	shop_sale; 		// ランキング店舗売上
 	public int 	shop_rank;		// ランキング店舗順位:同率順位の判定に使います
+	
+	public String product_sale_str;
+	public String product_profit_str;
+	public String shop_sale_str;
+	public String shop_profit_str;
+
+
 }

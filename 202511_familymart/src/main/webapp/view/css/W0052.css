@@ -463,3 +463,111 @@ input[type="checkbox" i]{
 	padding: initial;
 	border: initial;
 }
+
+#tableWrapper {
+	margin-left: 180px;
+	margin-right: 20px;
+	margin-bottom: 60px;
+	padding: 10px;
+}
+
+#resultArea table {
+	width: 100%;
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+
+#resultArea th,
+#resultArea td {
+	padding: 8px;
+	border: 1px solid #ccc;
+	word-wrap: break-word;
+	text-align: center;
+	font-size: 14px;
+}
+
+
+.col-rank {
+	width: 60px;
+}
+
+.col-code {
+	width: 120px;
+}
+
+.col-genre {
+	width: 130px;
+}
+
+.col-sales {
+	width: 150px;
+}
+
+.col-img {
+	width: 80px;
+}
+
+#resultArea img {
+	width: 60px;
+	height: auto;
+	object-fit: contain;
+}
+
+h2 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#tableWrapper {
+	margin-left: 180px;
+	margin-right: 20px;
+	margin-bottom: 60px;
+	padding: 10px;
+
+	background: #fff;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#contentWrapper {
+	margin-left: 160px;
+	padding: 20px;
+}
+
+.select {
+	margin-left: 180px;
+	margin-right: 20px;
+}
+
+
+#wakuWrapper {
+	margin-left: 180px;
+	margin-right: 20px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+
+	padding: 0;
+
+	background: none !important;
+	border: none !important;
+	box-shadow: none !important;
+
+	display: flex;
+	flex-direction: column;
+
+	height: calc(100vh - 60px - 80px);
+}
+
+#wakuFrame {
+    width: 100%;
+    height: 600px;
+    border: none;
+    background: transparent;
+}
+
+
+#wakuFrame * {
+	font-size: 13px !important;

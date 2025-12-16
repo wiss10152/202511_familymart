@@ -12,7 +12,14 @@
 	rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/view/css/W0052.css"
 	rel="stylesheet" type="text/css" />
+	<style>
+	html, body {
+    height: 100%;
+    overflow: hidden; 
+}
+</style>
 <title>FamilyMart 都道府県別商品ランキング</title>
+
 <script type="text/javascript">
 
 <%
@@ -226,64 +233,38 @@ window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
 			</div>
 		</div>
 		<div class="sidenav">
-	<div class="selection-panel">
-	
-		<p class="selection-title">ジャンル選択</p>
-		<form name="f1" class="genre-form">
-			<label for="label1" class="radio-label">
-				<input id="label1" type="radio" name=radio1 onclick="Items()" checked>
-				商品
-				</label>
-				&nbsp;&nbsp;
-				<label for="label2" class="radio-label">
-					<input id="label2" type="radio" name="radio1" onclick="City()">
-					店舗
-				</label>
-			</form>
-			
-			<div style="margin-bottom: 15px;"></div>
-			
-			<p class="selection-title">項目選択</p>
-				<div id="itemSelectionList" class="item-list-container">
-					</div>
+			<div class="selection-panel">
+
+				<p class="selection-title">ジャンル選択</p>
+				<form name="f1" class="genre-form">
+					<label for="label1" class="radio-label"> <input id="label1"
+						type="radio" name=radio1 onclick="Items()" checked> 商品
+					</label> &nbsp;&nbsp; <label for="label2" class="radio-label"> <input
+						id="label2" type="radio" name="radio1" onclick="City()">
+						店舗
+					</label>
+				</form>
+
+				<div style="margin-bottom: 15px;"></div>
+
+				<p class="selection-title">項目選択</p>
+				<div id="itemSelectionList" class="item-list-container"></div>
 			</div>
 			<span class="item-count-label"></span>
-			
+
 			<div style="margin-bottom: 20px;"></div>
-			
-			<input type="submit" class="rank-button" value="売上順位表示" onclick="send();" style="display: none;">
-		</div>
-			</div>
-		
-		
-		
-		<%--<form name="Logout" method="POST" action="#" onsubmit="return flag;">
-		<div  class="button-panel">
-			<% out.print("ユーザ名 : " + session.getAttribute("userName")); %>
-			<a style="margin-left: 20px" class="button" onClick="logout();">
-			<img src="<%= request.getContextPath() %>/view/img/153.142.124.217 (2).gif"></a>
-		</div>
-	</form>
 
-	<form name="MyForm" method="POST" action="#" onsubmit="return flag;">
-		<div class="button1">
-			<input type="submit" class="button" value="ユーザ画面へ"onclick="moveUserList();">
+			<input type="submit" class="rank-button" value="売上順位表示"
+				onclick="send();" style="display: none;">
 		</div>
+	</div>
 
-		<div class="button2">
-			<input type="submit" class="button" value="都道府県データへ"onclick="movePrefecture();">
-		</div>
-	</form>
---%>
-			<div class="main-content-area">
-		<div class="end">
-			<h1>ランキングページ</h1>
-		</div>
-		<br>
-		<iframe src="about:blank" name="waku" class="ranking-iframe"></iframe>
+	<div class="main-content-area">
+		<iframe id="wakuFrame" name="waku" src="about:blank"
+			class="ranking-iframe" frameborder="0"></iframe>
+
 	</div>
-	
-	</div>
+
 	<div class="footer">
 		<span>© 2025 FamilyMart System — All Rights Reserved.</span>
 	</div>
