@@ -70,6 +70,11 @@ if (Boolean.TRUE.equals(firstlogin)) {
 		document.MyForm.submit();
 	}
 
+	function moveMyStore(){
+		document.MyForm.action = "<%=request.getContextPath()%>/MyStoreServlet"
+		document.MyForm.submit();
+	}
+
 //jspへの直アクセスを防ぐ
 <%request.setCharacterEncoding("windows-31j");
 Boolean login = (Boolean) session.getAttribute("adminFlg");
@@ -125,6 +130,9 @@ if (login == null) {
                 %>
                 <div class="btn">
                     <button class="btn2" onclick="moveUserList();">ユーザ管理</button>
+                </div>
+                <div class="btn">
+                    <button class="btn2" onclick="moveMyStore();">マイ店舗</button>
                 </div>
                 <%
                     }
