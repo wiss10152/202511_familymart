@@ -33,8 +33,8 @@
 
 window.onload = function () {
 
-    const pwd0 = document.getElementsByName("passWord0")[0];
-    const pwd1 = document.getElementsByName("ConPassword1")[0];
+    const pwd0 = document.getElementsByName("passWord")[0];
+    const pwd1 = document.getElementsByName("ConPassword")[0];
     const eye0 = document.getElementById("eyeIcon0");
     const eye1 = document.getElementById("eyeIcon1");
 
