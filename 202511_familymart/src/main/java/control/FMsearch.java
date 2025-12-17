@@ -27,7 +27,11 @@ public class FMsearch extends HttpServlet {
 
 	    String shp  = request.getParameter("shp");
 	    String edit = request.getParameter("edit");
-	    String prefectures = request.getParameter("prefectures");
+	    String[] presArr=request.getParameterValues("prefectures");
+	    String prefectures = "";
+	    if(presArr != null&& presArr.length>0) {
+	    	prefectures =String.join(",", presArr);
+	    }
 
 	    if (shp == null) shp = "";
 	    shp = shp.trim();

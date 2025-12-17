@@ -1,9 +1,13 @@
 @charset "UTF-8";
 
 body {
-	margin: 0;
-	padding-top: 60px;
+    margin: 0;
+    padding-top: 60px;   
+    min-height: 100vh;   
+	    display: flex;
+    flex-direction: column;
 }
+
 
 .navbar {
 	overflow: hidden;
@@ -70,7 +74,6 @@ body {
 	padding: 12px 0;
 	font-size: 14px;
 	color: #ffffff;
-	position: fixed;
 	bottom: 0;
 	left: 0;
 	box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.15);
@@ -79,7 +82,7 @@ body {
 
 .grid-container {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr); /* 3 item mỗi hàng */
+	grid-template-columns: repeat(3, 1fr); 
 	gap: 30px;
 	width: 90%;
 	margin: 30px auto;
@@ -192,31 +195,17 @@ body {
 	transition: background-color 0.2s;
 }
 
-.main-content-area{
-	margin-left: 160px;
-	padding: 20px;
-	padding-bottom: 70px;
+.main-content-area {
+    margin-left: 160px;
+    padding: 20px;
+    padding-bottom: 20px;
 }
+
 
 .ranking-iframe{
 	width:100%;
-	height: 600px;
 	border: 1px solid white;
 	margin-top: 20px;
-}
-
-.footer {
-	width: 100%;
-	background: #6AE6FF;
-	text-align: center;
-	padding: 12px 0;
-	font-size: 14px;
-	color: #ffffff;
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.15);
-	letter-spacing: 1px;
 }
 
 .footer span {
@@ -535,6 +524,7 @@ h2 {
 #contentWrapper {
 	margin-left: 160px;
 	padding: 20px;
+	flex:1;
 }
 
 .select {
@@ -558,12 +548,11 @@ h2 {
 	display: flex;
 	flex-direction: column;
 
-	height: calc(100vh - 60px - 80px);
 }
 
 #wakuFrame {
+	display: block;
     width: 100%;
-    height: 600px;
     border: none;
     background: transparent;
 }
@@ -571,3 +560,11 @@ h2 {
 
 #wakuFrame * {
 	font-size: 13px !important;
+}
+
+.ranking-iframe,
+#wakuFrame {
+    width: 100%;
+    height: auto;   
+    border: none;
+}

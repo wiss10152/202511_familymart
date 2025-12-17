@@ -14,8 +14,12 @@
 	rel="stylesheet" type="text/css" />
 	<style>
 	html, body {
-    height: 100%;
-    overflow: hidden; 
+    margin: 0;
+    padding: 0;
+    height: auto;
+    overflow: visible;
+}
+
 }
 </style>
 <title>FamilyMart 都道府県別商品ランキング</title>

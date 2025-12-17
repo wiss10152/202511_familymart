@@ -180,7 +180,7 @@ if (rankname != null && rankname.size() > 0) {
 <style>
 body {
 	background: none !important;
-	padding-bottom: 180px;
+	overflow:hidden;
 }
 
 a {
@@ -235,6 +235,30 @@ a {
 
 		</div>
 	</div>
+	<script>
+(function () {
+    function resizeIframe() {
+        const iframe = parent.document.getElementById("wakuFrame");
+        if (!iframe) return;
+
+        const content = document.querySelector(".end");
+        if (!content) return;
+
+        const rect = content.getBoundingClientRect();
+        const height = rect.top + rect.height;
+
+        iframe.style.height = Math.ceil(height) + "px";
+    }
+
+    window.addEventListener("load", () => {
+        requestAnimationFrame(resizeIframe);
+    });
+
+})();
+</script>
+
+
+	
 
 </body>
 </html>
