@@ -18,6 +18,20 @@
 	rel="stylesheet" type="text/css" />
 <title>FamilyMartユーザ管理画面</title>
 
+<style type="text/css">
+input[type="checkbox"][disabled]{
+cursor: default !important;
+}
+
+span.table2 table td{
+	cursor: default;
+}
+
+span.table2 table td a{
+	cursor: pointer;
+}
+</style>
+
 <script type="text/javascript">
 
 	//onloadイベントで、ログイン直後の1回のみ管理ユーザ画面でユーザ名アラートを表示させる。
@@ -113,7 +127,7 @@
 		var values = Command.split(','); // , 区切;
 		document.MyForm.userId.value = values[0];
 		document.MyForm.username.value = values[1];
-		document.MyForm.password.value = values[2];
+		<%-- document.MyForm.password.value = values[2]; --%>
 		document.MyForm.action = "<%= request.getContextPath() %>/view/USregist.jsp"
 		document.MyForm.submit();
 	}
@@ -257,10 +271,16 @@
 				<th>ユーザID</th>
 				<th>ユーザ名</th>
 				<th>権限</th>
+				<th>作成者</th>
 			</tr>
-
+			
 <%
-	    //ユーザ情報取得
+		//ユーザ情報取得
+		String current_user_id = (String)request.getAttribute("currentUserId");
+		
+		Boolean mngObj = (Boolean)session.getAttribute("management_flg");
+		boolean iAmSuperUser = (mngObj != null && mngObj);
+		
 		List<HashMap<String,String>> userList = (List<HashMap<String,String>>)request.getAttribute("userList");
 		int num = 0;
 		String kizo[] = new String[50];	//ここで、既存配列を作成している
@@ -270,6 +290,10 @@
 				String user_id	  = userInfo.get("userId");
 				String password	  = userInfo.get("password");
 				String user_admin = userInfo.get("userAdmin");
+				String creator_id = userInfo.get("createUser");
+				
+				boolean isCreator = current_user_id != null && current_user_id.equals(creator_id);
+				boolean hasPermission = isCreator || iAmSuperUser;
 
 				kizo[num] = user_id;	//IDを既存配列の中に代入している
 %>
@@ -278,18 +302,26 @@
 				if(!(userInfo.get("userId").equals(session.getAttribute("userId")))){ //7月新規 ログインしている管理者ユーザ以外を表示する
 %>
 					<td><input type="checkbox" name="chkBox<%= num %>"
-							style="width: 17px; height: 17px;"value="<%=user_id %>"></td>
-					<td><a href="#" onClick="move('<%=user_id %>,<%=user_name %>,<%=password %>');"><%= user_id %></a></td>
-
+							style="width: 17px; height: 17px;"value="<%=user_id %>"
+							<% if(!hasPermission){out.print("disabled='disabled'");} %>></td>
+					<td>
+					<% if(hasPermission){ %>
+						<a href="#" onClick="move('<%=user_id %>,<%=user_name %>');"><%= user_id %></a></td>
+					<% }else{ %>
+						<%= user_id %>
+					<% } %>
+					</td>
 					<td><%= user_name %></td>
 
-					<td>
-					<% if(user_admin.equals("true")){
+					<td><% if(user_admin.equals("true")){
 						out.print("管理者");
 					} else {
 						out.print("一般");
 					} %>
 					</td>
+					
+					<td><%= userInfo.get("createUser") %></td>
+					
 					</tr> <!-- 8月　開始タグはないが、入れないとレイアウトが壊れる -->
 <%
 					num++;
@@ -301,17 +333,26 @@
 					<input type="checkbox" name="chkBox<%= num %>" style="width: 17px; height: 17px;"
 							disabled='disabled' value="<%=user_id %>"> <label for='checkoff'></label></td>
 
-					<td><a href="#" onClick="move('<%=user_id %>,<%=user_name %>,<%=password %>');"><%= user_id %></a></td>
-					<td><%= user_name %></td>
-
 					<td>
-					<% if(user_admin.equals("true")){
-						out.print("管理者");
-					} else {
-						out.print("一般");
-					}%>
+					<% if(hasPermission){ %>
+						<a href="#" onClick="move('<%=user_id %>,<%=user_name %>');"><%= user_id %></a>
+					<% }else{ %>
+						<%= user_id %>
+					<% } %>
 					</td>
-					</tr> <!-- 8月　開始タグはないが、入れないとレイアウトが壊れる -->
+					
+					<td><%= user_name %></td>
+					
+						<td><% if(user_admin.equals("true")){
+						out.print("管理者");
+						} else {
+							out.print("一般");
+						}%>
+						</td>
+					
+						<td><%= userInfo.get("createUser") %></td>
+					
+						</tr> <!-- 8月　開始タグはないが、入れないとレイアウトが壊れる -->
 <%
 				num++;
 			}
@@ -336,7 +377,7 @@
 				<input type="hidden" name="actionId" value="">
 				<input type="hidden" name="userId"	 value="">
 				<input type="hidden" name="username" value="">
-				<input type="hidden" name="password" value="">
+				<%-- <input type="hidden" name="password" value=""> --%>
 
 		</div>
 

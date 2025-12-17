@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -29,6 +30,9 @@ public class USregist extends HttpServlet {
 			throws IOException, ServletException {
 
 		HttpSession session = request.getSession(true);
+		
+		Boolean mngObj = (Boolean) session.getAttribute("management_flg");
+		boolean isSuperUser = (mngObj != null && mngObj);
 
 		String[] ArrayUserId = (String[])session.getAttribute("kizo");
 
@@ -40,27 +44,35 @@ public class USregist extends HttpServlet {
 		String pw = request.getParameter("passWord");
 		Ubcrypt bcrypt = Ubcrypt.getInstance();
 		String hashedpassword = bcrypt.encodePw(pw);
+		
+		session.setAttribute("isRegisteredUserId", false);
 
 		String str = ""; // コンソール表示用
 		String sql = "";
+		boolean isRegistered = false;
 
-		if(execProcess.equals("update")) {
-			str = "更新";
-			userId = (String)session.getAttribute("updateId");
-
-		} else if(execProcess.equals("userRegist")) {
+		if(execProcess.equals("userRegist")) {
 			str = "登録";
-			userId = request.getParameter("userId");
-
-			for(int i = 0 ; ArrayUserId[i] != null ; i++) {
-				if(ArrayUserId[i].equals(userId)) {
-					session.setAttribute("isRegisteredUserId", true);
-					break;
+			MyDBAccess model = new MyDBAccess();
+			try {
+				model.open();
+				String checkSql = "SELECT COUNT(*) FROM ユーザ情報 WHERE user_id = '" + userId + "' AND delete_flg = 'false'";
+				ResultSet rs = model.getResultSet(checkSql);
+				if(rs.next() && rs.getInt(1) > 0) {
+					isRegistered = true;
 				}
+				model.close();
+			}catch(Exception e) {
+				e.printStackTrace();
 			}
+
+		} else if(execProcess.equals("update")) {
+			str = "更新";
+			userId = request.getParameter("userId");
 		}
 
-		if((Boolean)session.getAttribute("isRegisteredUserId")) {
+		if(isRegistered) {
+			session.setAttribute("isRegisteredUserId", true);
 			RequestDispatcher dispatch = request.getRequestDispatcher("view/USregist.jsp");
 			dispatch.forward(request, response);
 
@@ -76,13 +88,16 @@ public class USregist extends HttpServlet {
 						+ " create_date, create_user, update_date, update_user) "
 						+ " VALUES"
 						+ " ('"+ username +"', '"+ userId +"', '"+ hashedpassword +"', FALSE, FALSE,"
-						+ " current_timestamp, '"+ createuser +"', current_timestamp, '"+ updateuser +"');";
+						+ " current_timestamp, '"+ createuser +"', current_timestamp, '"+ updateuser +"')"
+						+ " ON CONFLICT (user_id) DO UPDATE SET "
+						+ " user_name = EXCLUDED.user_name, password =EXCLUDED.password, "
+						+ " delete_flg = 'false', update_date = current_timestamp, update_user = EXCLUDED.update_user;";
 
 				} else if(execProcess.equals("update")) {
 					sql = "UPDATE"
 						+ " ユーザ情報 SET"
-						+ " user_id = '"+ userId +"',"
 						+ " user_name = '"+ username +"',"
+						+ (!hashedpassword.isEmpty() ? "password = '" + hashedpassword + "', " : "")
 						+ " update_date = current_timestamp,"
 						+ " update_user = '"+ updateuser +"'"
 						+ " WHERE"
@@ -101,8 +116,8 @@ public class USregist extends HttpServlet {
 			}
 
 			System.out.println("ユーザ " + userId + " は " + str + " されました");
-			RequestDispatcher dispatch = request.getRequestDispatcher("/USshow");
-			dispatch.forward(request, response);
+			session.setAttribute("isRegisteredUserId", false);
+			response.sendRedirect(request.getContextPath() + "/USshow");
 
 		}
 	}

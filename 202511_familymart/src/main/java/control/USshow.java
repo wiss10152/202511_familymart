@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import model.MyDBAccess;
 
@@ -28,11 +29,14 @@ public class USshow extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		HttpSession session = request.getSession(false);
+		String currentUserId = (session != null) ? (String) session.getAttribute("userId"): null;
 
 		List<HashMap<String, String>> userList = new ArrayList<HashMap<String, String>>();
 		Boolean adminflg = true;
 		// 管理者を降順で表示するsql
-		String sql = "SELECT * FROM ユーザ情報 where delete_flg = 'false' order by admin_flg desc ";
+		String sql = "SELECT * FROM ユーザ情報 where delete_flg = 'false' order by user_id ASC ";
 
 		// DBアクセス処理
 		MyDBAccess model = new MyDBAccess();
@@ -47,6 +51,7 @@ public class USshow extends HttpServlet {
 
 				userInfo.put("userName", rs.getString("user_name"));
 				userInfo.put("userId", rs.getString("user_id"));
+				userInfo.put("createUser" ,  rs.getString("create_user"));
 				adminflg = rs.getBoolean("admin_flg"); // 削除判定追加
 				String userAdmin = adminflg == true ? "true" : "false";
 				userInfo.put("userAdmin", userAdmin);
@@ -61,6 +66,7 @@ public class USshow extends HttpServlet {
 		}
 
 		request.setAttribute("userList", userList);
+		request.setAttribute("currentUserId", currentUserId);
 		RequestDispatcher dispatch = request.getRequestDispatcher("view/USview.jsp");
 		dispatch.forward(request, response);
 	}

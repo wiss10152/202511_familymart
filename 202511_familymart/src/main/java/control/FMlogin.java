@@ -40,6 +40,8 @@ public class FMlogin extends HttpServlet {
 		String name			= "";
 		String pw 			= "";
 		Boolean adminflg 	= true;
+		String create_user = null;
+		Boolean management_flg = true;
 		Boolean music     	= false;//true;
 		Boolean firstlogin	= true; // 8月新規
 		String manegement	= "unknown";	//7月新規 画面切り替え時の音楽を替えるための変数
@@ -56,6 +58,8 @@ public class FMlogin extends HttpServlet {
 				name 	 = rs.getString("user_name");
 				pw 		 = rs.getString("password");
 				adminflg = rs.getBoolean("admin_flg");
+				create_user = rs.getString("create_user");
+				management_flg = rs.getBoolean("management_flg");
 			}
 
 			model.close();
@@ -71,6 +75,8 @@ public class FMlogin extends HttpServlet {
 			session.setAttribute("userId", userId);
 			session.setAttribute("userName", name);
 			session.setAttribute("adminFlg", adminflg);
+			session.setAttribute("create_user", create_user);
+			session.setAttribute("management_flg", management_flg);
 
 			session.setAttribute("music", music);			 //7月音楽を流すための判断
 			session.setAttribute("manegement", manegement);  //7月音楽を変更する判断
@@ -97,10 +103,13 @@ public class FMlogin extends HttpServlet {
 		sql = "SELECT"
 				+ " user_name,"
 				+ " password,"
-				+ " admin_flg"
+				+ " admin_flg,"
+				+ " create_user,"
+				+ " management_flg"
 				+ " FROM"
 				+ " ユーザ情報"
-				+ " WHERE user_id ='"+ userId +"';";
+				+ " WHERE user_id ='"+ userId +"' "
+				+ " AND delete_flg = 'false';";
 
 		return sql;
 	}

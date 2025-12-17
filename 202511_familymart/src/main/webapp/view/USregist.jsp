@@ -33,26 +33,21 @@
 
 window.onload = function () {
 
-    const pwd0 = document.getElementsByName("password0")[0];
-    const pwd1 = document.getElementsByName("password1")[0];
-       const eye0 = document.getElementById("eyeIcon0");
-       const eye1 = document.getElementById("eyeIcon1");
-       
-    eye0.addEventListener("mouseover", function () {
-        pwd0.type = "text";
-    });
-    eye0.addEventListener("mouseout", function () {
-        pwd0.type = "password";
-    });
-    
-    eye1.addEventListener("mouseover", function () {
-        pwd1.type = "text";
-    });
-    eye1.addEventListener("mouseout", function () {
-        pwd1.type = "password";
-    });
-   
-};
+    const pwd0 = document.getElementsByName("passWord0")[0];
+    const pwd1 = document.getElementsByName("ConPassword1")[0];
+    const eye0 = document.getElementById("eyeIcon0");
+    const eye1 = document.getElementById("eyeIcon1");
+
+    if(eye0 && pwd0) {
+        eye0.addEventListener("mouseover", function () { pwd0.type = "text"; });
+        eye0.addEventListener("mouseout", function () { pwd0.type = "password"; });
+        }
+
+    if(eye1 && pwd1) {
+         eye1.addEventListener("mouseover", function () { pwd1.type = "text"; });
+         eye1.addEventListener("mouseout", function () { pwd1.type = "password"; });
+         }
+    };
 
 
 
@@ -101,7 +96,7 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 
 
 
-<% if((Boolean)session.getAttribute("isRegisteredUserId")){	//登録時同じIDを使っている人がいた場合のアラートのプログラム
+<%-- <% if((Boolean)session.getAttribute("isRegisteredUserId")){	//登録時同じIDを使っている人がいた場合のアラートのプログラム
 	session.setAttribute("isRegisteredUserId", false);
 %>
 	alert("このIDは使われています。違うIDでお試しください。");
@@ -118,7 +113,7 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 	String user_id 	 = "";
 	String user_name = "";
 	String disabled  = "";												//7月追加 更新時書き込み不可に使う変数
-	String passWord  = "";
+	String change  = "";
 
 	if(actionId.equals("update")){
 		user_id = request.getParameter("userId");
@@ -127,14 +122,13 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 		disabled = "disabled";							 //7月新規 更新時書き込み不可に変更
 	}
 
-	String change = "";
-
 	if(actionId.equals("update")) {
 		change  = "更新";
     } else {
 		change  = "登録";
+		actionId = "userRegist";
 	}
-%>
+%> --%>
 <!--	var flag = false;-->
 
 <!--	function logout() {-->
@@ -155,21 +149,26 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 		var errorCheckPass		= "";
 		var errorCase 			= 0;
 
-		if(MyForm.userId.value == "") {
-			errorUserID		= "[ユーザID] ";
-			errorCase		= 1;
+		var userIdField = document.MyForm.userId;
+		var userIdValue = (userIdField.length > 1) ? userIdField[1].value : userIdField.value;
+
+		if(userIdValue === ""){
+			errorUserID = "[ユーザID] ";
+			errorCase = 1;
 		}
-		if(MyForm.username.value == "") {
+		if(document.MyForm.username.value === "") {
 			errorUserName	= "[ユーザ名] ";
 			errorCase 		= 1;
 		}
-		if(MyForm.passWord[0].value == "") {
-			errorUserPass 	= "[パスワード] ";
-			errorCase 		= 1;
-		}
-		if(MyForm.conPassword[0].value == "") {
-			errorCheckPass 	= "[確認パスワード]";
-			errorCase 		= 1;
+		if(actionId === "userRegist"){
+			if(document.MyForm.passWord.value === "") {
+				errorUserPass 	= "[パスワード] ";
+				errorCase 		= 1;
+			}
+			if(document.MyForm.conPassword.value === "") {
+				errorCheckPass 	= "[確認パスワード]";
+				errorCase 		= 1;
+			}
 		}
 		// 8月　上述のエラー項目を洗い出し、表示したらその時点で返す
 		if(errorCase == 1){
@@ -177,18 +176,18 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 			return;
 		}
 
-		//パスワードが一致していなかった場合
-		if(document.MyForm.passWord[0].value != document.MyForm.conPassword[0].value){
-			alert("パスワードが一致していません");
-			return;
+		if(actionId === "userRegist" || (document.MyForm.passWord && document.MyForm.passWord.value !== "")){
+			if(document.MyForm.passWord.value != document.MyForm.conPassword.value){
+				alert("パスワードが一致していません");
+				return;
+			}
 		}
 
-		if(confirm("ユーザID[" +MyForm.userId.value + "]を作成します。よろしいですか？")){
+		var msg = (actionId === "update") ? "更新" : "作成";
+		if(confirm("ユーザID[" +userIdValue + "]を" + msg + "します。よろしいですか？")){
 			document.MyForm.actionId.value = actionId;
 			document.MyForm.action = "<%= request.getContextPath() %>/USregist";
 			document.MyForm.submit();
-		} else {
-			return;
 		}
 	}
 
@@ -197,12 +196,28 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 		document.MyForm.submit();
 	}
 
+<% if(Boolean.TRUE.equals(session.getAttribute("isRegisteredUserId"))){ %>
+	alert("このIDは使われています。違うIDをお試しください。");
+	<% session.setAttribute("isRegisteredUserId", false); %>
+<% } %>
+
 </script>
 </head>
 
 <body>
 	<%
 			Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
+			String actionId = request.getParameter("actionId");
+			if(actionId == null)actionId = "userRegist";
+			
+			String user_id = request.getParameter("userId");
+			String user_name = request.getParameter("username");
+			
+			if(user_id == null) user_id = "";
+			if(user_name == null) user_name = "";
+			
+			String disabled = "update".equals(actionId) ? "disabled" : "";
+			String change = "update".equals(actionId) ? "更新" : "登録";
 			%>
 
 	<div class="navbar">
@@ -251,23 +266,22 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 	</div>
 	<br>
 	<div class="center">
-		<form name="MyForm" method="POST" action="#" onsubmit="return false;"
-			onkeyup="if(event.keyCode == 13){Registration('<%= actionId %>');}">
+		<form name="MyForm" method="POST" action="#" onsubmit="return false;">
 			<%--ここで、Enter keyを押した場合の処理を行っている。キャンセルすると送信されない。↑ --%>
 			<!--	<div class="button-panel">-->
-			<!--		<% out.print("ユーザ名 : " + session.getAttribute("userName"));%>-->
+			<!--		<%-- out.print("ユーザ名 : " + session.getAttribute("userName"));%>-->
 			<!--		<a style="margin-left: 20px" class="button" onClick="logout();">-->
-			<!--		<img src="<%= request.getContextPath() %>/view/img/153.142.124.217 (2).gif"></a>-->
+			<!--		<img src="<%= request.getContextPath() --%>/view/img/153.142.124.217 (2).gif"></a>-->
 			<!--	</div>-->
 
 			<div class="button1">
-				<input type="submit" class="button" value="戻る"
+				<input type="button" class="button" value="戻る"
 					onclick="history_back();">
 			</div>
-			<%
+			<%--
 			String userid = (String) request.getAttribute("userId");
 			String userName = (String) request.getAttribute("userName");
-			%>
+			--%>
 			<div class="end">
 				<!--				<img src="<%=request.getContextPath()%>/view/img/familymart.png">-->
 				<h1>
@@ -277,7 +291,7 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 
 			<br>
 
-			<form name="myForm" method="POST" action="#">
+			<%-- ><form name="myForm" method="POST" action="#"> --%>
 
 				<div class="center">
 					<table border="1" align="center" style="table-layout: fixed;">
@@ -295,14 +309,12 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 								maxlength="8" required value="<%=user_name%>"></td>
 						</tr>
 
-						<%
-						if (actionId.equals("userRegist")) {
-						%>
+						<% if ("userRegist".equals(actionId)) { %>
 						<tr>
 							<td align="left">パスワード(半角文字)：</td>
 							<td><div class="password-wrapper">
 									<input pattern=^([a-zA-Z0-9]{8,})$ type="password"
-										name="password0" style="ime-mode: disabled" size="40"
+										name="passWord" style="ime-mode: disabled" size="40"
 										maxlength="40" required> <span id="eyeIcon0"
 										class="eye-icon">👁</span>
 								</div></td>
@@ -312,27 +324,28 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 							<td>
 								<div class="password-wrapper">
 									<input pattern=^([a-zA-Z0-9]{8,})$ type="password"
-										name="password1" style="ime-mode: disabled" size="40"
+										name="conPassword" style="ime-mode: disabled" size="40"
 										maxlength="40" required> <span id="eyeIcon1"
 										class="eye-icon">👁</span>
 								</div>
 
 							</td>
 						</tr>
-						<%
-						}
-						%>
+						<% } else { %>
+							<input type="hidden" name="passWord" value="">
+							<input type="hidden" name="conPassword" value="">
+						<% } %>
 					</table>
 				</div>
 
 				<div>
 					<input type="hidden" name="actionId" value="<%=actionId%>">
-					<input type="hidden" name="passWord" value="dummy"> <input
-						type="hidden" name="conPassword" value="dummy"> <input
-						type="hidden" name="passWord" value="dummy2"> <input
-						type="hidden" name="conPassword" value="dummy2"> <input
-						type="submit" onClick="Registration('<%=actionId%>')"
-						value="<%=change%>" title="<%=change%>" autofocus>
+					<% if("update".equals(actionId)){ %>
+						<input type="hidden" name="userId" value="<%=user_id%>">
+					<% } %>
+					
+					<input type="button" onClick="Registration('<%=actionId%>')"
+						value="<%=change%>">
 				</div>
 			</form>
 	</div>
