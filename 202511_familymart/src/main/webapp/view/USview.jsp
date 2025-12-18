@@ -42,29 +42,22 @@ span.table2 table td a {
 .footer1 {
 	display: flex;
 	lign-items: center;
-	gap: 1px;
+	gap: 20px;
 	justify-content: center;
 	margin-top: 20px
 }
 
 .btn1 {
-	background-color: #00a000;
+background-color: #ADADAD;
 	cursor: pointer;
 	border: none;
-	width: 247px;
-}
-.btn2{
-    border-radius: 4px 0 0 4px;
-
-}
-
-.btn3{
-    border-radius:0 4px 4px 0;
-
+	width: 110px;
+		border-radius: 4px;
+	
 }
 
 .btn1:hover {
-	background-color: #76FF03;
+	background-color: #C4C4C4;
 }
 
 h1 {
@@ -471,7 +464,7 @@ span.table2 input[type="checkbox"] {
 						onClick="user_Regist();"> <input type="button"
 						class="btn1" value="ユーザ削除" onClick="deletes(<%=num%>);">
 					<%--7月　現在削除ボタンや更新ボタンを押したあとにブラウザバックを押してまた同じ動作をすると --%>
-					<input type="button" class="btn1 btn3" name="inq_btn" value="アクセス権変更"
+					<input type="button" class="btn1 btn3" name="inq_btn" value="権限変更"
 						onClick="go_access(<%=num%>);">
 					<%--処理はしないが動作できてしまうバグ。IF文でアラートを出すように設定すればいけるかもしれない --%>
 

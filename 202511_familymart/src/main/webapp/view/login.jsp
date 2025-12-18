@@ -7,21 +7,107 @@
 	rel="stylesheet" type="text/css" />
 <title>FamilyMartログイン画面</title>
 <style>
+@charset "UTF-8";
+
+
+* {
+    box-sizing: border-box;
+}
+
+.center {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 20px;    
+}
+
+
+.center h1 {
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    color: #003a8f;
+}
+
+
+.footer1 {
+    width: 320px;
+    padding: 25px 25px;
+
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+
+}
+
+
+.footer1 input[type="text"],
+.footer1 input[type="password"] {
+    width: 100%;
+    height: 40px;
+    padding: 0 10px;
+
+margin-bottom:14px;
+    border: 1px solid #999;
+    border-radius: 4px;
+
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+
+    outline: none;
+    display: block;
+    line-height: normal;
+}
+
+.footer1 input:focus {
+    border-color: #008000;
+}
+
+
 .password-wrapper {
     position: relative;
-    display: inline-block;
+    width: 100%;
+}
+
+.password-wrapper input {
+    padding-right: 36px;
 }
 
 .eye-icon {
     position: absolute;
-    right: 8px;    
+    right: 8px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    user-select: none;
     font-size: 18px;
+    color: #333;
 }
 
+.footer1 .button {
+    width: 100%;
+    height: 40px;
+
+    background: #ADADAD;
+    border: 1px solid #DBDBDB;
+    border-radius: 4px;
+
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+
+}
+
+.footer1 .button:hover {
+    background: #C4C4C4;
+}
+
+.footer2 {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #333;
+}
 
 </style>
 <script type="text/javascript">
@@ -70,31 +156,32 @@ window.onload = function () {
 			alert('ユーザID または パスワード に誤りがあります');
 		}
 	}
+	
+	
+
 
 </script>
 </head>
 <body>
 	<div class="center">
-		<h1>Login</h1>
-		<a href="#" onclick=go_portal();><img
-			src="<%=request.getContextPath()%>/view/img/familymart.png"></a>
+		<h1>LOGIN</h1>
+<!--		<a href="#" onclick=go_portal();><img-->
+<!--			src="<%=request.getContextPath()%>/view/img/familymart.png"></a>-->
 
 		<div class="footer1">
 			<form name="myForm" method="POST" action="#">
-				<label for="email"></label> <input type="text" maxlength="8"
-					name="userId" placeholder="User ID"> <br> <label
-					for="password"></label>
+				<input type="text" maxlength="8"
+					name="userId" placeholder="User ID">
 				<div class="password-wrapper">
 					<input type="password" maxlength="8" name="password"
 						placeholder="Password"> <span id="eyeIcon"
 						class="eye-icon">👁</span>
 				</div>
+				<br>
 
 
-				<div class="footer1">
-					<input type="submit" class="button" title="Login" value="ログイン"
+					<input type="button" class="button" title="Login" value="ログイン"
 						onclick="login();">
-				</div>
 
 			</form>
 		</div>
