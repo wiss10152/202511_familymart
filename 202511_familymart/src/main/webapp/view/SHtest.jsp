@@ -14,43 +14,32 @@
 <title>商品ジャンル選択</title>
 <style>
 html, body {
-    height: 100%;
     margin: 0;
-    overflow: hidden;
+    height: auto;
+    overflow-y: auto;
 }
 
 #contentWrapper {
-    position: absolute;
-    top: 60px;
-    left: 120px;
-    right: 0;
-    bottom: 60px;
+    margin-left: 120px;
     padding: 20px;
     box-sizing: border-box;
-    overflow: hidden;
+    overflow: visible;
 }
 
 #wakuWrapper {
     width: 100%;
-    height: 100%;
-    overflow: hidden;
-    box-sizing: border-box;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
 }
 
 #wakuFrame {
-display:inline-block;
-margin-left:-50px;
+    display: block;
     width: 100%;
-    height: 100%;
     border: none;
     background: transparent;
 }
-#contentWrapper .select {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-}
+
 </style>
 
 <script>

@@ -22,8 +22,8 @@ if (shp == null) shp = "";
 String skey = (String)request.getAttribute("skey");
 if (skey == null) skey = "0";
 
-String pre = (String)request.getAttribute("pre");
-if (pre == null) pre = "";
+String prefectures = (String)request.getAttribute("prefectures");
+if (prefectures == null) prefectures = "";
 %>
 
 <!DOCTYPE html>
@@ -36,8 +36,10 @@ if (pre == null) pre = "";
 <link href="<%=request.getContextPath()%>/view/css/table.css" rel="stylesheet">
 
 <style>
-body { background:none !important; padding-bottom:320px; }
-a { text-decoration:none; }
+body {
+	background: none !important;
+	overflow:hidden;
+}a { text-decoration:none; }
 </style>
 
 <script>
@@ -156,7 +158,7 @@ window.addEventListener("DOMContentLoaded", () => {
 </head>
 
 <body>
-
+<div class="end2">
 <div class="center">
 <div class="end">
 
@@ -216,6 +218,32 @@ for (Shopinfo s : shopname) {
     <div id="pager"></div>
 </div>
 </div>
+</div>
+<script>
+(function () {
+    function resizeIframe() {
+        const iframe = parent.document.getElementById("wakuFrame");
+        if (!iframe) return;
+
+        const content = document.querySelector(".end2");
+        if (!content) return;
+
+        const rect = content.getBoundingClientRect();
+        const contentHeight = rect.top + rect.height + 80;
+
+        const screenHeight = parent.window.innerHeight - 85;
+
+        const finalHeight = Math.max(contentHeight, screenHeight);
+
+        iframe.style.height = Math.ceil(finalHeight) + "px";
+    }
+
+    window.addEventListener("load", () => {
+        requestAnimationFrame(resizeIframe);
+    });
+})();
+</script>
+
 
 </body>
 </html>

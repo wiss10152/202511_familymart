@@ -381,10 +381,7 @@ span.table2 table td a{
 
 		</div>
 
-		<div class="footer2">
-			Copyright (c) WISS1, Inc. All Rights Reserved.
-		</div>
-
+		
 		</table>
 
 	</form>

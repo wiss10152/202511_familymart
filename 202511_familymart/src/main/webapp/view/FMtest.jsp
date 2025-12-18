@@ -12,353 +12,161 @@
 <link href="<%=request.getContextPath()%>/view/css/W0052.css"
 	rel="stylesheet" type="text/css" />
 <style>
-html, body {
-	height: 100%;
-	overflow: hidden;
-}
+
 </style>
 <title>FamilyMart都道府県データ</title>
 
 <script type="text/javascript">
-<%request.setCharacterEncoding("windows-31j");
+<%
+request.setCharacterEncoding("windows-31j");
 Boolean login = (Boolean) session.getAttribute("adminFlg");
 if (login == null) {
 	pageContext.forward("/view/login.jsp");
-}%>
-//11月
-function moveShopItem(){
-window.location.href = "<%=request.getContextPath()%>/view/SHtest.jsp";
 }
+%>
 
-function movePrefecture(){
-window.location.href = "<%=request.getContextPath()%>/view/FMtest.jsp";
-}
-
-function moveUserList(){
-window.location.href = "<%=request.getContextPath()%>/USshow";
-}
-
-function moveRank(){
-window.location.href = "<%=request.getContextPath()%>/view/FMrank1.jsp";
-}
-
+function moveShopItem(){ window.location.href = "<%=request.getContextPath()%>/view/SHtest.jsp"; }
+function movePrefecture(){ window.location.href = "<%=request.getContextPath()%>/view/FMtest.jsp"; }
+function moveUserList(){ window.location.href = "<%=request.getContextPath()%>/USshow"; }
+function moveRank(){ window.location.href = "<%=request.getContextPath()%>/view/FMrank1.jsp"; }
+function moveHome(){ window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp"; }
 function logOut(){
-if(confirm("ログアウトします。よろしいですか？")){
-    window.location.href = "<%=request.getContextPath()%>/view/login.jsp";
-}
-}
-
-function moveHome(){
-window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
+	if(confirm("ログアウトします。よろしいですか？")){
+		window.location.href = "<%=request.getContextPath()%>/view/login.jsp";
+	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-	// 8月　このページで画面遷移を行わないように変更。画面遷移はインラインフレームで行う。
-	// こちらはプルダウン選択を反映する。
-	<%--function send() {
-		var idx = document.getElementById("pre").selectedIndex;
-		var text = document.getElementById("pre").options[idx].text; // 表示テキスト
-
-		// 8月　edit1の状態から判別
-		radiobtn1 = document.getElementById("edit2");
-		if(radiobtn1.checked) {
-			edit = true;
-		} else {
-			edit = false;
-		}
-
-		// 8月　インラインフレームのページ遷移を行う。
-		waku.location = "<%=request.getContextPath()%>\/FMcontrol?pre=" + encodeURI(text)
-																		+ "&edit=" + encodeURI(edit);
+function toggleRegion(regionId){
+	var content = document.getElementById(regionId);
+	var icon = document.querySelector('[data-region-id="' + regionId + '"] .toggle-icon');
+	if(content.style.maxHeight){
+		content.style.maxHeight = null;
+		if(icon) icon.textContent = '▲';
+	}else{
+		content.style.maxHeight = content.scrollHeight + "px";
+		if(icon) icon.textContent = '▼';
 	}
+	checkAllRegionStatus();
+}
 
-	// 8月　検索用の画面遷移をインラインフレームに渡す。上述のコードとだいたい同じ。
-	function search(){
-		var shp = document.getElementById("seatxt").value;
-
-		// 8月　edit2の状態から判別
-		radiobtn2 = document.getElementById("edit2");
-		if(radiobtn2.checked) {
-			edit = true;
-		} else {
-			edit = false;
-		}
-
-		waku.location = "<%=request.getContextPath()%>\/FMsearch?shp=" + encodeURI(shp)
-																		+ "&edit=" + encodeURI(edit);
-	} --%>
-
-	// ログアウト処理
-<!--	var flag = false;-->
-<!--	function logout() {-->
-<!--		if(confirm("ログアウトします。よろしいですか？")){-->
-<!--			flag = true;-->
-<!--			document.MyForm.action = "<%=request.getContextPath()%>/FMlogout"-->
-<!--			document.MyForm.submit();-->
-<!--		} else {-->
-<!--			return;-->
-<!--		}-->
-<!--	}-->
-
-<!--	function moveUserList(){-->
-<!--		document.MyForm.action = "<%=request.getContextPath()%>/view/USgeneral.jsp"-->
-<!--		document.MyForm.submit();-->
-<!--	}-->
-
-<!--	function movePrefecture(){-->
-<!--		document.MyForm.action = "<%=request.getContextPath()%>-->
-<!--	/view/FMrank1.jsp"-->
-<!--		document.MyForm.submit();-->
-<!--	}-->
-
-	<%-- function Items(pre, ischecked) {
-		if (ischecked == true) {
-			// チェックが入っていたら有効化
-			document.getElementById("pre").disabled = true;
-		} else {
-			// チェックが入っていなかったら無効化
-			document.getElementById("pre").disabled = false;
-		}
-		document.f1.selectName.length = 47;
-		document.f1.selectName.options[0].text = "北海道";
-		document.f1.selectName.options[1].text = "青森県";
-		document.f1.selectName.options[2].text = "岩手県";
-		document.f1.selectName.options[3].text = "宮城県";
-		document.f1.selectName.options[4].text = "秋田県";
-		document.f1.selectName.options[5].text = "山形県";
-		document.f1.selectName.options[6].text = "福島県";
-		document.f1.selectName.options[7].text = "茨城県";
-		document.f1.selectName.options[8].text = "栃木県";
-		document.f1.selectName.options[9].text = "群馬県";
-		document.f1.selectName.options[10].text = "埼玉県";
-		document.f1.selectName.options[11].text = "千葉県";
-		document.f1.selectName.options[12].text = "東京都";
-		document.f1.selectName.options[13].text = "神奈川県";
-		document.f1.selectName.options[14].text = "新潟県";
-		document.f1.selectName.options[15].text = "富山県";
-		document.f1.selectName.options[16].text = "石川県";
-		document.f1.selectName.options[17].text = "福井県";
-		document.f1.selectName.options[18].text = "山梨県";
-		document.f1.selectName.options[19].text = "長野県";
-		document.f1.selectName.options[20].text = "岐阜県";
-		document.f1.selectName.options[21].text = "静岡県";
-		document.f1.selectName.options[22].text = "愛知県";
-		document.f1.selectName.options[23].text = "三重県";
-		document.f1.selectName.options[24].text = "滋賀県";
-		document.f1.selectName.options[25].text = "京都府";
-		document.f1.selectName.options[26].text = "大阪府";
-		document.f1.selectName.options[27].text = "兵庫県";
-		document.f1.selectName.options[28].text = "奈良県";
-		document.f1.selectName.options[29].text = "和歌山県";
-		document.f1.selectName.options[30].text = "鳥取県";
-		document.f1.selectName.options[31].text = "島根県";
-		document.f1.selectName.options[32].text = "岡山県";
-		document.f1.selectName.options[33].text = "広島県";
-		document.f1.selectName.options[34].text = "山口県";
-		document.f1.selectName.options[35].text = "徳島県";
-		document.f1.selectName.options[36].text = "香川県";
-		document.f1.selectName.options[37].text = "愛媛県";
-		document.f1.selectName.options[38].text = "高知県";
-		document.f1.selectName.options[39].text = "福岡県";
-		document.f1.selectName.options[40].text = "佐賀県";
-		document.f1.selectName.options[41].text = "長崎県";
-		document.f1.selectName.options[42].text = "熊本県";
-		document.f1.selectName.options[43].text = "大分県";
-		document.f1.selectName.options[44].text = "宮崎県";
-		document.f1.selectName.options[45].text = "鹿児島県";
-		document.f1.selectName.options[46].text = "沖縄県";
-	}
-
-	function Connecttext(seatxt, ischecked) {
-		if (ischecked == true) {
-			// チェックが入っていたら有効化
-			document.getElementById("seatxt").disabled = true;
-		} else {
-			// チェックが入っていなかったら無効化
-
-			document.getElementById("seatxt").disabled = false;
-		}
-	}
-
-	function SearchGenreSelect() {
-		radiobtn1 = document.getElementById("label1");
-		radiobtn2 = document.getElementById("label2")
-		if (radiobtn1.checked) {
-			send();
-		}
-		if (radiobtn2.checked) {
-			search();
-		}
-	} --%>
-
-	function toggleRegion(regionId){
-		var content = document.getElementById(regionId);
-		var icon = document.querySelector('[data-region-id="' + regionId + '"] .toggle-icon');
-		if(content.style.maxHeight){
-			content.style.maxHeight = null;
-			if(icon) icon.textContent = '▲';
-		}else{
+function toggleAllRegions(button){
+	var allSections = document.querySelectorAll('.region-content');
+	var isOpening = button.getAttribute('data-action') === 'open';
+	allSections.forEach(function(content){
+		var icon = document.querySelector('[data-region-id="' + content.id + '"] .toggle-icon');
+		if(isOpening){
 			content.style.maxHeight = content.scrollHeight + "px";
 			if(icon) icon.textContent = '▼';
+		}else{
+			content.style.maxHeight = null;
+			if(icon) icon.textContent = '▲';
 		}
-		checkAllRegionStatus();
+	});
+	checkAllRegionStatus();
+}
+
+function checkAllRegionStatus(){
+	var allSections = document.querySelectorAll('.region-content');
+	var openCount = 0;
+	allSections.forEach(function(content){
+		if(content.style.maxHeight && content.style.maxHeight !== '0px'){
+			openCount++;
+		}
+	});
+	var openAllButton = document.getElementById('openAllRegions');
+	var closeAllButton = document.getElementById('closeAllRegions');
+	if(openAllButton && closeAllButton){
+		if(openCount > 0){
+			openAllButton.style.display = 'none';
+			closeAllButton.style.display = 'block';
+		}else{
+			openAllButton.style.display = 'block';
+			closeAllButton.style.display = 'none';
+		}
+	}
+}
+
+function toggleAllPrefectures(allCheckbox){
+	var allPrefectures = document.querySelectorAll('input[name="prefecture_status"]');
+	for(var i=0;i<allPrefectures.length;i++){
+		allPrefectures[i].checked = allCheckbox.checked;
+	}
+}
+
+function toggleSectionPrefectures(allCheckbox, regionId){
+	var contentDiv = document.getElementById(regionId);
+	if(!contentDiv)return;
+	var prefectureCheckboxes = contentDiv.querySelectorAll('input[name="prefecture_status"]');
+	for(var i=0;i<prefectureCheckboxes.length;i++){
+		prefectureCheckboxes[i].checked = allCheckbox.checked;
+	}
+}
+
+function searchBySidenav(searchType){
+	var shp = document.getElementById("seatxt_sidenav").value;
+	var status = document.querySelector('input[name="edit_status"]:checked').value;
+
+	var selectedPrefs = [];
+	var prefectureCheckboxes = document.querySelectorAll('input[name="prefecture_status"]:checked');
+	for(var i=0;i<prefectureCheckboxes.length;i++){
+		selectedPrefs.push(prefectureCheckboxes[i].value);
 	}
 
-	function toggleAllRegions(button){
-		var allSections = document.querySelectorAll('.region-content');
-		var isOpening = button.getAttribute('data-action') === 'open';
-		allSections.forEach(function(content){
-			var icon = document.querySelector('[data-region-id="' + content.id + '"] .toggle-icon');
-			if(isOpening){
-				content.style.maxHeight = content.scrollHeight + "px";
-				if(icon) icon.textContent = '▼';
-			}else{
-				content.style.maxHeight = null;
-				if(icon) icon.textContent = '▲';
-			}
-		});
-		checkAllRegionStatus();
+	if(searchType === 'shopName'){
+		if(shp.trim()==="" && selectedPrefs.length===0 && status==="all") return;
+	}
+	if(searchType === 'prefectureOnly'){
+		if(selectedPrefs.length===0) return;
+		shp="";
 	}
 
-	function checkAllRegionStatus(){
-		var allSections = document.querySelectorAll('.region-content');
-		var openCount = 0;
-		allSections.forEach(function(content){
-			if(content.style.maxHeight && content.style.maxHeight !== '0px'){
-				openCount++;
-			}
-		});
-		var openAllButton = document.getElementById('openAllRegions');
-		var closeAllButton = document.getElementById('closeAllRegions');
-		if(openAllButton && closeAllButton){
-			if(openCount > 0){
-				openAllButton.style.display = 'none';
-				closeAllButton.style.display = 'block';
-				closeAllButton.textContent = 'すべて閉じる';
-			}else{
-				openAllButton.style.display = 'block';
-				openAllButton.textContent = 'すべて開く';
-				closeAllButton.style.display = 'none';
-			}
-		}
-	}
-	
-	function toggleAllPrefectures(allCheckbox){
-		var allPrefectures = document.querySelectorAll('input[name="prefecture_status"]');
-		for(var i=0; i<allPrefectures.length; i++){
-			allPrefectures[i].checked = allCheckbox.checked;
-				}
-		}
-	function toggleSectionPrefectures(allCheckbox, regionId){
-		var contentDiv = document.getElementById(regionId);
-		if(!contentDiv)return;
-		var prefectureCheckboxes = contentDiv.querySelectorAll('input[name="prefecture_status"]');
-		for(var i=0; i<prefectureCheckboxes.length; i++){
-			prefectureCheckboxes[i].checked = allCheckbox.checked;
-		}
-	}
-	
-	function searchBySidenav(searchType){
-		var shp = document.getElementById("seatxt_sidenav").value;
-		var status = document.querySelector('input[name="edit_status"]:checked').value;
-		
-		var selectedPrefs = [];
-		var prefectureCheckboxes = document.querySelectorAll('input[name="prefecture_status"]:checked');
-		for(var i=0; i<prefectureCheckboxes.length; i++){
-			selectedPrefs.push(prefectureCheckboxes[i].value);
-		}
-		if(searchType === 'shopName'){
-		    if(shp.trim() === "" && selectedPrefs.length === 0 && status === "all"){
-		        return;
-		    }
-		}
+	var url = "<%=request.getContextPath()%>/FMsearch";
+	var params = [];
+	if(shp.trim()!=="") params.push("shp="+encodeURI(shp));
+	params.push("edit="+encodeURI(status));
+	if(selectedPrefs.length>0) params.push("prefectures="+encodeURI(selectedPrefs.join(",")));
+	if(params.length>0) url += "?"+params.join("&");
 
-		if(searchType === 'prefectureOnly'){
-			if(selectedPrefs.length === 0){
-				return;
-			}
-			shp = "";
-		}
-		var url = "<%=request.getContextPath()%>\/FMsearch";
-		var params = [];
-		if(shp.trim() !== ""){
-			params.push("shp=" + encodeURI(shp));
-		}
-		params.push("edit=" + encodeURI(status));
-		if(selectedPrefs.length > 0){
-			params.push("prefectures=" + encodeURI(selectedPrefs.join(",")));
-		}
-		if(params.length > 0){
-			url += "?" + params.join("&")
-		}
-		
-		waku.location = url;
-	}
+	waku.location = url;
+}
 
-	document.addEventListener('DOMContentLoaded', checkAllRegionStatus);
+document.addEventListener('DOMContentLoaded', function(){
+	checkAllRegionStatus();
+	var allChk = document.querySelector('input[name="region_status-all"]');
+	if(allChk) allChk.checked = true;
+});
 </script>
 </head>
 
 <body>
-	<div>
-		<%
-		Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
-		%>
+<div>
+<%
+Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
+%>
 
-		<div class="navbar">
-			<img src="<%=request.getContextPath()%>/view/img/familymart.png"
-				style="height: 50px; margin: 5px; float: left;">
+<div class="navbar">
+	<img src="<%=request.getContextPath()%>/view/img/familymart.png"
+		style="height:50px;margin:5px;float:left;">
 
-			<div class="btn">
-				<button class="btn2" onclick="moveHome();">ホーム</button>
-			</div>
+	<div class="btn"><button class="btn2" onclick="moveHome();">ホーム</button></div>
+	<div class="btn"><button class="btn2" onclick="moveShopItem();">商品</button></div>
+	<div class="btn"><button class="btn2" onclick="movePrefecture();">店舗</button></div>
+	<div class="btn"><button class="btn2" onclick="moveRank();">ランキング</button></div>
 
-			<div class="btn">
-				<button class="btn2" onClick="moveShopItem();">商品</button>
-			</div>
+	<% if(Boolean.TRUE.equals(adminFlg)){ %>
+	<div class="btn"><button class="btn2" onclick="moveUserList();">ユーザ管理</button></div>
+	<% } %>
 
-			<div class="btn">
-				<button class="btn2" onClick="movePrefecture();">店舗</button>
-			</div>
+	<div class="button-panel">
+		<%= "ユーザ名 : " + session.getAttribute("userName") %>
+		<a style="margin-left:20px" class="button" onclick="logOut();">
+			<img src="<%=request.getContextPath()%>/view/img/153.142.124.217 (2).gif">
+		</a>
+	</div>
+</div>
 
-			<div class="btn">
-				<button class="btn2" onClick="moveRank();">ランキング</button>
-			</div>
-
-			<%
-			if (Boolean.TRUE.equals(adminFlg)) {
-			%>
-			<div class="btn">
-				<button class="btn2" onclick="moveUserList();">ユーザ管理</button>
-			</div>
-			<%
-			}
-			%>
-
-			<div class="button-panel">
-				<%
-				out.print("ユーザ名 : " + session.getAttribute("userName"));
-				%>
-				<a style="margin-left: 20px" class="button" name="logout"
-					onClick="logOut();"> <img
-					src="<%=request.getContextPath()%>/view/img/153.142.124.217 (2).gif">
-				</a>
-			</div>
-		</div>
-		<div class="sidenav">
-
-			<div class="search-container" style="padding-bottom:40px;">
+<div class="sidenav">
+<div class="search-container" style="padding-bottom:40px;">
 
 				<div class="sidebar-radio-group">
 					<p class="status-title">出店状況</p>
@@ -582,16 +390,18 @@ window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
 					</div>
 				</div>
 			</div>
-		</div>
-		<div id="contentWrapper">
+</div>
+
+<div id="contentWrapper">
+	<iframe id="wakuFrame" name="waku"
+		src="<%=request.getContextPath()%>/FMsearch"
+		frameborder="0"></iframe>
+</div>
 
 
-			<iframe id="wakuFrame" name="waku" src="about:blank" frameborder="0"></iframe>
-		</div>
-
-		<div class="footer">
-			<span>© 2025 FamilyMart System — All Rights Reserved.</span>
-		</div>
-	</div>
+<div class="footer">
+	<span>© 2025 FamilyMart System — All Rights Reserved.</span>
+</div>
+</div>
 </body>
 </html>
