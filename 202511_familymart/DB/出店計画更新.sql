@@ -1,0 +1,1 @@
+ALTER TABLE public."出店計画" ADD 店舗オーナー character varying(8);
