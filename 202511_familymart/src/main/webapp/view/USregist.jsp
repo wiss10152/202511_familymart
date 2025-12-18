@@ -12,21 +12,116 @@
 	rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/view/css/W0052.css"
 	rel="stylesheet" type="text/css" />
+
 <title>FamilyMartユーザ管理画面</title>
 <style>
+
 .password-wrapper {
-	position: relative;
-	display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .eye-icon {
-	position: absolute;
-	right: 8px;
-	top: 50%;
-	transform: translateY(-50%);
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    user-select: none;
+    font-size: 18px;
+}
+
+.center form .tb {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.tb2 {
+    border: 1px solid #90EE90;
+    border-radius: 6px;
+    overflow: hidden;          
+    background: #fff;
+}
+
+.fm-table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.fm-table td {
+    padding: 10px 14px;
+    vertical-align: middle;
+    border-top: 1px solid #90EE90;
+}
+
+.fm-table tr:first-child td {
+    border-top: none;
+}
+
+
+
+.fm-table td:first-child {
+    width: 220px;
+    background: #e9f2fb;
+    color: #003a8f;
+    font-weight: 700;
+    text-align: left;
+    border-right: 1px solid #90EE90;
+}
+
+
+.fm-table input[type="text"],
+.fm-table input[type="password"] {
+    width: 320px;
+    height: 36px;
+    padding: 6px 10px;
+    font-size: 14px;
+    border: 1px solid #b5b5b5;
+    border-radius: 4px;
+    background-color: #fff;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fm-table input[type="text"]:focus,
+.fm-table input[type="password"]:focus {
+    outline: none;
+    border-color: #4da3ff;
+    box-shadow: 0 0 0 2px rgba(77, 163, 255, 0.15);
+}
+
+.fm-table input[disabled] {
+    background-color: #f3f3f3;
+    color: #666;
+    cursor: not-allowed;
+}
+
+.button1 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top:15px;
+}
+
+.button1 input{
+background-color: #ADADAD;
 	cursor: pointer;
-	user-select: none;
-	font-size: 18px;
+	border: none;
+	width: 100px;
+	border-radius: 4px;
+}
+
+.button1 input:hover {
+	background-color: #C4C4C4;
+}
+
+h1{
+display:inline-block;
+margin-top:-20px;
+margin-bottom:80px;
 }
 </style>
 <script type="text/javascript">
@@ -260,11 +355,7 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 			</a>
 		</div>
 	</div>
-	<div class="sidenav">
-		<p></p>
-		<a href="#"></a> <a href="#"></a> <a href="#"></a>
-	</div>
-	<br>
+
 	<div class="center">
 		<form name="MyForm" method="POST" action="#" onsubmit="return false;">
 			<%--ここで、Enter keyを押した場合の処理を行っている。キャンセルすると送信されない。↑ --%>
@@ -274,10 +365,7 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 			<!--		<img src="<%= request.getContextPath() --%>/view/img/153.142.124.217 (2).gif"></a>-->
 			<!--	</div>-->
 
-			<div class="button1">
-				<input type="button" class="button" value="戻る"
-					onclick="history_back();">
-			</div>
+
 			<%--
 			String userid = (String) request.getAttribute("userId");
 			String userName = (String) request.getAttribute("userName");
@@ -292,9 +380,9 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 			<br>
 
 			<%-- ><form name="myForm" method="POST" action="#"> --%>
-
-				<div class="center">
-					<table border="1" align="center" style="table-layout: fixed;">
+			<div class="tb">
+				<div class="tb2">
+					<table class="fm-table">
 						<tr>
 							<td align="left">ユーザID(半角英数字)：</td>
 							<td><input pattern=^[0-9A-Za-z]+$ type="text" name="userId"
@@ -309,7 +397,9 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 								maxlength="8" required value="<%=user_name%>"></td>
 						</tr>
 
-						<% if ("userRegist".equals(actionId)) { %>
+						<%
+						if ("userRegist".equals(actionId)) {
+						%>
 						<tr>
 							<td align="left">パスワード(半角文字)：</td>
 							<td><div class="password-wrapper">
@@ -331,23 +421,36 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 
 							</td>
 						</tr>
-						<% } else { %>
-							<input type="hidden" name="passWord" value="">
-							<input type="hidden" name="conPassword" value="">
-						<% } %>
+						<%
+						} else {
+						%>
+						<input type="hidden" name="passWord" value="">
+						<input type="hidden" name="conPassword" value="">
+						<%
+						}
+						%>
 					</table>
 				</div>
+			</div>
+			<div class="button1">
+				<input type="button" class="button" value="戻る"
+					onclick="history_back();"> <input type="button"
+					onClick="Registration('<%=actionId%>')" value="<%=change%>">
+			</div>
 
-				<div>
-					<input type="hidden" name="actionId" value="<%=actionId%>">
-					<% if("update".equals(actionId)){ %>
-						<input type="hidden" name="userId" value="<%=user_id%>">
-					<% } %>
-					
-					<input type="button" onClick="Registration('<%=actionId%>')"
-						value="<%=change%>">
-				</div>
-			</form>
+			<div>
+				<input type="hidden" name="actionId" value="<%=actionId%>">
+				<%
+				if ("update".equals(actionId)) {
+				%>
+				<input type="hidden" name="userId" value="<%=user_id%>">
+				<%
+				}
+				%>
+
+
+			</div>
+		</form>
 	</div>
 	<div class="footer">
 		<span>© 2025 FamilyMart System — All Rights Reserved.</span>
