@@ -1,7 +1,6 @@
 package control;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -11,7 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import model.MyDBAccess;
+import model.FMloginDAO;
 
 /*
  * Servlet implementation class FMlogin
@@ -37,49 +36,25 @@ public class FMlogin extends HttpServlet {
 		String userId		 = request.getParameter("userId");
 		String password	 = request.getParameter("password");
 
-		String name			= "";
-		String pw 			= "";
-		Boolean adminflg 	= true;
-		String create_user = null;
-		Boolean management_flg = true;
-		Boolean music     	= false;//true;
+		FMloginDAO loginDAO = new FMloginDAO();
+		UserInfo usInfo = loginDAO.setUserInfo(userId);
 		Boolean firstlogin	= true; // 8月新規
-		String manegement	= "unknown";	//7月新規 画面切り替え時の音楽を替えるための変数
-
+		
 		// 指定されたユーザIDの持つ、ユーザの名前、パスワード、管理者権限の有無を取得する
-		MyDBAccess model = new MyDBAccess();
-		try {
-			model.open();
 
-			ResultSet rs = null;
-			rs = model.getResultSet(SendSQLSentence(userId));
-
-			while(rs.next()) {
-				name 	 = rs.getString("user_name");
-				pw 		 = rs.getString("password");
-				adminflg = rs.getBoolean("admin_flg");
-				create_user = rs.getString("create_user");
-				management_flg = rs.getBoolean("management_flg");
-			}
-
-			model.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 
 		Ubcrypt ubcrypt = Ubcrypt.getInstance();
 		String epw = ubcrypt.encodePw(password);
 		System.out.println(epw);
-		if(ubcrypt.matchesPw(password, pw)){ // パスワードとIDが合致しているとき
+		if(ubcrypt.matchesPw(password, usInfo.pw)){ // パスワードとIDが合致しているとき
 			session.setAttribute("userId", userId);
-			session.setAttribute("userName", name);
-			session.setAttribute("adminFlg", adminflg);
-			session.setAttribute("create_user", create_user);
-			session.setAttribute("management_flg", management_flg);
+			session.setAttribute("userName", usInfo.name);
+			session.setAttribute("adminFlg", usInfo.adminflg);
+			session.setAttribute("create_user", usInfo.create_user);
+			session.setAttribute("management_flg", usInfo.management_flg);
 
-			session.setAttribute("music", music);			 //7月音楽を流すための判断
-			session.setAttribute("manegement", manegement);  //7月音楽を変更する判断
+			session.setAttribute("music", usInfo.music);			 //7月音楽を流すための判断
+			session.setAttribute("manegement", usInfo.manegement);  //7月音楽を変更する判断
 			session.setAttribute("isRegisteredUserId", false);	//7月既存登録かどうかの判断
 
 			session.setAttribute("firstlogin",firstlogin); // 8月新規
@@ -94,24 +69,6 @@ public class FMlogin extends HttpServlet {
 			dispatch.forward(request, response);
 		}
 
-	}
-
-	private String SendSQLSentence(String userId) {
-		String sql = null;
-
-		// ログイン時にidとパスワードがマッチしているかを調べるためのSQL
-		sql = "SELECT"
-				+ " user_name,"
-				+ " password,"
-				+ " admin_flg,"
-				+ " create_user,"
-				+ " management_flg"
-				+ " FROM"
-				+ " ユーザ情報"
-				+ " WHERE user_id ='"+ userId +"' "
-				+ " AND delete_flg = 'false';";
-
-		return sql;
 	}
 
 }
