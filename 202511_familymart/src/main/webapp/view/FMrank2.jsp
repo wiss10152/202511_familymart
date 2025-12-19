@@ -1,5 +1,5 @@
 <%@ page
-	import="java.util.*, java.sql.*, java.net.*,model.MyDBAccess,control.RANKInfo"
+	import="java.util.*, java.sql.*, java.net.*,model.MyDBAccess,control.RANKInfo, java.net.URLEncoder"
 	language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -13,6 +13,8 @@ if (login == null) {
 List<RANKInfo> rankname = (List<RANKInfo>) request.getAttribute("RANKInfo");
 String pre = (String) request.getAttribute("pre");
 String edit = (String) request.getAttribute("edit");
+String displayName = (String) request.getAttribute("displayName");
+if(displayName == null) displayName = pre;
 
 int pageNo = 1;
 int limit = 10;
@@ -29,6 +31,8 @@ int total = rankname != null ? rankname.size() : 0;
 int start = (pageNo - 1) * limit;
 int end = Math.min(start + limit, total);
 int totalPage = (int) Math.ceil((double) total / limit);
+
+String queryBase = "&pre=" + URLEncoder.encode(pre, "UTF-8") + "&edit=" + edit + "&regionName=" + URLEncoder.encode(displayName, "UTF-8");
 
 String tableHTML = "<table border=1 align=center>";
 
@@ -86,7 +90,7 @@ if (rankname != null && rankname.size() > 0) {
 
 	if (pageNo > 1) {
 		tableHTML += "<a href='FMrank?page=" + (pageNo - 1)
-		+ "&pre=" + pre + "&edit=" + edit
+		+ queryBase
 		+ "' style='margin:0 8px;'>&lt;&lt;</a>";
 	} else {
 		tableHTML += "<span style='margin:0 8px; color:#999;'>&lt;&lt;</span>";
@@ -96,12 +100,12 @@ if (rankname != null && rankname.size() > 0) {
 	if (totalPage <= 7) {
 		for (int p = 1; p <= totalPage; p++) {
 
-	if (p == pageNo) {
+	if (p == pageNo) 
 		tableHTML += "<span style='margin:0 6px; color:#999; font-weight:bold;'>" + p + "</span>";
-	} else {
-		tableHTML += "<a href='FMrank?page=" + p + "&pre=" + pre + "&edit=" + edit
+	  else 
+		tableHTML += "<a href='FMrank?page=" + p + queryBase
 				+ "' style='margin:0 6px;'>" + p + "</a>";
-	}
+	
 		}
 
 	} else {
@@ -111,16 +115,16 @@ if (rankname != null && rankname.size() > 0) {
 		if (p == pageNo)
 			tableHTML += "<span style='margin:0 6px; color:#999; font-weight:bold;'>" + p + "</span>";
 		else
-			tableHTML += "<a href='FMrank?page=" + p + "&pre=" + pre + "&edit=" + edit
+			tableHTML += "<a href='FMrank?page=" + p + queryBase
 					+ "' style='margin:0 6px;'>" + p + "</a>";
 	}
 	tableHTML += "<span style='margin:0 6px;'>...</span>";
-	tableHTML += "<a href='FMrank?page=" + totalPage + "&pre=" + pre + "&edit=" + edit
+	tableHTML += "<a href='FMrank?page=" + totalPage + queryBase
 			+ "' style='margin:0 6px;'>" + totalPage + "</a>";
 		}
 
 		else if (pageNo >= totalPage - 3) {
-	tableHTML += "<a href='FMrank?page=1&pre=" + pre + "&edit=" + edit
+	tableHTML += "<a href='FMrank?page=1&pre=" + queryBase
 			+ "' style='margin:0 6px;'>1</a>";
 	tableHTML += "<span style='margin:0 6px;'>...</span>";
 
@@ -128,13 +132,13 @@ if (rankname != null && rankname.size() > 0) {
 		if (p == pageNo)
 			tableHTML += "<span style='margin:0 6px; color:#999; font-weight:bold;'>" + p + "</span>";
 		else
-			tableHTML += "<a href='FMrank?page=" + p + "&pre=" + pre + "&edit=" + edit
+			tableHTML += "<a href='FMrank?page=" + p + queryBase
 					+ "' style='margin:0 6px;'>" + p + "</a>";
 	}
 		}
 
 		else {
-	tableHTML += "<a href='FMrank?page=1&pre=" + pre + "&edit=" + edit
+	tableHTML += "<a href='FMrank?page=1&pre=" + queryBase
 			+ "' style='margin:0 6px;'>1</a>";
 	tableHTML += "<span style='margin:0 6px;'>...</span>";
 
@@ -142,19 +146,19 @@ if (rankname != null && rankname.size() > 0) {
 		if (p == pageNo)
 			tableHTML += "<span style='margin:0 6px; color:#999; font-weight:bold;'>" + p + "</span>";
 		else
-			tableHTML += "<a href='FMrank?page=" + p + "&pre=" + pre + "&edit=" + edit
+			tableHTML += "<a href='FMrank?page=" + p + queryBase
 					+ "' style='margin:0 6px;'>" + p + "</a>";
 	}
 
 	tableHTML += "<span style='margin:0 6px;'>...</span>";
-	tableHTML += "<a href='FMrank?page=" + totalPage + "&pre=" + pre + "&edit=" + edit
+	tableHTML += "<a href='FMrank?page=" + totalPage + queryBase
 			+ "' style='margin:0 6px;'>" + totalPage + "</a>";
 		}
 	}
 
 	if (pageNo < totalPage) {
 		tableHTML += "<a href='FMrank?page=" + (pageNo + 1)
-		+ "&pre=" + pre + "&edit=" + edit
+		+ queryBase
 		+ "' style='margin:0 8px;'>&gt;&gt;</a>";
 	} else {
 		tableHTML += "<span style='margin:0 8px; color:#999;'>&gt;&gt;</span>";
@@ -226,7 +230,7 @@ a {
 
 	<div class="center">
 		<div class="end">
-			<h1><%=pre%>
+			<h1><%=displayName%>
 				売上ランキング
 			</h1>
 

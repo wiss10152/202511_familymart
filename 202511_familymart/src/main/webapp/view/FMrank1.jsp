@@ -12,14 +12,12 @@
 	rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/view/css/W0052.css"
 	rel="stylesheet" type="text/css" />
-	<style>
-	html, body {
-    margin: 0;
-    padding: 0;
-    height: auto;
-    overflow: visible;
-}
-
+<style>
+html, body {
+	margin: 0;
+	padding: 0;
+	height: auto;
+	overflow: visible;
 }
 </style>
 <title>FamilyMart 都道府県別商品ランキング</title>
@@ -73,16 +71,10 @@ window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
 	// 8月　ページ遷移しないように変更。変更箇所は後述のコメントアウト。
 	function send() {
 		var text = selectedItemText;
+		var radiobtn2 = document.getElementById("label2");
+		var editValue = radiobtn2.checked ? "true" : "false";
 
-		radiobtn2 = document.getElementById("label2");
-		if(radiobtn2.checked){
-			edit = true;
-		} else {
-			edit = false;
-		}
-
-		// 8月　インラインフレームのページ遷移を行う
-		waku.location = "<%= request.getContextPath() %>\/FMrank?pre=" + encodeURI(text) + "&edit=" + encodeURI(edit);
+		waku.location = "<%= request.getContextPath() %>/FMrank?pre=" + encodeURIComponent(text) + "&edit=" + editValue;
 	}
 
 <!--	var flag = false;-->
@@ -135,7 +127,8 @@ window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
 		if(listContainer.children.length > 0){
 			selectItem(listContainer.children[0]);
 		}
-		}
+		document.getElementById("regionButtonArea").style.display = "none";
+	}
 	
 	// 8月　都道府県データを追加
 	function City(){
@@ -169,6 +162,7 @@ window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
         if (listContainer.children.length > 0) {
             selectItem(listContainer.children[0]);
         }
+        document.getElementById("regionButtonArea").style.display = "block";
 	}
 
 	var selectedItemText = "総合";
@@ -184,6 +178,42 @@ window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
 	selectedItemText = clickedElement.getAttribute('data-text');
 
 	send();
+	}
+
+	const regions = {
+		 "hokkaido-tohoku": ["北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県"],
+		 "kanto": ["茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県"],
+		"chubu": ["新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", "岐阜県", "静岡県", "愛知県"],
+		 "kinki": ["三重県", "滋賀県", "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県"],
+		"chugoku-shikoku": ["鳥取県", "島根県", "岡山県", "広島県", "山口県", "徳島県", "香川県", "愛媛県", "高知県"],
+		"kyushu-okinawa": ["福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"]
+	};
+
+	function filterRegion(regionKey){
+		var prefsArray = regions[regionKey];
+		if(!prefsArray) return;
+
+		const regionNameJP = {
+				"hokkaido-tohoku": "北海道・東北",
+				"kanto": "関東",
+				"chubu": "中部",
+				"kinki": "近畿",
+				"chugoku-shikoku": "中国・四国",
+				"kyushu-okinawa": "九州・沖縄"
+		};
+
+		var prefString = prefsArray.join(",");
+		var radiobtn2 = document.getElementById("label2");
+		var editValue = radiobtn2.checked ? "true" : "false";
+		var jpName = regionNameJP[regionKey];
+		waku.location = "<%=request.getContextPath()%>/FMrank?pre=" + encodeURIComponent(prefString) 
+						+ "&edit=" + editValue + "&regionName=" + encodeURIComponent(jpName);
+
+		var allItems = document.querySelectorAll('.selectable-item');
+		allItems.forEach(function(item){item.classList.remove('selected');});
+
+		var prefString = prefsArray.join(",");
+		var edit = document.getElementById("label2").checked;
 	}
 
 </script>
@@ -227,9 +257,7 @@ window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
 			%>
 
 			<div class="button-panel">
-				<%
-				out.print("ユーザ名 : " + session.getAttribute("userName"));
-				%>
+				<%="ユーザ名 : " + session.getAttribute("userName")%>
 				<a style="margin-left: 20px" class="button" name="logout"
 					onClick="logOut();"> <img
 					src="<%=request.getContextPath()%>/view/img/153.142.124.217 (2).gif">
@@ -237,40 +265,58 @@ window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
 			</div>
 		</div>
 		<div class="sidenav">
-			<div class="selection-panel">
+			<div class="search-container" style="padding-bottom: 40px;">
 
-				<p class="selection-title">ジャンル選択</p>
-				<form name="f1" class="genre-form">
-					<label for="label1" class="radio-label"> <input id="label1"
-						type="radio" name=radio1 onclick="Items()" checked> 商品
-					</label> &nbsp;&nbsp; <label for="label2" class="radio-label"> <input
-						id="label2" type="radio" name="radio1" onclick="City()">
-						店舗
-					</label>
-				</form>
+				<div class="sidebar-radio-group">
+					<p class="status-title">ジャンル選択</p>
+					<div style="display: flex; gap: 10px;">
+						<label for="label1" class="radio-label"> <input
+							id="label1" type="radio" name=radio1 onclick="Items()" checked>
+							商品
+						</label> <label for="label2" class="radio-label"> <input
+							id="label2" type="radio" name="radio1" onclick="City()">
+							店舗
+						</label>
+					</div>
+				</div>
 
-				<div style="margin-bottom: 15px;"></div>
+				<div class="sidebar-item-group">
+					<p class="status-title">項目選択</p>
+					<div id="itemSelectionList" class="item-list-container"></div>
 
-				<p class="selection-title">項目選択</p>
-				<div id="itemSelectionList" class="item-list-container"></div>
+					<div id="regionButtonArea" class="region-button-area">
+						<p class="status-title">地方別</p>
+						<div class="region-grid">
+							<button type="button" class="region-btn"
+								onclick="filterRegion('hokkaido-tohoku')">北海道・東北</button>
+							<button type="button" class="region-btn"
+								onclick="filterRegion('kanto')">関東</button>
+							<button type="button" class="region-btn"
+								onclick="filterRegion('chubu')">中部</button>
+							<button type="button" class="region-btn"
+								onclick="filterRegion('kinki')">近畿</button>
+							<button type="button" class="region-btn"
+								onclick="filterRegion('chugoku-shikoku')">中国・四国</button>
+							<button type="button" class="region-btn"
+								onclick="filterRegion('kyushu-okinawa')">九州・沖縄</button>
+						</div>
+
+						<%-- <input type="submit" class="rank-button" value="売上順位表示"
+				onclick="send();" style="display: none;"> --%>
+
+					</div>
+				</div>
 			</div>
-			<span class="item-count-label"></span>
-
-			<div style="margin-bottom: 20px;"></div>
-
-			<input type="submit" class="rank-button" value="売上順位表示"
-				onclick="send();" style="display: none;">
 		</div>
-	</div>
 
-	<div class="main-content-area">
-		<iframe id="wakuFrame" name="waku" src="about:blank"
-			class="ranking-iframe" frameborder="0"></iframe>
+		<div class="main-content-area">
+			<iframe id="wakuFrame" name="waku" src="about:blank"
+				class="ranking-iframe" frameborder="0"></iframe>
 
-	</div>
+		</div>
 
-	<div class="footer">
-		<span>© 2025 FamilyMart System — All Rights Reserved.</span>
-	</div>
+		<div class="footer">
+			<span>© 2025 FamilyMart System — All Rights Reserved.</span>
+		</div>
 </body>
 </html>
