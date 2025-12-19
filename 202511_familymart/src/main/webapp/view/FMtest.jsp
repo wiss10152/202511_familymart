@@ -12,7 +12,6 @@
 <link href="<%=request.getContextPath()%>/view/css/W0052.css"
 	rel="stylesheet" type="text/css" />
 <style>
-
 </style>
 <title>FamilyMart都道府県データ</title>
 
@@ -122,51 +121,75 @@ function searchBySidenav(searchType){
 
 	var url = "<%=request.getContextPath()%>/FMsearch";
 	var params = [];
-	if(shp.trim()!=="") params.push("shp="+encodeURI(shp));
-	params.push("edit="+encodeURI(status));
-	if(selectedPrefs.length>0) params.push("prefectures="+encodeURI(selectedPrefs.join(",")));
-	if(params.length>0) url += "?"+params.join("&");
+	if (shp.trim() !== ""){
+		params.push("shp=" + encodeURI(shp));
+	}
+	params.push("edit=" + encodeURI(status));
+	
+	if (selectedPrefs.length > 0){
+		params.push("prefectures=" + encodeURI(selectedPrefs.join(",")));
+	}
+	if (params.length > 0){
+		url += "?" + params.join("&");
+	}
 
 	waku.location = url;
+
 }
 
-document.addEventListener('DOMContentLoaded', function(){
-	checkAllRegionStatus();
-	var allChk = document.querySelector('input[name="region_status-all"]');
-	if(allChk) allChk.checked = true;
-});
+	document.addEventListener('DOMContentLoaded', function() {
+		checkAllRegionStatus();
+		var allChk = document.querySelector('input[name="region_status-all"]');
+		if (allChk)
+			allChk.checked = true;
+	});
 </script>
 </head>
 
 <body>
-<div>
-<%
+	<div>
+		<%
 Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
 %>
 
-<div class="navbar">
-	<img src="<%=request.getContextPath()%>/view/img/familymart.png"
-		style="height:50px;margin:5px;float:left;">
+		<div class="navbar">
+			<img src="<%=request.getContextPath()%>/view/img/familymart.png"
+				style="height: 50px; margin: 5px; float: left;">
 
-	<div class="btn"><button class="btn2" onclick="moveHome();">ホーム</button></div>
-	<div class="btn"><button class="btn2" onclick="moveShopItem();">商品</button></div>
-	<div class="btn"><button class="btn2" onclick="movePrefecture();">店舗</button></div>
-	<div class="btn"><button class="btn2" onclick="moveRank();">ランキング</button></div>
+			<div class="btn">
+				<button class="btn2" onclick="moveHome();">ホーム</button>
+			</div>
+			<div class="btn">
+				<button class="btn2" onclick="moveShopItem();">商品</button>
+			</div>
+			<div class="btn">
+				<button class="btn2" onclick="movePrefecture();">店舗</button>
+			</div>
+			<div class="btn">
+				<button class="btn2" onclick="moveRank();">ランキング</button>
+			</div>
 
-	<% if(Boolean.TRUE.equals(adminFlg)){ %>
-	<div class="btn"><button class="btn2" onclick="moveUserList();">ユーザ管理</button></div>
-	<% } %>
+			<%
+			if (Boolean.TRUE.equals(adminFlg)) {
+			%>
+			<div class="btn">
+				<button class="btn2" onclick="moveUserList();">ユーザ管理</button>
+			</div>
+			<%
+			}
+			%>
 
-	<div class="button-panel">
-		<%= "ユーザ名 : " + session.getAttribute("userName") %>
-		<a style="margin-left:20px" class="button" onclick="logOut();">
-			<img src="<%=request.getContextPath()%>/view/img/153.142.124.217 (2).gif">
-		</a>
-	</div>
-</div>
+			<div class="button-panel">
+				<%="ユーザ名 : " + session.getAttribute("userName")%>
+				<a style="margin-left: 20px" class="button" onclick="logOut();">
+					<img
+					src="<%=request.getContextPath()%>/view/img/153.142.124.217 (2).gif">
+				</a>
+			</div>
+		</div>
 
-<div class="sidenav">
-<div class="search-container" style="padding-bottom:40px;">
+		<div class="sidenav">
+			<div class="search-container" style="padding-bottom: 40px;">
 
 				<div class="sidebar-radio-group">
 					<p class="status-title">出店状況</p>
@@ -200,99 +223,99 @@ Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
 						<button type="button" id="closeAllRegions" data-action="close"
 							onclick="toggleAllRegions(this)" style="display: none;">すべて閉じる</button>
 					</div>
-				</div>
 
-				<div class="region-list-scroll-area" id="region-list-area">
-					<div class="region-item all-region">
-						<label class="status-label region-label"> <input
-							type="checkbox" name="region_status-all" value="all"
-							onchange="toggleAllPrefectures(this)">すべて
-						</label>
-					</div>
-				</div>
-
-				<div class="region-item">
-					<div class="region-header"
-						onclick="toggleRegion('region-hokkaido-tohoku')"
-						data-region-id="region-hokkaido-tohoku">
-						<span class="toggle-icon">▲</span>北海道・東北
-					</div>
-					<div class="region-content" id="region-hokkaido-tohoku">
-						<label class="status-label all-in-section"> <input
-							type="checkbox" name="all_in_section_hokkaido_tohoku"
-							onchange="toggleSectionPrefectures(this, 'region-hokkaido-tohoku')">
-							すべて選択
-						</label> <label class="status-label"><input type="checkbox"
-							name="prefecture_status" value="北海道">北海道</label> <label
-							class="status-label"><input type="checkbox"
-							name="prefecture_status" value="青森県">青森県</label> <label
-							class="status-label"><input type="checkbox"
-							name="prefecture_status" value="岩手県">岩手県</label> <label
-							class="status-label"><input type="checkbox"
-							name="prefecture_status" value="宮城県">宮城県</label> <label
-							class="status-label"><input type="checkbox"
-							name="prefecture_status" value="秋田県">秋田県</label> <label
-							class="status-label"><input type="checkbox"
-							name="prefecture_status" value="山形県">山形県</label> <label
-							class="status-label"><input type="checkbox"
-							name="prefecture_status" value="福島県">福島県</label>
-					</div>
-				</div>
-
-				<div class="region-item">
-					<div class="region-header" onclick="toggleRegion('region-kanto')"
-						data-region-id="region-kanto">
-						<span class="toggle-icon">▲</span>関東
-					</div>
-					<div class="region-content" id="region-kanto">
-						<label class="status-label all-in-section"> <input
-							type="checkbox" name="all_in_section_kanto"
-							onchange="toggleSectionPrefectures(this, 'region-kanto')">
-							すべて選択
-						</label> <label class="status-label"><input type="checkbox"
-							name="prefecture_status" value="茨城県">茨城県</label> <label
-							class="status-label"><input type="checkbox"
-							name="prefecture_status" value="栃木県">栃木県</label> <label
-							class="status-label"><input type="checkbox"
-							name="prefecture_status" value="群馬県">群馬県</label> <label
-							class="status-label"><input type="checkbox"
-							name="prefecture_status" value="埼玉県">埼玉県</label> <label
-							class="status-label"><input type="checkbox"
-							name="prefecture_status" value="千葉県">千葉県</label> <label
-							class="status-label"><input type="checkbox"
-							name="prefecture_status" value="東京都">東京都</label> <label
-							class="status-label"><input type="checkbox"
-							name="prefecture_status" value="神奈川県">神奈川県</label>
-					</div>
-
-					<div class="region-item">
-						<div class="region-header" onclick="toggleRegion('region-chubu')"
-							data-region-id="region-chubu">
-							<span class="toggle-icon">▲</span>中部
+					<div class="region-list-scroll-area" id="region-list-area">
+						<div class="region-item all-region">
+							<label class="status-label region-label"> <input
+								type="checkbox" name="region_status-all" value="all"
+								onchange="toggleAllPrefectures(this)">すべて
+							</label>
 						</div>
-						<div class="region-content" id="region-chubu">
-							<label class="status-label all-in-section"> <input
-								type="checkbox" name="all_in_section_chubu"
-								onchange="toggleSectionPrefectures(this, 'region-chubu')">
-								すべて選択
-							</label> <label class="status-label"><input type="checkbox"
-								name="prefecture_status" value="新潟県">新潟県</label> <label
-								class="status-label"><input type="checkbox"
-								name="prefecture_status" value="富山県">富山県</label> <label
-								class="status-label"><input type="checkbox"
-								name="prefecture_status" value="石川県">石川県</label> <label
-								class="status-label"><input type="checkbox"
-								name="prefecture_status" value="福井県">福井県</label> <label
-								class="status-label"><input type="checkbox"
-								name="prefecture_status" value="山梨県">山梨県</label> <label
-								class="status-label"><input type="checkbox"
-								name="prefecture_status" value="長野県">長野県</label> <label
-								class="status-label"><input type="checkbox"
-								name="prefecture_status" value="岐阜県">岐阜県</label> <label
-								class="status-label"><input type="checkbox"
-								name="prefecture_status" value="静岡県">静岡県</label> <label
-								class="status-label"><input type="checkbox"
-								name="prefecture_status" value="愛知県">愛知県</label>
+
+						<div class="region-item">
+							<div class="region-header"
+								onclick="toggleRegion('region-hokkaido-tohoku')"
+								data-region-id="region-hokkaido-tohoku">
+								<span class="toggle-icon">▲</span>北海道・東北
+							</div>
+							<div class="region-content" id="region-hokkaido-tohoku">
+								<label class="status-label all-in-section"> <input
+									type="checkbox" name="all_in_section_hokkaido_tohoku"
+									onchange="toggleSectionPrefectures(this, 'region-hokkaido-tohoku')">
+									すべて選択
+								</label> <label class="status-label"><input type="checkbox"
+									name="prefecture_status" value="北海道">北海道</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="青森県">青森県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="岩手県">岩手県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="宮城県">宮城県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="秋田県">秋田県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="山形県">山形県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="福島県">福島県</label>
+							</div>
+						</div>
+
+						<div class="region-item">
+							<div class="region-header" onclick="toggleRegion('region-kanto')"
+								data-region-id="region-kanto">
+								<span class="toggle-icon">▲</span>関東
+							</div>
+							<div class="region-content" id="region-kanto">
+								<label class="status-label all-in-section"> <input
+									type="checkbox" name="all_in_section_kanto"
+									onchange="toggleSectionPrefectures(this, 'region-kanto')">
+									すべて選択
+								</label> <label class="status-label"><input type="checkbox"
+									name="prefecture_status" value="茨城県">茨城県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="栃木県">栃木県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="群馬県">群馬県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="埼玉県">埼玉県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="千葉県">千葉県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="東京都">東京都</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="神奈川県">神奈川県</label>
+							</div>
+						</div>
+
+						<div class="region-item">
+							<div class="region-header" onclick="toggleRegion('region-chubu')"
+								data-region-id="region-chubu">
+								<span class="toggle-icon">▲</span>中部
+							</div>
+							<div class="region-content" id="region-chubu">
+								<label class="status-label all-in-section"> <input
+									type="checkbox" name="all_in_section_chubu"
+									onchange="toggleSectionPrefectures(this, 'region-chubu')">
+									すべて選択
+								</label> <label class="status-label"><input type="checkbox"
+									name="prefecture_status" value="新潟県">新潟県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="富山県">富山県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="石川県">石川県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="福井県">福井県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="山梨県">山梨県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="長野県">長野県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="岐阜県">岐阜県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="静岡県">静岡県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="愛知県">愛知県</label>
+							</div>
 						</div>
 
 						<div class="region-item">
@@ -320,88 +343,86 @@ Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
 									class="status-label"><input type="checkbox"
 									name="prefecture_status" value="和歌山県"> 和歌山県</label>
 							</div>
-							<div class="region-item">
-								<div class="region-header"
-									onclick="toggleRegion('region-chugoku-shikoku')"
-									data-region-id="region-chugoku-shikoku">
-									<span class="toggle-icon">▲</span>中国・四国
-								</div>
-								<div class="region-content" id="region-chugoku-shikoku">
-									<label class="status-label all-in-section"> <input
-										type="checkbox" name="all_in_section_chugoku-shikoku"
-										onchange="toggleSectionPrefectures(this, 'region-chugoku-shikoku')">
-										すべて選択
-									</label> <label class="status-label"><input type="checkbox"
-										name="prefecture_status" value="鳥取県">鳥取県</label> <label
-										class="status-label"><input type="checkbox"
-										name="prefecture_status" value="島根県">島根県</label> <label
-										class="status-label"><input type="checkbox"
-										name="prefecture_status" value="岡山県">岡山県</label> <label
-										class="status-label"><input type="checkbox"
-										name="prefecture_status" value="広島県">広島県</label> <label
-										class="status-label"><input type="checkbox"
-										name="prefecture_status" value="山口県">山口県</label> <label
-										class="status-label"><input type="checkbox"
-										name="prefecture_status" value="徳島県">徳島県</label> <label
-										class="status-label"><input type="checkbox"
-										name="prefecture_status" value="香川県">香川県</label> <label
-										class="status-label"><input type="checkbox"
-										name="prefecture_status" value="愛媛県">愛媛県</label> <label
-										class="status-label"><input type="checkbox"
-										name="prefecture_status" value="高知県">高知県</label>
-								</div>
+						</div>
 
-								<div class="region-item">
-									<div class="region-header"
-										onclick="toggleRegion('region-kyushu-okinawa')"
-										data-region-id="region-kyushu-okinawa">
-										<span class="toggle-icon">▲</span>九州・沖縄
-									</div>
-									<div class="region-content" id="region-kyushu-okinawa">
-										<label class="status-label all-in-section"> <input
-											type="checkbox" name="all_in_section_kyushu-okinawa"
-											onchange="toggleSectionPrefectures(this, 'region-kyushu-okinawa')">
-											すべて選択
-										</label> <label class="status-label"><input type="checkbox"
-											name="prefecture_status" value="福岡県">福岡県</label> <label
-											class="status-label"><input type="checkbox"
-											name="prefecture_status" value="佐賀県">佐賀県</label> <label
-											class="status-label"><input type="checkbox"
-											name="prefecture_status" value="長崎県">長崎県</label> <label
-											class="status-label"><input type="checkbox"
-											name="prefecture_status" value="熊本県">熊本県</label> <label
-											class="status-label"><input type="checkbox"
-											name="prefecture_status" value="大分県">大分県</label> <label
-											class="status-label"><input type="checkbox"
-											name="prefecture_status" value="宮崎県">宮崎県</label> <label
-											class="status-label"><input type="checkbox"
-											name="prefecture_status" value="鹿児島県">鹿児島県</label> <label
-											class="status-label"><input type="checkbox"
-											name="prefecture_status" value="沖縄県">沖縄県</label>
-									</div>
-
-									<button type="button"
-										onclick="searchBySidenav('prefectureOnly');"
-										class="global-prefecture-search-button">検索</button>
-								</div>
+						<div class="region-item">
+							<div class="region-header"
+								onclick="toggleRegion('region-chugoku-shikoku')"
+								data-region-id="region-chugoku-shikoku">
+								<span class="toggle-icon">▲</span>中国・四国
+							</div>
+							<div class="region-content" id="region-chugoku-shikoku">
+								<label class="status-label all-in-section"> <input
+									type="checkbox" name="all_in_section_chugoku-shikoku"
+									onchange="toggleSectionPrefectures(this, 'region-chugoku-shikoku')">
+									すべて選択
+								</label> <label class="status-label"><input type="checkbox"
+									name="prefecture_status" value="鳥取県">鳥取県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="島根県">島根県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="岡山県">岡山県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="広島県">広島県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="山口県">山口県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="徳島県">徳島県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="香川県">香川県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="愛媛県">愛媛県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="高知県">高知県</label>
 							</div>
 						</div>
 
+						<div class="region-item">
+							<div class="region-header"
+								onclick="toggleRegion('region-kyushu-okinawa')"
+								data-region-id="region-kyushu-okinawa">
+								<span class="toggle-icon">▲</span>九州・沖縄
+							</div>
+							<div class="region-content" id="region-kyushu-okinawa">
+								<label class="status-label all-in-section"> <input
+									type="checkbox" name="all_in_section_kyushu-okinawa"
+									onchange="toggleSectionPrefectures(this, 'region-kyushu-okinawa')">
+									すべて選択
+								</label> <label class="status-label"><input type="checkbox"
+									name="prefecture_status" value="福岡県">福岡県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="佐賀県">佐賀県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="長崎県">長崎県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="熊本県">熊本県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="大分県">大分県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="宮崎県">宮崎県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="鹿児島県">鹿児島県</label> <label
+									class="status-label"><input type="checkbox"
+									name="prefecture_status" value="沖縄県">沖縄県</label>
+							</div>
+						</div>
+
+						<button type="button" onclick="searchBySidenav('prefectureOnly');"
+							class="global-prefecture-search-button">検索</button>
 					</div>
 				</div>
 			</div>
-</div>
+		</div>
 
-<div id="contentWrapper">
-	<iframe id="wakuFrame" name="waku"
-		src="<%=request.getContextPath()%>/FMsearch"
-		frameborder="0"></iframe>
-</div>
+		<div id="contentWrapper">
+			<iframe id="wakuFrame" name="waku"
+				src="<%=request.getContextPath()%>/FMsearch" frameborder="0"></iframe>
+		</div>
 
 
-<div class="footer">
-	<span>© 2025 FamilyMart System — All Rights Reserved.</span>
-</div>
-</div>
+		<div class="footer">
+			<span>© 2025 FamilyMart System — All Rights Reserved.</span>
+		</div>
+	</div>
 </body>
 </html>
