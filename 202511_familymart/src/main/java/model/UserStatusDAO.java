@@ -1,21 +1,28 @@
 package model;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class UserStatusDAO {
-	public ResultSet idCheck(String userId) {
+	public boolean idCheck(String userId) {
 		MyDBAccess model = new MyDBAccess();
+		boolean isRegistered = false;
 		ResultSet rs = null;
 		try {
 			model.open();
 			String checkSql = "SELECT COUNT(*) FROM ユーザ情報 WHERE user_id = '"
 			+ userId + "' AND delete_flg = 'false'";
 			rs = model.getResultSet(checkSql);
+			if(rs.next() && rs.getInt(1) > 0) {
+				isRegistered = true;
+			}
 			model.close();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return rs;
+		return isRegistered;
 	}
 	
 	public void userRegist(String username, String userId,
@@ -60,19 +67,32 @@ public class UserStatusDAO {
 		}
 	}
 	
-	public ResultSet setUserList() {
+	public List<HashMap<String, String>> setUserList(boolean adminflg) {
 		ResultSet rs = null;
 		String sql = "SELECT * FROM ユーザ情報 where delete_flg = 'false' order by user_id ASC ";
 		// DBアクセス処理
+		List<HashMap<String, String>> userList = new ArrayList<HashMap<String, String>>();
 		MyDBAccess model = new MyDBAccess();
 		try {
 			model.open();
 			rs = model.getResultSet(sql);
+			while (rs.next()) {
+				HashMap<String, String> userInfo = new HashMap<String, String>();
+
+				userInfo.put("userName", rs.getString("user_name"));
+				userInfo.put("userId", rs.getString("user_id"));
+				userInfo.put("createUser" ,  rs.getString("create_user"));
+				adminflg = rs.getBoolean("admin_flg"); // 削除判定追加
+				String userAdmin = adminflg == true ? "true" : "false";
+				userInfo.put("userAdmin", userAdmin);
+
+				userList.add(userInfo);
+			}
 			model.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return rs;
+		return userList;
 	}
 	
 	public String getCreatorId(MyDBAccess model, String userId) throws Exception{

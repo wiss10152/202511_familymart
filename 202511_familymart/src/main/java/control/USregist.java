@@ -1,8 +1,6 @@
 package control;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -56,15 +54,8 @@ public class USregist extends HttpServlet {
 			str = "登録";
 			
 			UserStatusDAO usDAO = new UserStatusDAO();
-			ResultSet rs = usDAO.idCheck(userId);
-				
-			try {
-				if(rs.next() && rs.getInt(1) > 0) {
-					isRegistered = true;
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			isRegistered = usDAO.idCheck(userId);
+
 
 		} else if(execProcess.equals("update")) {
 			str = "更新";
