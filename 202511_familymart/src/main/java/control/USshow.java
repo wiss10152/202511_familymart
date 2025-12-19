@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import model.MyDBAccess;
+import model.UserStatusDAO;
 
 /*
  * Servlet implementation class SUshow
@@ -35,16 +35,11 @@ public class USshow extends HttpServlet {
 
 		List<HashMap<String, String>> userList = new ArrayList<HashMap<String, String>>();
 		Boolean adminflg = true;
-		// 管理者を降順で表示するsql
-		String sql = "SELECT * FROM ユーザ情報 where delete_flg = 'false' order by user_id ASC ";
-
-		// DBアクセス処理
-		MyDBAccess model = new MyDBAccess();
+		
 		try {
-			model.open();
+			UserStatusDAO usDAO = new UserStatusDAO();
 
-			ResultSet rs = null;
-			rs = model.getResultSet(sql);
+			ResultSet rs = usDAO.setUserList();
 
 			while (rs.next()) {
 				HashMap<String, String> userInfo = new HashMap<String, String>();
@@ -58,8 +53,6 @@ public class USshow extends HttpServlet {
 
 				userList.add(userInfo);
 			}
-
-			model.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
