@@ -19,6 +19,8 @@ List<Shopinfo> shopList = (List<Shopinfo>) request.getAttribute("myStoreList");
 	rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/view/css/W0052.css"
 	rel="stylesheet" type="text/css" />
+	<link href="<%=request.getContextPath()%>/view/css/table.css"
+	rel="stylesheet" type="text/css" />
 <title>MY店舗</title>
 <script type="text/javascript">
 
@@ -83,6 +85,12 @@ function checkRemove(text){
 
 </script>
 <style type="text/css">
+body{
+	background: linear-gradient(-45deg, rgba(127, 255, 212, .8), rgba(255, 250, 250, .8),rgba(0, 255, 0, .8)),url(familymart-iloveimg-converted.jpg) !important;
+    background-size: cover;
+    min-height:100vh;
+
+}
 .radio-box {
 	display: flex;
 	align-items: center;
@@ -105,6 +113,33 @@ function checkRemove(text){
 .search-input-group {
 	margin-left: 5px;
 }
+
+.center {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content-area {
+    flex: 1;
+    padding-top: 80px;     
+    margin-left: 260px;    
+    margin-bottom: 80px;
+}
+
+table button[type='submit'] {
+    padding: 6px 12px;
+    border: none;
+    background-color: #008000;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+table button[type='submit']:hover {
+    background-color: #00a000;
+}
+
 </style>
 </head>
 <body>
@@ -211,7 +246,7 @@ function checkRemove(text){
 					<tr>
 						<td><%=info.shopid%></td>
 						<td><%=info.shopName%></td>
-						<td><button type="submit" name="shopId"
+						<td><button class="btn-cls" type="submit" name="shopId"
 								value="<%=info.shopid%>"
 								onClick="return checkRemove('<%=info.shopName%>')">MY店舗から削除</button></td>
 					</tr>
@@ -249,7 +284,7 @@ function checkRemove(text){
 					<tr>
 						<td><%=info.shopid%></td>
 						<td><%=info.shopName%></td>
-						<td><button type="submit" name="shopId"
+						<td><button class="btn2" type="submit" name="shopId"
 								value="<%=info.shopid%>"
 								onClick="return checkRegist('<%=info.shopName%>')">MY店舗に登録</button></td>
 					</tr>
