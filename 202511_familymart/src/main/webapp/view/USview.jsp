@@ -98,14 +98,7 @@ span.table2 input[type="checkbox"] {
 
 <script type="text/javascript">
 
-	//onloadイベントで、ログイン直後の1回のみ管理ユーザ画面でユーザ名アラートを表示させる。
-	window.onload = function (){
-	<% boolean firstlogin = (boolean) session.getAttribute("firstlogin"); %>
-		<% if(firstlogin){ %> // trueの時(ログイン直後のみ)に表示される
-			alert("ユーザ" + "<%= un %>" + "でログインしています");
-			<% session.setAttribute("firstlogin", false);%>		//これ以降ユーザアラートが出ないように設定
-		<% } %>
-	}
+	
 	
 	//11月
 	function moveShopItem(){
@@ -464,7 +457,7 @@ span.table2 input[type="checkbox"] {
 						onClick="user_Regist();"> <input type="button"
 						class="btn1" value="ユーザ削除" onClick="deletes(<%=num%>);">
 					<%--7月　現在削除ボタンや更新ボタンを押したあとにブラウザバックを押してまた同じ動作をすると --%>
-					<input type="button" class="btn1 btn3" name="inq_btn" value="権限変更"
+					<input type="button" class="btn1 btn2" name="inq_btn" value="権限変更"
 						onClick="go_access(<%=num%>);">
 					<%--処理はしないが動作できてしまうバグ。IF文でアラートを出すように設定すればいけるかもしれない --%>
 

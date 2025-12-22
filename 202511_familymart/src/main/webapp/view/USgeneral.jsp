@@ -20,20 +20,16 @@ String un = (String) session.getAttribute("userName");
 	rel="stylesheet" type="text/css" />
 <title>FamilyMartユーザ画面</title>
 
-
 <script type="text/javascript">
 
-	//8月新規　onloadイベントで、ログイン直後の1回のみ管理ユーザ画面でユーザ名アラートを表示させる。
-	window.onload = function (){
-		<%
-Boolean firstlogin = (Boolean) session.getAttribute("firstlogin");
-if (Boolean.TRUE.equals(firstlogin)) {
-%>
- // trueの時(ログイン直後のみ)に表示される
-			alert("ユーザ" + "<%=un%>" + "でログインしています");
-			<%session.setAttribute("firstlogin", false);%> //これ以降ユーザアラートが出ないように設定
-		<%}%>
+window.onload = function () {
+	const inputerror = document.getElementById("inputerror");
+
+	if (loginAlert) {
+	 loginAlert.remove();
 	}
+	}
+
 
 	// ログアウト処理
 	function logOut(){
@@ -132,7 +128,7 @@ if (login == null) {
                     <button class="btn2" onclick="moveUserList();">ユーザ管理</button>
                 </div>
                 <div class="btn">
-                    <button class="btn2" onclick="moveMyStore();">マイ店舗</button>
+                    <button class="btn2" onclick="moveMyStore();">MY店舗</button>
                 </div>
                 <%
                     }
@@ -148,15 +144,59 @@ if (login == null) {
                     </a>
                 </div>
             </div>
-<div class="sidenav">
-			<p></p>
-			<a href="#"></a> <a href="#"></a> <a href="#"></a>
-		</div>
-            <br>
+<!--<div class="sidenav">-->
+<!--			<p></p>-->
+<!--			<a href="#"></a> <a href="#"></a> <a href="#"></a>-->
+<!--		</div>-->
+<!--            <br>-->
 
-            <div>
-                <h1>キャンペーン無し</h1>
+            <div class="USmenu">
+                <h1>メニュー画面</h1>
             </div>
+            
+             <div>
+                <h2>  <%
+                        out.print(" ようこそ" + session.getAttribute("userName")+"様");
+                    %></h2>
+           
+                <hs>ご利用のボタンを押してください↓</hs>
+            </div>
+ <div class="button-container">
+
+
+                <div class="bbtn">
+                    <button class="btn3" onClick="moveShopItem();">
+                        商品
+                    </button>
+                </div>
+
+                <div class="bbtn">
+                    <button class="btn3" onClick="movePrefecture();">
+                        店舗
+                    </button>
+                </div>
+
+                <div class="bbtn">
+                    <button class="btn3" onClick="moveRank();">
+                        ランキング
+                    </button>
+                </div>
+</div>
+</br>
+               
+
+                <%
+                    if (Boolean.TRUE.equals(adminFlg)) {
+                %>
+                <div class="bbtn">
+                    <button class="btn3" onclick="moveUserList();">ユーザ管理</button>
+                </div>
+                <div class="bbtn">
+                    <button class="btn3" onclick="moveMyStore();">MY店舗</button>
+                </div>
+                <%
+                    }
+                %>
 
             <%--
             <div>
@@ -180,17 +220,14 @@ if (login == null) {
                 %>
             </div>
             --%>
-
+</br>
         </form>
 
         <div class="footer">
-            <span>© 2025 FamilyMart System — All Rights Reserved.</span>
+            <span>? 2025 FamilyMart System ? All Rights Reserved.</span>
         </div>
 
     </div>
-    
-
-    
 </body>
 
 </html>

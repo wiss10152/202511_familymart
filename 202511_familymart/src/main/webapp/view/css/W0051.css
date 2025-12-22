@@ -91,13 +91,29 @@ body {												/* 前ページに適用（背景色、文字書式、背景�
 }
 
 h1 {												/*  （配置、文字サイズ） */
-	padding: 1em 0;
+	padding: 0;
     font-size: 40px;
 }
 
 h2 {												/*  （文字サイズ） */
     font-size: 30px;
 }
+h1{
+all: unset !important;
+display: block !important;
+font-family: sans-serif !important;
+font-size: 28px !important;
+font-weight: bold !important;
+border-top: 3px double #27ae60 !important;
+border-bottom: 3px double #27ae60 !important;
+padding: 0.5em 1em calc(0.5em - 6px) !important;
+padding-top: 10px !important;
+padding-bottom: 10px !important;
+margin-bottom: 2em !important;
+background-color: rgb(255, 255, 255) !important;
+}
+
+
 
 /* 8月　応急処置のサブヘッダー。タイトル下の太字に使用しています。 */
 subh{
