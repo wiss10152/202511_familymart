@@ -58,30 +58,50 @@
 	rel="stylesheet" type="text/css" />
 
 	<title>ファミリーマート出店計画</title>
+	
+<script>
+(function(){
+	function resizeIframe(){
+		const iframe = parent.document.getElementById("wakuFrame");
+		if(!iframe) return;
+
+		const content = document.querySelector(".center");
+		if(!content) return;
+
+		const rect = content.getBoundingClientRect();
+		const contentHeight = rect.top + rect.height + 50;
+		const screenHeight = parent.window.innerHeight - 85;
+		const finalHeight = Math.max(contentHeight, screenHeight);
+
+		iframe.style.height = Math.ceil(finalHeight) + "px";
+	}
+
+	window.addEventListener("load", resizeIframe);
+	setTimeout(resizeIframe, 500);
+})();
+</script>
 
 </head>
 <body>
 
-	<br>
 	<div class ="center">
 	    <h2><%= shop %>　詳細</h2>
-
-		<br>
+	    
 		<span class ="table2">
 			<%= tableHTML %>
 			<%= tableHTML2 %>
 		</span>
-
-		<br>
 		
 		<% if(encodeAddress != null && !encodeAddress.isEmpty()){ %>
-			<iframe  class="iframe-display" width="80%" height="400" style="border:0; margin-bottom: 20px;"
-				loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+			<iframe  class="iframe-display" width="34%" height="225" style="border:0; margin-top: 20px; 
+				margin-bottom: 10px;" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
 				src="https://maps.google.co.jp/maps?output=embed&q=<%= encodeAddress %>">
 			</iframe>
 		<% } %>
 		
-	    <input type="button" value="戻る" onclick="history.back(); return false;">
+	    <div style="text-align: center;">
+	    	<input type="button" value="戻る" onclick="history.back(); return false;">
+	    </div>
 	</div>
 
 </body>
