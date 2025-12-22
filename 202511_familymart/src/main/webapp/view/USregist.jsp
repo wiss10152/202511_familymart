@@ -39,6 +39,7 @@
 }
 
 .tb2 {
+    margin-top: -70px;
     border: 1px solid #90EE90;
     border-radius: 6px;
     overflow: hidden;          
@@ -64,8 +65,8 @@
 
 .fm-table td:first-child {
     width: 220px;
-    background: #e9f2fb;
-    color: #003a8f;
+    background: green;
+    color: white;
     font-weight: 700;
     text-align: left;
     border-right: 1px solid #90EE90;
@@ -98,7 +99,7 @@
     cursor: not-allowed;
 }
 
-.button1 {
+.footer1 {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -107,7 +108,7 @@
     margin-top:15px;
 }
 
-.button1 input{
+.footer1 input{
 background-color: #ADADAD;
 	cursor: pointer;
 	border: none;
@@ -115,14 +116,13 @@ background-color: #ADADAD;
 	border-radius: 4px;
 }
 
-.button1 input:hover {
+.footer1 input:hover {
 	background-color: #C4C4C4;
 }
 
 h1{
 display:inline-block;
-margin-top:-20px;
-margin-bottom:80px;
+
 }
 </style>
 <script type="text/javascript">
@@ -377,13 +377,13 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 			String userid = (String) request.getAttribute("userId");
 			String userName = (String) request.getAttribute("userName");
 			--%>
-			<div class="end">
+			<div>
 				<!--				<img src="<%=request.getContextPath()%>/view/img/familymart.png">-->
 				<h1>
 					ユーザ<%=change%>画面
 				</h1>
 			</div>
-
+<div class="end">
 			<br>
 
 			<%-- ><form name="myForm" method="POST" action="#"> --%>
@@ -439,7 +439,7 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 					</table>
 				</div>
 			</div>
-			<div class="button1">
+			<div class="footer1">
 				<input type="button" class="button" value="戻る"
 					onclick="history_back();"> <input type="button"
 					onClick="Registration('<%=actionId%>')" value="<%=change%>">
@@ -454,7 +454,7 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 				<%
 				}
 				%>
-
+            </div>
 
 			</div>
 		</form>
