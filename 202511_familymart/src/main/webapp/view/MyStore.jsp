@@ -21,6 +21,8 @@ List<Shopinfo> shopList = (List<Shopinfo>) request.getAttribute("myStoreList");
 	rel="stylesheet" type="text/css" />
 	<link href="<%=request.getContextPath()%>/view/css/table.css"
 	rel="stylesheet" type="text/css" />
+	<link href="<%=request.getContextPath()%>/view/img/favicon.ico"
+	rel="icon" type="img/x-icon" />
 <title>MY店舗</title>
 <script type="text/javascript">
 

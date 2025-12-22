@@ -18,6 +18,8 @@
 	rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/view/css/table.css"
 	rel="stylesheet" type="text/css" />
+	<link href="<%=request.getContextPath()%>/view/img/favicon.ico"
+	rel="icon" type="img/x-icon" />
 <title>FamilyMartユーザ管理画面</title>
 
 <style type="text/css">
@@ -126,7 +128,9 @@ span.table2 input[type="checkbox"] {
 	window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
 	}
 
-
+	function moveMyStore(){
+		window.location.href = "<%=request.getContextPath()%>/MyStoreServlet"
+	}
 
 
 
@@ -268,6 +272,9 @@ span.table2 input[type="checkbox"] {
 			<div class="btn">
 				<button class="btn2" onclick="moveUserList();">ユーザ管理</button>
 			</div>
+			<div class="btn">
+                    <button class="btn2" onclick="moveMyStore();">MY店舗</button>
+                </div>
 			<%
 			}
 			%>

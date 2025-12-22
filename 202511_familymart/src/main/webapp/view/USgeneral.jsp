@@ -18,6 +18,8 @@ String un = (String) session.getAttribute("userName");
 	rel="stylesheet" type="text/css" />
 	<link href="<%=request.getContextPath()%>/view/css/W0052.css"
 	rel="stylesheet" type="text/css" />
+	<link href="<%=request.getContextPath()%>/view/img/favicon.ico"
+	rel="icon" type="img/x-icon" />
 <title>FamilyMartユーザ画面</title>
 
 <script type="text/javascript">

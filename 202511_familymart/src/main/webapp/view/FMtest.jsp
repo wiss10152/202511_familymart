@@ -11,6 +11,8 @@
 	rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/view/css/W0052.css"
 	rel="stylesheet" type="text/css" />
+	<link href="<%=request.getContextPath()%>/view/img/favicon.ico"
+	rel="icon" type="img/x-icon" />
 <style>
 </style>
 <title>FamilyMart都道府県データ</title>
@@ -33,6 +35,9 @@ function logOut(){
 	if(confirm("ログアウトします。よろしいですか？")){
 		window.location.href = "<%=request.getContextPath()%>/view/login.jsp";
 	}
+}
+function moveMyStore(){
+	window.location.href = "<%=request.getContextPath()%>/MyStoreServlet"
 }
 
 function toggleRegion(regionId){
@@ -175,6 +180,9 @@ Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
 			<div class="btn">
 				<button class="btn2" onclick="moveUserList();">ユーザ管理</button>
 			</div>
+			<div class="btn">
+                    <button class="btn2" onclick="moveMyStore();">MY店舗</button>
+                </div>
 			<%
 			}
 			%>

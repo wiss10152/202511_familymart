@@ -1,29 +1,32 @@
 <%@ page import="java.util.*, control.Shopinfo"
-    contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
 request.setCharacterEncoding("windows-31j");
 
 Boolean login = (Boolean) session.getAttribute("adminFlg");
 if (login == null) {
-    pageContext.forward("/view/login.jsp");
-    return;
+	pageContext.forward("/view/login.jsp");
+	return;
 }
 
 List<Shopinfo> shopname = (List<Shopinfo>) request.getAttribute("shopdata");
 
 String edit = (String) request.getAttribute("edit");
-if (edit == null) edit = "";   // "" = すべて
+if (edit == null)
+	edit = ""; // "" = すべて
 
-String shp = (String)request.getAttribute("shp");
-if (shp == null) shp = "";
+String shp = (String) request.getAttribute("shp");
+if (shp == null)
+	shp = "";
 
-String skey = (String)request.getAttribute("skey");
-if (skey == null) skey = "0";
+String skey = (String) request.getAttribute("skey");
+if (skey == null)
+	skey = "0";
 
-String prefectures = (String)request.getAttribute("prefectures");
-if (prefectures == null) prefectures = "";
+String prefectures = (String) request.getAttribute("prefectures");
+if (prefectures == null)
+	prefectures = "";
 %>
 
 <!DOCTYPE html>
@@ -32,14 +35,24 @@ if (prefectures == null) prefectures = "";
 <meta charset="UTF-8">
 <title>FamilyMart出店計画</title>
 
-<link href="<%=request.getContextPath()%>/view/css/W0051.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/view/css/table.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/view/css/W0051.css"
+	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/view/css/table.css"
+	rel="stylesheet">
 
 <style>
 body {
 	background: none !important;
-	overflow:hidden;
-}a { text-decoration:none; }
+	overflow: hidden;
+}
+
+a {
+	text-decoration: none;
+}
+.end{
+display:inline-block;
+margin-top:-50px;
+}
 </style>
 
 <script>
@@ -158,68 +171,81 @@ window.addEventListener("DOMContentLoaded", () => {
 </head>
 
 <body>
-<div class="end2">
-<div class="center">
-<div class="end">
+	<div class="end2">
+	<div class="USmenu">
+				<h1>店舗一覧</h1>
+			</div>
+		<div class="center">
+			
+			<div class="end">
 
-<% if (shopname != null && shopname.size() > 0) { %>
 
-<table border="1" align="center">
-<tr bgcolor="008000">
-    <td><font color="white">店舗名</font></td>
-    <td><font color="white">出店日</font></td>
-    <td><font color="white">住所</font></td>
-    <td><font color="white">店舗状況</font></td>
-</tr>
+				<%
+				if (shopname != null && shopname.size() > 0) {
+				%>
 
-<%
-Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
-for (Shopinfo s : shopname) {
+				<table border="1" align="center">
+					<tr bgcolor="008000">
+						<td><font color="white">店舗名</font></td>
+						<td><font color="white">出店日</font></td>
+						<td><font color="white">住所</font></td>
+						<td><font color="white">店舗状況</font></td>
+					</tr>
 
-    boolean deleted = s.deleted;
-    String statusText = deleted ? "未出店" : "出店済み";
-    String buttonText = deleted ? "出店済みにする" : "未出店にする";
-%>
+					<%
+					Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
+					for (Shopinfo s : shopname) {
 
-<tr class="data-row">
-    <td>
-        <a href="GScontrol?shop=<%=s.uriShopName%>"><%=s.shopName%></a>
-    </td>
-    <td><%=s.openDate%></td>
-    <td align="left">
-        <a href="https://www.google.co.jp/maps/place/<%=s.uriShopAdr%>" target="_blank">
-            <%=s.shopAdr%>
-        </a>
-    </td>
-    <td>
-    <% if (Boolean.TRUE.equals(adminFlg)) { %>
-        <input type="button"
-               value="<%=buttonText%>"
-               onclick="changeStatus(this, '<%=s.shopid%>', <%=!deleted%>)">
-    <% } else { %>
-        <%=statusText%>
-    <% } %>
-    </td>
-</tr>
+						boolean deleted = s.deleted;
+						String statusText = deleted ? "未出店" : "出店済み";
+						String buttonText = deleted ? "出店済みにする" : "未出店にする";
+					%>
 
-<% } %>
+					<tr class="data-row">
+						<td><a href="GScontrol?shop=<%=s.uriShopName%>"><%=s.shopName%></a>
+						</td>
+						<td><%=s.openDate%></td>
+						<td align="left"><a
+							href="https://www.google.co.jp/maps/place/<%=s.uriShopAdr%>"
+							target="_blank"> <%=s.shopAdr%>
+						</a></td>
+						<td>
+							<%
+							if (Boolean.TRUE.equals(adminFlg)) {
+							%> <input type="button" value="<%=buttonText%>"
+							onclick="changeStatus(this, '<%=s.shopid%>', <%=!deleted%>)">
+							<%
+							} else {
+							%> <%=statusText%> <%
+ }
+ %>
+						</td>
+					</tr>
 
-</table>
+					<%
+					}
+					%>
 
-<% } else { %>
-<div class="font">条件に合った店舗が存在しません。</div>
-<% } %>
+				</table>
 
-</div>
-</div>
+				<%
+				} else {
+				%>
+				<div class="font">条件に合った店舗が存在しません。</div>
+				<%
+				}
+				%>
 
-<div class="center">
-<div class="end" style="margin-top:15px;">
-    <div id="pager"></div>
-</div>
-</div>
-</div>
-<script>
+			</div>
+		</div>
+
+		<div class="center">
+			<div class="end" style="margin-top: 15px;">
+				<div id="pager"></div>
+			</div>
+		</div>
+	</div>
+	<script>
 (function () {
     function resizeIframe() {
         const iframe = parent.document.getElementById("wakuFrame");

@@ -12,7 +12,8 @@
 	rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/view/css/W0052.css"
 	rel="stylesheet" type="text/css" />
-
+<link href="<%=request.getContextPath()%>/view/img/favicon.ico"
+	rel="icon" type="img/x-icon" />
 <title>FamilyMartユーザ管理画面</title>
 <style>
 
@@ -175,6 +176,9 @@ function moveHome(){
 window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
 }
 
+function moveMyStore(){
+	window.location.href = "<%=request.getContextPath()%>/MyStoreServlet"
+}
 
 for (let i = 0; i < 2; i++) {
 function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon) {
@@ -341,6 +345,9 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 		<div class="btn">
 			<button class="btn2" onclick="moveUserList();">ユーザ管理</button>
 		</div>
+		<div class="btn">
+                    <button class="btn2" onclick="moveMyStore();">MY店舗</button>
+                </div>
 		<%
 				}
 				%>

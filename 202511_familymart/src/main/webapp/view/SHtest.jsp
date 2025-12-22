@@ -11,6 +11,8 @@
 	rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/view/css/W0052.css"
 	rel="stylesheet" type="text/css" />
+	<link href="<%=request.getContextPath()%>/view/img/favicon.ico"
+	rel="icon" type="img/x-icon" />
 <title>商品ジャンル選択</title>
 <style>
 html, body {
@@ -72,6 +74,10 @@ html, body {
 	}
 	function moveHome(){
 	    window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
+	}
+	
+	function moveMyStore(){
+		window.location.href = "<%=request.getContextPath()%>/MyStoreServlet"
 	}
 
 
@@ -150,6 +156,9 @@ html, body {
 			<div class="btn">
 				<button class="btn2" onclick="moveUserList();">ユーザ管理</button>
 			</div>
+			<div class="btn">
+                    <button class="btn2" onclick="moveMyStore();">MY店舗</button>
+                </div>
 			<%
 			}
 			%>
@@ -203,7 +212,9 @@ html, body {
 <!--			<div class="grid-container"></div>-->
 <!--		</div>-->
 
+
 		<div id="contentWrapper">
+		
 			<!--			 8月　インラインフレームでSHview.jspを表示する。最初は白紙。属性名wakuはsenditemとsearchWordで使用 -->
 			<div id="wakuWrapper">
 				<iframe id="wakuFrame" name="waku" src="about:blank" frameborder="0"></iframe>
