@@ -61,9 +61,8 @@ background-color: #ADADAD;
 }
 
 h1 {
-	display: inline-block;
-	margin-top: -50px;
-	margin-bottom: 80px;
+	display: inline;
+	text-align:center;
 }
 
 span.table2>table {
@@ -283,7 +282,7 @@ span.table2 input[type="checkbox"] {
 				</a>
 			</div>
 		</div>
-		<div class="end">
+		
 
 			<h1>管理者用ユーザリスト</h1>
 		</div>
