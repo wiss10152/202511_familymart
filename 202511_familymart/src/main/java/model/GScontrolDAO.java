@@ -21,7 +21,7 @@ public class GScontrolDAO {
 				+ " 店舗名='"+ shop +"';";
 
 		} else if(potision.equals("down")) {
-			// 8月　数量と価格、仕入れ値を用いて計算させる。これは下段のショップリストに格納される
+			// 数量と価格、仕入れ値を用いて計算させる。これは下段のショップリストに格納される
 			sql = "SELECT"
 				+ " Sum(数量*価格) AS 売り ,Sum(数量*仕入れ値) AS 仕入れ,光熱費,テナント料,人件費,"
 				+ " Sum(数量*価格)-Sum(数量*仕入れ値)-光熱費-テナント料-人件費 AS 利益"
@@ -42,9 +42,25 @@ public class GScontrolDAO {
 
 		return sql;
 	}
-
-	// 8月　↓上段下段とも二つに分けてるのがスマートでない。…がSQL結合が上手くいかなかったので任せます↓
-	// 8月　店舗詳細データの上段をリストに入れる。リクエストで呼び出している 9/22
+	
+	public String getShopAddress(String shopName) {
+		MyDBAccess model = new MyDBAccess();
+		String address = null;
+		try {
+			model.open();
+			String sql = "SELECT 住所 FROM 出店計画 WHERE 店舗名='" + shopName + "'";
+			ResultSet rs = model.getResultSet(sql);
+			if(rs.next()) {
+				address = rs.getString("住所");
+			}
+			model.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return address;
+	}
+	// ↓上段下段とも二つに分けてるのがスマートでない。…がSQL結合が上手くいかなかったので任せます↓
+	// 店舗詳細データの上段をリストに入れる。リクエストで呼び出している
 	public List<Shopfam> setShopTopDetailList(String shop){
 		List<Shopfam> ShopList = new ArrayList<Shopfam>();
 
@@ -72,7 +88,7 @@ public class GScontrolDAO {
 		return ShopList;
 	}
 
-	// 8月　店舗詳細データの下段をリストに入れる。リクエストで呼び出している 9/22
+	// 店舗詳細データの下段をリストに入れる。リクエストで呼び出している
 	public List<Shopfam2> setShopDownDetailList(String shop){
 		List<Shopfam2> ShopList = new ArrayList<Shopfam2>();
 
@@ -105,20 +121,5 @@ public class GScontrolDAO {
 		return ShopList;
 	}
 	
-	public String getShopAddress(String shopName) {
-		MyDBAccess model = new MyDBAccess();
-		String address = null;
-		try {
-			model.open();
-			String sql = "SELECT 住所 FROM 出店計画 WHERE 店舗名='" + shopName + "'";
-			ResultSet rs = model.getResultSet(sql);
-			if(rs.next()) {
-				address = rs.getString("住所");
-			}
-			model.close();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return address;
-	}
+
 }

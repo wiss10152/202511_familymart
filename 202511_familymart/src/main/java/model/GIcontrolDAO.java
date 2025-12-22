@@ -19,7 +19,7 @@ public class GIcontrolDAO {
 		return sql;
 	}
 
-	// 8月　商品の詳細データをリストに入れる。リクエストで呼び出している 9/22
+	// 商品の詳細データをリストに入れる。リクエストで呼び出している
 	public List<Itemfam> setItemDetailList(String item){
 		List<Itemfam> ItemList = new ArrayList<Itemfam>();
 
@@ -42,7 +42,7 @@ public class GIcontrolDAO {
 				setItem.price		 = rs.getInt("価格");
 				setItem.img			 = rs.getString("画像");
 
-				// 8月　新商品判定を追加。1=発売予定 0=新商品 -1=既存商品
+				// 新商品判定を追加。1=発売予定 0=新商品 -1=既存商品
 				if(("2017/08/08").compareTo(rs.getString("販売日")) <= 0) {
 					setItem.newItemJudge = 1;
 				} else if(("2017/07/01").compareTo(rs.getString("販売日")) <= 0) {

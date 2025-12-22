@@ -8,7 +8,7 @@ import java.util.List;
 import control.Itemfam;
 
 public class SHsearchDAO {
-	private String SendSQLSentence(String str) {
+	private String sendSQLSentence(String str) {
 
 		String sql = "SELECT * FROM 商品データ ";
 
@@ -19,7 +19,7 @@ public class SHsearchDAO {
 		return sql;
 	}
 
-	public List<Itemfam> ItemDataList(String str) {
+	public List<Itemfam> setItemDataList(String str) {
 
 		List<Itemfam> ItemList = new ArrayList<>();
 		MyDBAccess model = new MyDBAccess();
@@ -27,7 +27,7 @@ public class SHsearchDAO {
 		try {
 			model.open();
 
-			ResultSet rs = model.getResultSet(SendSQLSentence(str));
+			ResultSet rs = model.getResultSet(sendSQLSentence(str));
 
 			while (rs.next()) {
 				Itemfam setItem = new Itemfam();
