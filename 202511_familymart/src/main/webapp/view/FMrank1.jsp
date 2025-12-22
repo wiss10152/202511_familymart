@@ -103,6 +103,7 @@ window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
 	// 8月　商品ジャンルデータを追加
 	function Items(){
 		var listContainer = document.getElementById("itemSelectionList");
+		listContainer.style.height = "450px";
 		listContainer.innerHTML = '';
 
 		var items = [
@@ -133,7 +134,7 @@ window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
 	// 8月　都道府県データを追加
 	function City(){
 		var listContainer = document.getElementById("itemSelectionList");
-        
+        listContainer.style.height = "300px";
         listContainer.innerHTML = ''; 
 
 		var items = [

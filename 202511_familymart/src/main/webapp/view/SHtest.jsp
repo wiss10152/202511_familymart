@@ -167,9 +167,9 @@ html, body {
 		
 		
 		<div class="sidenav">
-			<div class="search-container">
+			<div class="search-container" style="padding-bottom: 40px;">
 		
-				<div class="sidebar-search-group">
+				<div class="sidebar-search-group" style="padding: 0 5px 0;">
 					<p class="sidebar-search-title">商品名検索</p>
 					<div class="search-input-group">
 						<input type="search" id="shName" placeholder="商品名で検索"
@@ -180,9 +180,9 @@ html, body {
 					</div>
 				</div>
 			
-				<div class="sidebar-region-group" >
+				<div class="sidebar-item-group" >
 					<p class="status-title">ジャンル一覧</p>
-					<div id="itemSelectionList" class="item-list-container">
+					<div id="itemSelectionList" class="item-list-container" style="height: 450px;">
 						<%
 						int i = 0;
 						for (String item : items) {

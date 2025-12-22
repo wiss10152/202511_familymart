@@ -366,11 +366,13 @@ body {
 }
 
 .region-item.all-region .region-label{
-	font-weight: bold;
-	font-size: 14px;
-	border: 1px solid black;
-	padding: 5px 8px;
 	background-color: white;
+	color: black;
+	padding: 5px 8px;
+	border: 1px solid black;
+	font-weight: bold;
+	font-size: 13px;
+	transition: background-color 0.2s;
 	display: block;
 }
 
