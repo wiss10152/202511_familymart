@@ -121,7 +121,8 @@ function searchBySidenav(searchType){
 	}
 
 	if(searchType === 'shopName'){
-		if(shp.trim()==="" && selectedPrefs.length===0 && status==="all") return;
+		if(shp.trim()==="" && selectedPrefs.length===0 && status==="all") alert('店舗名を入力してください');
+
 	}
 	if(searchType === 'prefectureOnly'){
 		if(selectedPrefs.length===0) return;

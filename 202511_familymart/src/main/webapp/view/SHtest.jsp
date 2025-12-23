@@ -42,8 +42,8 @@ html, body {
 	background: transparent;
 }
 
-.USmenu{
-margin-left:160px;
+.USmenu {
+	margin-left: 160px;
 }
 </style>
 
@@ -101,12 +101,19 @@ margin-left:160px;
 
 // labelの中身によって選択か検索を判別
 	function SearchGenreSelect(label, elem){
+		
 		selectItem(label, elem);
+		
 		if(label == "genre"){
 			senditem(elem.getAttribute('data-text'));
 		}
+		
 		if(label == "search"){
-			searchWord(elem.value);
+			if(elem.value.trim()===""){
+				alert('商品名を入力してください');
+			}else{
+				searchWord(elem.value);
+			}
 		}
 	}
 
