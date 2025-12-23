@@ -19,9 +19,9 @@ List<Shopinfo> shopList = (List<Shopinfo>) request.getAttribute("myStoreList");
 	rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/view/css/W0052.css"
 	rel="stylesheet" type="text/css" />
-	<link href="<%=request.getContextPath()%>/view/css/table.css"
+<link href="<%=request.getContextPath()%>/view/css/table.css"
 	rel="stylesheet" type="text/css" />
-	<link href="<%=request.getContextPath()%>/view/img/favicon.ico"
+<link href="<%=request.getContextPath()%>/view/img/favicon.ico"
 	rel="icon" type="img/x-icon" />
 <title>MY店舗</title>
 <script type="text/javascript">
@@ -87,12 +87,14 @@ function checkRemove(text){
 
 </script>
 <style type="text/css">
-body{
-	background: linear-gradient(-45deg, rgba(127, 255, 212, .8), rgba(255, 250, 250, .8),rgba(0, 255, 0, .8)),url(familymart-iloveimg-converted.jpg) !important;
-    background-size: cover;
-    min-height:100vh;
-
+body {
+	background: linear-gradient(-45deg, rgba(127, 255, 212, .8),
+		rgba(255, 250, 250, .8), rgba(0, 255, 0, .8)),
+		url(familymart-iloveimg-converted.jpg) !important;
+	background-size: cover;
+	min-height: 100vh;
 }
+
 .radio-box {
 	display: flex;
 	align-items: center;
@@ -117,31 +119,34 @@ body{
 }
 
 .center {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
 }
 
 .main-content-area {
-    flex: 1;
-    padding-top: 80px;     
-    margin-left: 260px;    
-    margin-bottom: 80px;
+	flex: 1;
+	padding-top: 80px;
+	margin-left: 260px;
+	margin-bottom: 80px;
 }
 
 table button[type='submit'] {
-    padding: 6px 12px;
-    border: none;
-    background-color: #008000;
-    color: #fff;
-    border-radius: 4px;
-    font-size: 14px;
+	padding: 6px 12px;
+	border: none;
+	background-color: #008000;
+	color: #fff;
+	border-radius: 4px;
+	font-size: 14px;
 }
 
 table button[type='submit']:hover {
-    background-color: #00a000;
+	background-color: #00a000;
 }
 
+.USmenu{
+margin-left:160px;
+}
 </style>
 </head>
 <body>
@@ -223,12 +228,14 @@ table button[type='submit']:hover {
 			</div>
 		</div>
 
-
+		<%
+		if (mode.equals("listSet")) {
+		%>
+		<div class="USmenu">
+				<h1>MY店舗一覧</h1>
+		</div>
 		<div class="main-content-area">
-			<%
-			if (mode.equals("listSet")) {
-			%>
-			<h1>MY店舗一覧</h1>
+
 			<%
 			if (shopList.size() > 0) {
 			%>
@@ -323,7 +330,8 @@ table button[type='submit']:hover {
 					document.getElementById("shopName").focus();
 				});
 
-	const msg = "<%=request.getAttribute("status")%>";
+	const msg = "<%=request.getAttribute("status")%>
+		";
 
 		if (msg !== "null" && msg !== "") {
 			alert(msg);

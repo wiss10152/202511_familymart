@@ -11,9 +11,13 @@
 	rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/view/css/W0052.css"
 	rel="stylesheet" type="text/css" />
-	<link href="<%=request.getContextPath()%>/view/img/favicon.ico"
+<link href="<%=request.getContextPath()%>/view/img/favicon.ico"
 	rel="icon" type="img/x-icon" />
 <style>
+
+.USmenu{
+margin-left:160px;
+}
 </style>
 <title>FamilyMart都道府県データ</title>
 
@@ -181,8 +185,8 @@ Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
 				<button class="btn2" onclick="moveUserList();">ユーザ管理</button>
 			</div>
 			<div class="btn">
-                    <button class="btn2" onclick="moveMyStore();">MY店舗</button>
-                </div>
+				<button class="btn2" onclick="moveMyStore();">MY店舗</button>
+			</div>
 			<%
 			}
 			%>
@@ -421,7 +425,9 @@ Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
 				</div>
 			</div>
 		</div>
-
+		<div class="USmenu">
+			<h1>店舗一覧</h1>
+		</div>
 		<div id="contentWrapper">
 			<iframe id="wakuFrame" name="waku"
 				src="<%=request.getContextPath()%>/FMsearch" frameborder="0"></iframe>

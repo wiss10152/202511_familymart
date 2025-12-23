@@ -172,9 +172,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 <body>
 	<div class="end2">
-	<div class="USmenu">
-				<h1>店舗一覧</h1>
-			</div>
+	
 		<div class="center">
 			
 			<div class="end">

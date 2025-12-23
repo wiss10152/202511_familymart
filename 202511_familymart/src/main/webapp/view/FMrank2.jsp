@@ -230,9 +230,7 @@ a {
 
 	<div class="center">
 		<div class="end">
-			<h1><%=displayName%>
-				売上ランキング
-			</h1>
+			
 
 			<span class="table"> <%=tableHTML%>
 			</span>

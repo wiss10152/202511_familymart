@@ -12,7 +12,7 @@
 	rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/view/css/W0052.css"
 	rel="stylesheet" type="text/css" />
-	<link href="<%=request.getContextPath()%>/view/img/favicon.ico"
+<link href="<%=request.getContextPath()%>/view/img/favicon.ico"
 	rel="icon" type="img/x-icon" />
 <style>
 html, body {
@@ -20,6 +20,11 @@ html, body {
 	padding: 0;
 	height: auto;
 	overflow: visible;
+}
+
+.USmenu {
+	margin-top: 60px;
+	margin-left: 160px;
 }
 </style>
 <title>FamilyMart 都道府県別商品ランキング</title>
@@ -181,6 +186,7 @@ function moveMyStore(){
 	clickedElement.classList.add('selected');
 
 	selectedItemText = clickedElement.getAttribute('data-text');
+	updateDisplayName(selectedItemText);
 
 	send();
 	}
@@ -211,6 +217,8 @@ function moveMyStore(){
 		var radiobtn2 = document.getElementById("label2");
 		var editValue = radiobtn2.checked ? "true" : "false";
 		var jpName = regionNameJP[regionKey];
+		updateDisplayName(jpName);
+
 		waku.location = "<%=request.getContextPath()%>/FMrank?pre=" + encodeURIComponent(prefString) 
 						+ "&edit=" + editValue + "&regionName=" + encodeURIComponent(jpName);
 
@@ -220,6 +228,11 @@ function moveMyStore(){
 		var prefString = prefsArray.join(",");
 		var edit = document.getElementById("label2").checked;
 	}
+	
+	function updateDisplayName(name){
+	    document.getElementById("displayNameText").textContent = name;
+	}
+
 
 </script>
 </head>
@@ -258,8 +271,8 @@ function moveMyStore(){
 				<button class="btn2" onclick="moveUserList();">ユーザ管理</button>
 			</div>
 			<div class="btn">
-                    <button class="btn2" onclick="moveMyStore();">MY店舗</button>
-                </div>
+				<button class="btn2" onclick="moveMyStore();">MY店舗</button>
+			</div>
 			<%
 			}
 			%>
@@ -271,6 +284,11 @@ function moveMyStore(){
 					src="<%=request.getContextPath()%>/view/img/153.142.124.217 (2).gif">
 				</a>
 			</div>
+		</div>
+		<div class="USmenu">
+			<h1>
+				<span id="displayNameText">総合</span> 売上ランキング
+			</h1>
 		</div>
 		<div class="sidenav">
 			<div class="search-container" style="padding-bottom: 40px;">
@@ -316,6 +334,7 @@ function moveMyStore(){
 				</div>
 			</div>
 		</div>
+
 
 		<div class="main-content-area">
 			<iframe id="wakuFrame" name="waku" src="about:blank"

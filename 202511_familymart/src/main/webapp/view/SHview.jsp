@@ -180,10 +180,7 @@ a {
 	text-decoration: none;
 }
 
-.USmenu{
-padding-left:50px;
-padding-right:50px;
-}
+
 </style>
 <title>FamilyMart商品データ</title>
 </head>
@@ -192,9 +189,7 @@ padding-right:50px;
 	<br>
 	<div class="tableArea">
 		<div class="center">
-		<div class="USmenu">
-                <h1>商品一覧</h1>
-            </div>
+		
 			<span class="table2"><%=Itemtable%></span>
 		</div>
 

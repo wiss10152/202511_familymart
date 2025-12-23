@@ -11,37 +11,40 @@
 	rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/view/css/W0052.css"
 	rel="stylesheet" type="text/css" />
-	<link href="<%=request.getContextPath()%>/view/img/favicon.ico"
+<link href="<%=request.getContextPath()%>/view/img/favicon.ico"
 	rel="icon" type="img/x-icon" />
 <title>商品ジャンル選択</title>
 <style>
 html, body {
-    margin: 0;
-    height: auto;
-    overflow-y: auto;
+	margin: 0;
+	height: auto;
+	overflow-y: auto;
 }
 
 #contentWrapper {
-    margin-left: 120px;
-    padding: 20px;
-    box-sizing: border-box;
-    overflow: visible;
+	margin-left: 120px;
+	padding: 20px;
+	box-sizing: border-box;
+	overflow: visible;
 }
 
 #wakuWrapper {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: visible;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: visible;
 }
 
 #wakuFrame {
-    display: block;
-    width: 100%;
-    border: none;
-    background: transparent;
+	display: block;
+	width: 100%;
+	border: none;
+	background: transparent;
 }
 
+.USmenu{
+margin-left:160px;
+}
 </style>
 
 <script>
@@ -157,8 +160,8 @@ html, body {
 				<button class="btn2" onclick="moveUserList();">ユーザ管理</button>
 			</div>
 			<div class="btn">
-                    <button class="btn2" onclick="moveMyStore();">MY店舗</button>
-                </div>
+				<button class="btn2" onclick="moveMyStore();">MY店舗</button>
+			</div>
 			<%
 			}
 			%>
@@ -173,11 +176,11 @@ html, body {
 				</a>
 			</div>
 		</div>
-		
-		
+
+
 		<div class="sidenav">
 			<div class="search-container" style="padding-bottom: 40px;">
-		
+
 				<div class="sidebar-search-group" style="padding: 0 5px 0;">
 					<p class="sidebar-search-title">商品名検索</p>
 					<div class="search-input-group">
@@ -188,10 +191,11 @@ html, body {
 							検索</button>
 					</div>
 				</div>
-			
-				<div class="sidebar-item-group" >
+
+				<div class="sidebar-item-group">
 					<p class="status-title">ジャンル一覧</p>
-					<div id="itemSelectionList" class="item-list-container" style="height: 450px;">
+					<div id="itemSelectionList" class="item-list-container"
+						style="height: 450px;">
 						<%
 						int i = 0;
 						for (String item : items) {
@@ -206,24 +210,28 @@ html, body {
 				</div>
 			</div>
 		</div>
-<!--		<div class="menu">-->
-<!--			<h1></h1>-->
+		<!--		<div class="menu">-->
+		<!--			<h1></h1>-->
 
-<!--			<div class="grid-container"></div>-->
-<!--		</div>-->
-
+		<!--			<div class="grid-container"></div>-->
+		<!--		</div>-->
+		<div class="USmenu">
+			<h1>商品一覧</h1>
+		</div>
 
 		<div id="contentWrapper">
-		
+
 			<!--			 8月　インラインフレームでSHview.jspを表示する。最初は白紙。属性名wakuはsenditemとsearchWordで使用 -->
 			<div id="wakuWrapper">
 				<iframe id="wakuFrame" name="waku" src="about:blank" frameborder="0"></iframe>
 			</div>
 		</div>
-	
-<!--	自動で総合を表示するscript-->
-		<script>SearchGenreSelect("genre", document.getElementById("pre0"))</script>
-		
+
+		<!--	自動で総合を表示するscript-->
+		<script>
+			SearchGenreSelect("genre", document.getElementById("pre0"))
+		</script>
+
 		<div class="footer">
 			<span>© 2025 FamilyMart System — All Rights Reserved.</span>
 		</div>
