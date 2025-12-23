@@ -26,6 +26,11 @@ html, body {
 	margin-top: 60px;
 	margin-left: 160px;
 }
+
+.main-content-area{
+dispaly:inline-block;
+margin-top:-80px;
+}
 </style>
 <title>FamilyMart 都道府県別商品ランキング</title>
 
