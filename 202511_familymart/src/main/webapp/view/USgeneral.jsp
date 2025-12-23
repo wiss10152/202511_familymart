@@ -14,6 +14,8 @@ String un = (String) session.getAttribute("userName");
 <html lang="ja">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link href="<%=request.getContextPath()%>/view/css/W0051.css"
 	rel="stylesheet" type="text/css" />
 	<link href="<%=request.getContextPath()%>/view/css/W0052.css"
@@ -21,6 +23,18 @@ String un = (String) session.getAttribute("userName");
 	<link href="<%=request.getContextPath()%>/view/img/favicon.ico"
 	rel="icon" type="img/x-icon" />
 <title>FamilyMartユーザ画面</title>
+<style type="text/css">
+.button-container,form{
+margin-bottom:30px;
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap;          
+    justify-content: center;  
+    gap: 25px; 
+}
+</style>
 
 <script type="text/javascript">
 
@@ -163,31 +177,21 @@ if (login == null) {
            
                 <hs>ご利用のボタンを押してください↓</hs>
             </div>
- <div class="button-container">
+			<div class="button-container">
 
 
-                <div class="bbtn">
-                    <button class="btn3" onClick="moveShopItem();">
-                        商品
-                    </button>
-                </div>
+				<div class="bbtn">
+					<button class="btn3" onClick="moveShopItem();">商品</button>
+				</div>
 
-                <div class="bbtn">
-                    <button class="btn3" onClick="movePrefecture();">
-                        店舗
-                    </button>
-                </div>
+				<div class="bbtn">
+					<button class="btn3" onClick="movePrefecture();">店舗</button>
+				</div>
 
-                <div class="bbtn">
-                    <button class="btn3" onClick="moveRank();">
-                        ランキング
-                    </button>
-                </div>
-</div>
-</br>
-               
-
-                <%
+				<div class="bbtn">
+					<button class="btn3" onClick="moveRank();">ランキング</button>
+				</div>
+				<%
                     if (Boolean.TRUE.equals(adminFlg)) {
                 %>
                 <div class="bbtn">
@@ -199,6 +203,10 @@ if (login == null) {
                 <%
                     }
                 %>
+			</div>
+
+
+			
 
             <%--
             <div>

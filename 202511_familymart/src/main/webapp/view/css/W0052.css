@@ -1,11 +1,11 @@
 @charset "UTF-8";
 
 body {
-    margin: 0;
-    padding-top: 60px;   
-    min-height: 100vh;   
-	    display: flex;
-    flex-direction: column;
+	margin: 0;
+	padding-top: 60px;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
 }
 
 
@@ -29,7 +29,6 @@ body {
 	overflow: hidden;
 }
 
-/* Dropdown button */
 .btn .btn2 {
 	cursor: pointer;
 	font-size: 16px;
@@ -39,36 +38,40 @@ body {
 	padding: 14px 16px;
 	background-color: inherit;
 	font-family: inherit;
-	/* Important for vertical align on mobile phones */
-	margin: 0; /* Important for vertical align on mobile phones */
+	margin: 0;
 }
+
 .btn3 {
 	cursor: pointer;
 	font-size: 30px;
 	border: 0;
 	outline: 1;
 	color: white;
-	padding: 40px 120px;
+	padding: 40px 0;
 	background-color: green;
 	text-shadow: -1px -1px 1px #00ff71;
-	 border-bottom: 5px solid green;
+	border-bottom: 5px solid green;
 	font-family: inherit;
 	transform: skewX(-20deg);
 	-webkit-transition: all .3s;
-	 transition: all .3s;
-	 flex: 1; 
-	}
-	.btn3:hover{
-		color:white;
-		background-color: rgb(0, 255, 0);
-		
-		}
-	.bbtn{
-			
-			 display: inline-block;
-			  margin: 0 10px;
-			  
-		}
+	transition: all .3s;
+	flex: 0 0 auto;
+	width: 300px;
+}
+
+.btn3:hover {
+	color: white;
+	background-color: rgb(0, 255, 0);
+
+}
+
+.bbtn {
+
+	display: inline-block;
+	margin: 0 10px;
+
+}
+
 .button-panel {
 	display: flex;
 	margin-top: 15px;
@@ -109,7 +112,7 @@ body {
 
 .grid-container {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr); 
+	grid-template-columns: repeat(3, 1fr);
 	gap: 30px;
 	width: 90%;
 	margin: 30px auto;
@@ -186,14 +189,14 @@ body {
 }*/
 
 .main-content-area {
-    margin-left: 160px;
-    padding: 20px;
-    padding-bottom: 20px;
+	margin-left: 160px;
+	padding: 20px;
+	padding-bottom: 20px;
 }
 
 
-.ranking-iframe{
-	width:100%;
+.ranking-iframe {
+	width: 100%;
 	border: 1px solid white;
 	margin-top: 20px;
 }
@@ -202,17 +205,17 @@ body {
 	opacity: 0.9;
 }
 
-.sidebar-search-container{
+.sidebar-search-container {
 	padding: 15px 10px;
 	background-color: white;
 	border-bottom: 1px solid white;
 }
 
-.sidebar-radio-group{
+.sidebar-radio-group {
 	padding: 0 5px 0;
 }
 
-.sidebar-radio-group .status-title{
+.sidebar-radio-group .status-title {
 	font-size: 14px;
 	font-weight: bold;
 	margin-bottom: 5px;
@@ -221,27 +224,27 @@ body {
 	margin-top: 0;
 }
 
-.sidebar-radio-group .status-label{
+.sidebar-radio-group .status-label {
 	display: block;
 	margin-bottom: 3px;
 	font-size: 13px;
 }
 
-.sidebar-radio-group .status-label input[type="radio"]{
+.sidebar-radio-group .status-label input[type="radio"] {
 	cursor: pointer;
 	margin-left: 5px;
 }
 
-.search-input-group{
+.search-input-group {
 	display: flex;
 	margin-bottom: 5px;
 }
 
-.sidebar-search-group{
+.sidebar-search-group {
 	padding: 10px 5px 0;
 }
 
-.sidebar-search-title{
+.sidebar-search-title {
 	font-size: 14px;
 	font-weight: bold;
 	margin-bottom: 5px;
@@ -249,7 +252,8 @@ body {
 	padding: 0;
 	margin-top: 0;
 }
-.sidebar-search-input{
+
+.sidebar-search-input {
 	padding: 6px 8px;
 	box-sizing: border-box;
 	border: 1px solid white;
@@ -261,7 +265,7 @@ body {
 	width: 100px;
 }
 
-.sidebar-search-button{
+.sidebar-search-button {
 	width: 40px;
 	flex-shrink: 0;
 	padding: 6px 4px;
@@ -277,15 +281,15 @@ body {
 	transition: background-color 0.3s;
 }
 
-.sidebar-search-button:hover{
+.sidebar-search-button:hover {
 	background-color: #006633;
 }
 
-.sidebar-region-group{
+.sidebar-region-group {
 	padding: 10px 5px 0;
 }
 
-.sidebar-region-group .status-title{
+.sidebar-region-group .status-title {
 	font-size: 14px;
 	font-weight: bold;
 	margin-bottom: 5px;
@@ -294,12 +298,12 @@ body {
 	margin-top: 0;
 }
 
-.toggle-all-buttons{
+.toggle-all-buttons {
 	padding: 5px 0 10px;
 	text-align: center;
 }
 
-.toggle-all-buttons button{
+.toggle-all-buttons button {
 	background: #1a73e8;
 	color: white;
 	border: none;
@@ -309,18 +313,18 @@ body {
 	font-size: 12px;
 }
 
-.toggle-all-buttons button:hover{
+.toggle-all-buttons button:hover {
 	background-color: #006633;
 }
 
-.region-list-scroll-area{
+.region-list-scroll-area {
 	max-height: 400px;
 	overflow-y: auto;
 	padding-right: 5px;
 	margin-bottom: 10px;
 }
 
-.region-header{
+.region-header {
 	background-color: white;
 	color: black;
 	padding: 5px 8px;
@@ -330,11 +334,11 @@ body {
 	transition: background-color 0.2s;
 }
 
-.region-header:hover{
+.region-header:hover {
 	background-color: white;
 }
 
-.toggle-icon{
+.toggle-icon {
 	display: inline-block;
 	cursor: pointer;
 	margin-right: 5px;
@@ -342,7 +346,7 @@ body {
 	transition: transform 0.3s;
 }
 
-.region-content{
+.region-content {
 	padding: 0 0 0 10px;
 	background-color: white;
 	max-height: 0;
@@ -353,19 +357,19 @@ body {
 	border-bottom: 1px solid white;
 }
 
-.region-content .status-label{
+.region-content .status-label {
 	display: block;
 	padding: 2px 0 2px 5px;
 	margin-left: 0;
 }
 
-.region-content .all-in-section{
+.region-content .all-in-section {
 	display: block;
 	padding: 2px 0 2px 5px;
 	margin-left: 0;
 }
 
-.region-item.all-region .region-label{
+.region-item.all-region .region-label {
 	background-color: white;
 	color: black;
 	padding: 5px 8px;
@@ -377,12 +381,12 @@ body {
 }
 
 .sidenav,
-.region-list-scroll-area{
+.region-list-scroll-area {
 	-ms-overflow-style: none;
 	scrollbar-width: none;
 }
 
-.global-prefecture-search-button{
+.global-prefecture-search-button {
 	display: block;
 	width: 95%;
 	margin: 10px auto 0 auto;
@@ -396,15 +400,15 @@ body {
 	font-weight: bold;
 }
 
-.global-prefecture-search-button:hover{
+.global-prefecture-search-button:hover {
 	background-color: #006633;
 }
 
-.sidebar-item-group{
+.sidebar-item-group {
 	padding: 10px 5px 0;
 }
 
-.sidebar-item-group .status-title{
+.sidebar-item-group .status-title {
 	font-size: 14px;
 	font-weight: bold;
 	margin-bottom: 5px;
@@ -412,13 +416,14 @@ body {
 	padding: 0;
 	margin-top: 0;
 }
-.item-list-container{
+
+.item-list-container {
 	padding: 5px 10px;
 	height: 300px;
 	overflow-y: auto;
 }
 
-.selectable-item{
+.selectable-item {
 	padding: 5px 8px;
 	margin: 2px 0;
 	cursor: pointer;
@@ -429,22 +434,23 @@ body {
 }
 
 .selectable-item:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+	background-color: rgba(0, 0, 0, 0.1);
 }
 
 /* 選択された項目（アクティブ状態）のスタイル */
 .selectable-item.selected {
-    background-color: #1a73e8; /* 売上順位表示ボタンの色に合わせる */
-    color: white;
-    font-weight: bold;
+	background-color: #1a73e8;
+	/* 売上順位表示ボタンの色に合わせる */
+	color: white;
+	font-weight: bold;
 }
 
-.region-button-area{
+.region-button-area {
 	padding: 10px 5px 0;
 	display: block;
 }
 
-.region-button-area .status-title{
+.region-button-area .status-title {
 	font-size: 14px;
 	font-weight: bold;
 	margin-bottom: 5px;
@@ -453,13 +459,13 @@ body {
 	margin-top: 0;
 }
 
-.region-grid{
+.region-grid {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 6px;
 }
 
-.region-btn{
+.region-btn {
 	background: white;
 	border: 1px solid white;
 	border-radius: 4px;
@@ -469,20 +475,20 @@ body {
 	text-align: center;
 }
 
-.region-btn:hover{
+.region-btn:hover {
 	background-color: #006633;
 	color: white;
 	border-color: #006633;
 }
 
 .sidenav::-webkit-scrollbar,
-.region-list-scroll-area::-webkit-scrollbar{
+.region-list-scroll-area::-webkit-scrollbar {
 	display: none;
 	width: 0 !important;
 	height: 0 !important;
 }
 
-input[type="checkbox" i]{
+input[type="checkbox" i] {
 	background-color: initial;
 	cursor: pointer;
 	appearance: auto;
@@ -563,7 +569,7 @@ h2 {
 #contentWrapper {
 	margin-left: 160px;
 	padding: 20px;
-	flex:1;
+	flex: 1;
 }
 
 .select {
@@ -591,9 +597,9 @@ h2 {
 
 #wakuFrame {
 	display: block;
-    width: 100%;
-    border: none;
-    background: transparent;
+	width: 100%;
+	border: none;
+	background: transparent;
 }
 
 
@@ -603,21 +609,22 @@ h2 {
 
 .ranking-iframe,
 #wakuFrame {
-    width: 100%;
-    height: auto;   
-    border: none;
+	width: 100%;
+	height: auto;
+	border: none;
 }
+
 USmenu {
-all: unset !important;
-display: block !important;
-font-family: sans-serif !important;
-font-size: 28px !important;
-font-weight: bold !important;
-border-top: 3px double #27ae60 !important;
-border-bottom: 3px double #27ae60 !important;
-padding: 0.5em 1em calc(0.5em - 6px) !important;
-padding-top: 10px !important;
-padding-bottom: 10px !important;
-margin-bottom: 2em !important;
-background-color: rgb(255, 255, 255) !important;
+	all: unset !important;
+	display: block !important;
+	font-family: sans-serif !important;
+	font-size: 28px !important;
+	font-weight: bold !important;
+	border-top: 3px double #27ae60 !important;
+	border-bottom: 3px double #27ae60 !important;
+	padding: 0.5em 1em calc(0.5em - 6px) !important;
+	padding-top: 10px !important;
+	padding-bottom: 10px !important;
+	margin-bottom: 2em !important;
+	background-color: rgb(255, 255, 255) !important;
 }
