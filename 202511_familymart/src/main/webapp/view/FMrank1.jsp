@@ -207,7 +207,7 @@ function moveMyStore(){
 				"kyushu-okinawa": "九州・沖縄"
 		};
 
-		var prefString = prefsArray.join(",");
+		var prefString = prefsArray.join("', '");
 		var radiobtn2 = document.getElementById("label2");
 		var editValue = radiobtn2.checked ? "true" : "false";
 		var jpName = regionNameJP[regionKey];
