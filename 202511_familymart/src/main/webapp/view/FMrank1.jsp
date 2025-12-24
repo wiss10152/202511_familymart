@@ -32,7 +32,7 @@ dispaly:inline-block;
 margin-top:-80px;
 }
 </style>
-<title>FamilyMart 都道府県別商品ランキング</title>
+<title>ランキング</title>
 
 <script type="text/javascript">
 
@@ -254,7 +254,7 @@ function moveMyStore(){
 				style="height: 50px; margin: 5px; float: left;">
 
 			<div class="btn">
-				<button class="btn2" onclick="moveHome();">ホーム</button>
+				<button class="btn2" onclick="moveHome();">メニュー</button>
 			</div>
 
 			<div class="btn">

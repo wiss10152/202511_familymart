@@ -22,7 +22,7 @@ String un = (String) session.getAttribute("userName");
 	rel="stylesheet" type="text/css" />
 	<link href="<%=request.getContextPath()%>/view/img/favicon.ico"
 	rel="icon" type="img/x-icon" />
-<title>FamilyMartユーザ画面</title>
+<title>メニュー画面</title>
 <style type="text/css">
 
 .button-container {
@@ -116,7 +116,7 @@ if (login == null) {
 
                 <div class="btn">
                     <button class="btn2" onclick="moveHome();">
-                        ホーム
+                        メニュー
                     </button>
                 </div>
 
@@ -237,7 +237,7 @@ if (login == null) {
         </form>
 
         <div class="footer">
-            <span>? 2025 FamilyMart System ? All Rights Reserved.</span>
+            <span>© 2025 FamilyMart System — All Rights Reserved.</span>
         </div>
 
     </div>
