@@ -33,7 +33,7 @@ if (prefectures == null)
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>FamilyMart出店計画</title>
+<title>出店計画一覧表示</title>
 
 <link href="<%=request.getContextPath()%>/view/css/W0051.css"
 	rel="stylesheet">

@@ -19,7 +19,7 @@
 margin-left:160px;
 }
 </style>
-<title>FamilyMart都道府県データ</title>
+<title>店舗一覧</title>
 
 <script type="text/javascript">
 <%
@@ -148,7 +148,7 @@ function searchBySidenav(searchType){
 }
 
 
-function checkAllRegionStatus(){
+function checkAllPrefecturesStatus(){
 	const allChk = document.getElementById("checkingAll");
 	const items = document.querySelectorAll('input[name="prefecture_status"]');
 	items.forEach(cd =>{
@@ -156,7 +156,7 @@ function checkAllRegionStatus(){
 		});
 	
 }
-document.addEventListener('change', checkAllRegionStatus);
+document.getElementById('checkingAll').addEventListener('change', checkAllPrefecturesStatus);
 
 </script>
 </head>
@@ -172,7 +172,7 @@ Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
 				style="height: 50px; margin: 5px; float: left;">
 
 			<div class="btn">
-				<button class="btn2" onclick="moveHome();">ホーム</button>
+				<button class="btn2" onclick="moveHome();">メニュー</button>
 			</div>
 			<div class="btn">
 				<button class="btn2" onclick="moveShopItem();">商品</button>
@@ -445,5 +445,5 @@ Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
 		</div>
 	</div>
 </body>
-
+<script type="text/javascript">checkAllPrefecturesStatus()</script>
 </html>

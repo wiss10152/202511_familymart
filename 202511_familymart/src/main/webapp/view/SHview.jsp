@@ -182,7 +182,7 @@ a {
 
 
 </style>
-<title>FamilyMart商品データ</title>
+<title>商品データ表示</title>
 </head>
 
 <body>

@@ -171,7 +171,7 @@ table button[type='submit']:hover {
 				style="height: 50px; margin: 5px; float: left;">
 
 			<div class="btn">
-				<button class="btn2" onclick="moveHome();">ホーム</button>
+				<button class="btn2" onclick="moveHome();">メニュー</button>
 			</div>
 
 			<div class="btn">
@@ -343,8 +343,7 @@ table button[type='submit']:hover {
 					document.getElementById("shopName").focus();
 				});
 
-	const msg = "<%=request.getAttribute("status")%>
-		";
+	const msg = "<%=request.getAttribute("status")%>";
 
 		if (msg !== "null" && msg !== "") {
 			alert(msg);

@@ -14,7 +14,7 @@
 	rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/view/img/favicon.ico"
 	rel="icon" type="img/x-icon" />
-<title>FamilyMartユーザ登録画面</title>
+<title>ユーザ登録</title>
 <style>
 
 .password-wrapper {
@@ -329,7 +329,7 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 			style="height: 50px; margin: 5px; float: left;">
 
 		<div class="btn">
-			<button class="btn2" onclick="moveHome();">ホーム</button>
+			<button class="btn2" onclick="moveHome();">メニュー</button>
 		</div>
 
 		<div class="btn">
@@ -370,22 +370,10 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 
 	<div class="center">
 		<form name="MyForm" method="POST" action="#" onsubmit="return false;">
-			<%--ここで、Enter keyを押した場合の処理を行っている。キャンセルすると送信されない。↑ --%>
-			<!--	<div class="button-panel">-->
-			<!--		<%-- out.print("ユーザ名 : " + session.getAttribute("userName"));%>-->
-			<!--		<a style="margin-left: 20px" class="button" onClick="logout();">-->
-			<!--		<img src="<%= request.getContextPath() --%>/view/img/153.142.124.217 (2).gif"></a>-->
-			<!--	</div>-->
-
-
-			<%--
-			String userid = (String) request.getAttribute("userId");
-			String userName = (String) request.getAttribute("userName");
-			--%>
+			
 			<div>
-				<!--				<img src="<%=request.getContextPath()%>/view/img/familymart.png">-->
 				<h1>
-					ユーザ<%=change%>画面
+					ユーザ<%=change%>
 				</h1>
 			</div>
 <div class="end">

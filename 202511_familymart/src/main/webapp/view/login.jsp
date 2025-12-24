@@ -7,7 +7,7 @@
 	rel="stylesheet" type="text/css" />
 	<link href="<%=request.getContextPath()%>/view/img/favicon.ico"
 	rel="icon" type="img/x-icon" />
-<title>FamilyMartログイン画面</title>
+<title>ログイン画面</title>
 <style>
 @charset "UTF-8";
 

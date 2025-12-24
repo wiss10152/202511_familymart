@@ -13,7 +13,7 @@
 	rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/view/img/favicon.ico"
 	rel="icon" type="img/x-icon" />
-<title>商品ジャンル選択</title>
+<title>商品一覧</title>
 <style>
 html, body {
 	margin: 0;

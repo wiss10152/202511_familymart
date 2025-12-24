@@ -20,7 +20,7 @@
 	rel="stylesheet" type="text/css" />
 	<link href="<%=request.getContextPath()%>/view/img/favicon.ico"
 	rel="icon" type="img/x-icon" />
-<title>FamilyMartユーザ管理画面</title>
+<title>ユーザ管理</title>
 
 <style type="text/css">
 body {
@@ -251,7 +251,7 @@ span.table2 input[type="checkbox"] {
 				style="height: 50px; margin: 5px; float: left;">
 
 			<div class="btn">
-				<button class="btn2" onclick="moveHome();">ホーム</button>
+				<button class="btn2" onclick="moveHome();">メニュー</button>
 			</div>
 
 			<div class="btn">
@@ -294,27 +294,6 @@ span.table2 input[type="checkbox"] {
 			<h1>管理者用ユーザリスト</h1>
 		</div>
 
-		<%--ここから、曲を流すプログラム --%>
-		<%  boolean music  = (boolean)session.getAttribute("music");    //7月新規
-		String   manege = (String)  session.getAttribute("manegement");
-		if(music == true){ %>
-		<%-- ここのIF文でログイン後の1度きりという設定している --%>
-		<audio
-			src="<%= request.getContextPath() %>/view/mp3/ファミマ入店音square.mp3"
-			autoplay></audio>
-		<%-- 入店音を出す --%>
-		<%	session.setAttribute("music", false);		//これ以降ここの音楽は流れないように設定
-				session.setAttribute("manegement", "LOW");
-		} else if(manege  == "NORMAL") {%>
-		<%--ここのIF文で一般画面から管理者画面に遷移したときに流す曲を設定している --%>
-		<%--改善案 --%>
-		<audio
-			src="<%= request.getContextPath() %>/view/mp3/ファミマ入店音Normal.mp3"
-			autoplay></audio>
-		<%--同上 --%>
-		<% session.setAttribute("manegement", "LOW");	//これで、次にユーザ管理画面に行かない限り音楽は流れない
-		} %>
-		<%--ここまで --%>
 
 		<form name="MyForm" method="POST"
 			action="<%= request.getContextPath() %>/FMlogout">

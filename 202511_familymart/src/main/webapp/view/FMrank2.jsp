@@ -173,7 +173,7 @@ if (rankname != null && rankname.size() > 0) {
 
 <!DOCTYPE HTML>
 <html lang="ja">
-<title>FamilyMartランキング</title>
+<title>ランキング</title>
 <head>
 <link href="<%=request.getContextPath()%>/view/css/W0051.css"
 	rel="stylesheet" type="text/css" />
