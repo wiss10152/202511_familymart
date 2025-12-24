@@ -88,6 +88,7 @@ function checkRemove(text){
 </script>
 <style type="text/css">
 body {
+	position:relative;
 	background: linear-gradient(-45deg, rgba(127, 255, 212, .8),
 		rgba(255, 250, 250, .8), rgba(0, 255, 0, .8)),
 		url(familymart-iloveimg-converted.jpg) !important;
@@ -126,7 +127,6 @@ body {
 
 .main-content-area {
 	flex: 1;
-	padding-top: 80px;
 	margin-left: 260px;
 	margin-bottom: 80px;
 }
@@ -144,9 +144,19 @@ table button[type='submit']:hover {
 	background-color: #00a000;
 }
 
-.USmenu{
-margin-left:160px;
+.USmenu {
+
+	margin-left: 160px;
 }
+
+.menu2{
+	position:absolute;
+	top:60px;
+	left:160px;
+	display:inline-block;
+	width:1190px;
+}
+
 </style>
 </head>
 <body>
@@ -232,7 +242,7 @@ margin-left:160px;
 		if (mode.equals("listSet")) {
 		%>
 		<div class="USmenu">
-				<h1>MY店舗一覧</h1>
+			<h1>MY店舗一覧</h1>
 		</div>
 		<div class="main-content-area">
 
@@ -273,36 +283,39 @@ margin-left:160px;
 			}
 			} else {
 			%>
-			<h1>MY店舗登録</h1>
-			<%
-			if (shopList.size() > 0) {
-			%>
-			<table border="1" align="center">
-				<form method="post"
-					action="<%=request.getContextPath()%>/MyStoreRegist">
-					<input type="hidden" name="registMode" value="regist">
-					<tr>
-						<th>店舗ID</th>
-						<th>店舗名</th>
-						<th>MY店舗に登録</th>
-					</tr>
-					<%
-					String[] shopIdList = new String[50];
-					for (Shopinfo info : shopList) {
-					%>
-					<tr>
-						<td><%=info.shopid%></td>
-						<td><%=info.shopName%></td>
-						<td><button class="btn2" type="submit" name="shopId"
-								value="<%=info.shopid%>"
-								onClick="return checkRegist('<%=info.shopName%>')">MY店舗に登録</button></td>
-					</tr>
-					<%
-					}
-					%>
+			<div class="menu2">
+				<h1>MY店舗登録</h1>
 
-				</form>
-			</table>
+				<%
+				if (shopList.size() > 0) {
+				%>
+				<table border="1" align="center">
+					<form method="post"
+						action="<%=request.getContextPath()%>/MyStoreRegist">
+						<input type="hidden" name="registMode" value="regist">
+						<tr>
+							<th>店舗ID</th>
+							<th>店舗名</th>
+							<th>MY店舗に登録</th>
+						</tr>
+						<%
+						String[] shopIdList = new String[50];
+						for (Shopinfo info : shopList) {
+						%>
+						<tr>
+							<td><%=info.shopid%></td>
+							<td><%=info.shopName%></td>
+							<td><button class="btn2" type="submit" name="shopId"
+									value="<%=info.shopid%>"
+									onClick="return checkRegist('<%=info.shopName%>')">MY店舗に登録</button></td>
+						</tr>
+						<%
+						}
+						%>
+
+					</form>
+				</table>
+			</div>
 			<%
 			} else {
 			%>

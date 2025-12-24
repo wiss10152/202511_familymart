@@ -24,15 +24,18 @@ String un = (String) session.getAttribute("userName");
 	rel="icon" type="img/x-icon" />
 <title>FamilyMartユーザ画面</title>
 <style type="text/css">
-.button-container,form{
-margin-bottom:30px;
-}
 
 .button-container {
     display: flex;
     flex-wrap: wrap;          
     justify-content: center;  
     gap: 25px; 
+}
+
+.footer{
+	margin-top:85px;
+	margin-bottom:0 !important;
+	
 }
 </style>
 
