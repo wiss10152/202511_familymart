@@ -14,7 +14,7 @@
 	rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/view/img/favicon.ico"
 	rel="icon" type="img/x-icon" />
-<title>FamilyMartユーザ管理画面</title>
+<title>FamilyMartユーザ登録画面</title>
 <style>
 
 .password-wrapper {
@@ -149,7 +149,6 @@ window.onload = function () {
 
 
 
-
 function moveShopItem(){
 window.location.href = "<%=request.getContextPath()%>/view/SHtest.jsp";
 }
@@ -240,6 +239,8 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 <!--		}-->
 <!--	}-->
 
+
+
 	function Registration(actionId){
 		// 8月　エラーメッセージが一番上のものしか表示されていなかったので、エラー項目をすべて表示するように修正
 		var errorUserID 		= "";
@@ -264,10 +265,12 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 				errorUserPass 	= "[パスワード] ";
 				errorCase 		= 1;
 			}
-			if(document.MyForm.conPassword.value === "") {
+			if(document.MyForm.ConPassword.value === "") {
 				errorCheckPass 	= "[確認パスワード]";
 				errorCase 		= 1;
 			}
+
+			
 		}
 		// 8月　上述のエラー項目を洗い出し、表示したらその時点で返す
 		if(errorCase == 1){
@@ -276,21 +279,23 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 		}
 
 		if(actionId === "userRegist" || (document.MyForm.passWord && document.MyForm.passWord.value !== "")){
-			if(document.MyForm.passWord.value != document.MyForm.conPassword.value){
+			if(document.MyForm.passWord.value != document.MyForm.ConPassword.value){
 				alert("パスワードが一致していません");
 				return;
 			}
 		}
-
+		 
+		
 		var msg = (actionId === "update") ? "更新" : "作成";
 		if(confirm("ユーザID[" +userIdValue + "]を" + msg + "します。よろしいですか？")){
 			document.MyForm.actionId.value = actionId;
 			document.MyForm.action = "<%= request.getContextPath() %>/USregist";
 			document.MyForm.submit();
 		}
+		
 	}
 
-	function history_back(){
+    function history_back(){
 		document.MyForm.action = "<%= request.getContextPath()%>/USshow";
 		document.MyForm.submit();
 	}
@@ -421,7 +426,7 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 							<td>
 								<div class="password-wrapper">
 									<input pattern=^([a-zA-Z0-9]{8,})$ type="password"
-										name="conPassword" style="ime-mode: disabled" size="40"
+										name="ConPassword" style="ime-mode: disabled" size="40"
 										maxlength="40" required> <span id="eyeIcon1"
 										class="eye-icon">👁</span>
 								</div>
