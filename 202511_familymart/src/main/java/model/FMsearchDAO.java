@@ -19,9 +19,9 @@ public class FMsearchDAO {
 		sql.append("WHERE 店舗名 LIKE '%").append(shp).append("%' ");
 
 		if ("true".equals(edit)) {
-			sql.append("AND deleted = true ");
-		} else if ("false".equals(edit)) {
 			sql.append("AND deleted = false ");
+		} else if ("false".equals(edit)) {
+			sql.append("AND deleted = true ");
 		}
 
 		if (prefectures != null && !prefectures.isEmpty()) {
