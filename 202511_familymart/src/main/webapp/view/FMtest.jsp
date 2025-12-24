@@ -147,12 +147,17 @@ function searchBySidenav(searchType){
 
 }
 
-	document.addEventListener('DOMContentLoaded', function() {
-		checkAllRegionStatus();
-		var allChk = document.querySelector('input[name="region_status-all"]');
-		if (allChk)
-			allChk.checked = true;
-	});
+
+function checkAllRegionStatus(){
+	const allChk = document.getElementById("checkingAll");
+	const items = document.querySelectorAll('input[name="prefecture_status"]');
+	items.forEach(cd =>{
+		cd.checked = allChk.checked;
+		});
+	
+}
+document.addEventListener('change', checkAllRegionStatus);
+
 </script>
 </head>
 
@@ -241,7 +246,7 @@ Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
 						<div class="region-item all-region">
 							<label class="status-label region-label"> <input
 								type="checkbox" name="region_status-all" value="all"
-								onchange="toggleAllPrefectures(this)">すべて
+								onchange="toggleAllPrefectures(this)" id="checkingAll" checked>すべて
 							</label>
 						</div>
 
@@ -440,4 +445,5 @@ Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
 		</div>
 	</div>
 </body>
+
 </html>

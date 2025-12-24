@@ -35,7 +35,7 @@ public class FMsearch extends HttpServlet {
 		shp = shp.trim();
 
 		if (edit == null)
-			edit = "false";
+			edit = "all";
 
 		int page = 1;
 		if (request.getParameter("page") != null) {
