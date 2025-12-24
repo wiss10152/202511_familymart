@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="jakarta.servlet.http.HttpSession"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="java.util.*"%>
@@ -48,7 +48,7 @@ html, body {
 </style>
 
 <script>
-	<%request.setCharacterEncoding("windows-31j");
+	<%request.setCharacterEncoding("UTF-8");
 	Boolean login = (Boolean) session.getAttribute("adminFlg");
 	if (login == null) {
 		pageContext.forward("/view/login.jsp");

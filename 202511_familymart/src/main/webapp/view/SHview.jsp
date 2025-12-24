@@ -3,7 +3,7 @@
 	pageEncoding="UTF-8"%>
 
 <%
-request.setCharacterEncoding("windows-31j");
+request.setCharacterEncoding("UTF-8");
 Boolean login = (Boolean) session.getAttribute("adminFlg");
 if (login == null) {
 	pageContext.forward("/view/login.jsp");
@@ -68,10 +68,10 @@ if (itemname != null && itemname.size() > 0) {
 	StringBuilder sb = new StringBuilder();
 
 	if (gen != null && gen.trim().length() > 0) {
-		sb.append("&gen=").append(URLEncoder.encode(gen.trim(), "windows-31j"));
+		sb.append("&gen=").append(URLEncoder.encode(gen.trim(), "UTF-8"));
 	}
 	if (str != null && str.trim().length() > 0) {
-		sb.append("&str=").append(URLEncoder.encode(str.trim(), "windows-31j"));
+		sb.append("&str=").append(URLEncoder.encode(str.trim(), "UTF-8"));
 	}
 
 	q = sb.toString();

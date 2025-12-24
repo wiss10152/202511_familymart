@@ -247,17 +247,24 @@ a {
         if (!content) return;
 
         const rect = content.getBoundingClientRect();
-        const height = rect.top + rect.height;
+        const contentHeight = rect.top + rect.height;
 
-        iframe.style.height = Math.ceil(height) + "px";
+        const screenHeight = parent.innerHeight 
+            || parent.document.documentElement.clientHeight;
+
+        const finalHeight = contentHeight < screenHeight
+            ? screenHeight - 120
+            : contentHeight + 20;
+
+        iframe.style.height = Math.ceil(finalHeight) + "px";
     }
 
     window.addEventListener("load", () => {
         requestAnimationFrame(resizeIframe);
     });
-
 })();
 </script>
+
 
 
 	

@@ -22,7 +22,7 @@ public class SHsearch extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		request.setCharacterEncoding("windows-31j");
+		request.setCharacterEncoding("UTF-8");
 
 		String str = request.getParameter("str");
 		if (str == null)
