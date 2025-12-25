@@ -284,6 +284,7 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 				return;
 			}
 		}
+		
 		 
 		
 		var msg = (actionId === "update") ? "更新" : "作成";
@@ -305,7 +306,19 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 	<% session.setAttribute("isRegisteredUserId", false); %>
 <% } %>
 
+
+//記号を除去し、半角英数字のみ許可
+function removeSymbols(event) {
+event.value = event.value.replace(/[^a-zA-Z0-9]/g, '');
+}
+
+	
+
+
+
 </script>
+
+
 </head>
 
 <body>
@@ -329,7 +342,7 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 			style="height: 50px; margin: 5px; float: left;">
 
 		<div class="btn">
-			<button class="btn2" onclick="moveHome();">メニュー</button>
+			<button class="btn2" onclick="moveHome();">ホーム</button>
 		</div>
 
 		<div class="btn">
@@ -370,10 +383,22 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 
 	<div class="center">
 		<form name="MyForm" method="POST" action="#" onsubmit="return false;">
-			
+			<%--ここで、Enter keyを押した場合の処理を行っている。キャンセルすると送信されない。↑ --%>
+			<!--	<div class="button-panel">-->
+			<!--		<%-- out.print("ユーザ名 : " + session.getAttribute("userName"));%>-->
+			<!--		<a style="margin-left: 20px" class="button" onClick="logout();">-->
+			<!--		<img src="<%= request.getContextPath() --%>/view/img/153.142.124.217 (2).gif"></a>-->
+			<!--	</div>-->
+
+
+			<%--
+			String userid = (String) request.getAttribute("userId");
+			String userName = (String) request.getAttribute("userName");
+			--%>
 			<div>
+				<!--				<img src="<%=request.getContextPath()%>/view/img/familymart.png">-->
 				<h1>
-					ユーザ<%=change%>
+					ユーザ<%=change%>画面
 				</h1>
 			</div>
 <div class="end">
@@ -385,27 +410,27 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 					<table class="fm-table">
 						<tr>
 							<td align="left">ユーザID(半角英数字)：</td>
-							<td><input pattern=^[0-9A-Za-z]+$ type="text" name="userId"
+							<td><input pattern="[a-zA-Z0-9]+" type="text" name="userId" id="usernameInput" placeholder="半角英数字のみ入力可能"
 								style="ime-mode: disabled" size="40" maxlength="8" required
-								value="<%=user_id%>" <%=disabled%> /></td>
+								value="<%=user_id%>" <%=disabled%> oninput="removeSymbols(this)" /></td>
 						</tr>
 
 						<tr>
-							<td align="left">ユーザ名(半角文字)：</td>
-							<td><input pattern=^[0-9A-Za-z]+$ type="text" id="username"
+							<td align="left">ユーザ名(半角英数字)：</td>
+							<td><input pattern="[a-zA-Z0-9]+" type="text"  id="usernameInput"placeholder="半角英数字のみ入力可能"
 								name="username" style="ime-mode: disabled" size="40"
-								maxlength="8" required value="<%=user_name%>"></td>
+								maxlength="8" required value="<%=user_name%>" oninput="removeSymbols(this)"></td>
 						</tr>
 
 						<%
 						if ("userRegist".equals(actionId)) {
 						%>
 						<tr>
-							<td align="left">パスワード(半角文字)：</td>
+							<td align="left">パスワード(半角英数字)：</td>
 							<td><div class="password-wrapper">
-									<input pattern=^([a-zA-Z0-9]{8,})$ type="password"
+									<input pattern="[a-zA-Z0-9]+" type="password"id="usernameInput" placeholder="半角英数字のみ入力可能"
 										name="passWord" style="ime-mode: disabled" size="40"
-										maxlength="40" required> <span id="eyeIcon0"
+										maxlength="40" required oninput="removeSymbols(this)"> <span id="eyeIcon0"
 										class="eye-icon">👁</span>
 								</div></td>
 						</tr>
@@ -413,12 +438,12 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 							<td align="left">確認用パスワード：</td>
 							<td>
 								<div class="password-wrapper">
-									<input pattern=^([a-zA-Z0-9]{8,})$ type="password"
+									<input pattern="[a-zA-Z0-9]+" type="password"id="usernameInput" placeholder="半角英数字のみ入力可能"
 										name="ConPassword" style="ime-mode: disabled" size="40"
-										maxlength="40" required> <span id="eyeIcon1"
+										maxlength="40" required oninput="removeSymbols(this)"> <span id="eyeIcon1"
 										class="eye-icon">👁</span>
 								</div>
-
+                            
 							</td>
 						</tr>
 						<%
