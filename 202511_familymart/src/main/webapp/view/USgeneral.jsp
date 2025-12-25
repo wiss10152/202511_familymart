@@ -25,6 +25,25 @@ String un = (String) session.getAttribute("userName");
 <title>メニュー</title>
 <style type="text/css">
 
+body {
+    height: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.center {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+form {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
 .button-container {
     display: flex;
     flex-wrap: wrap;          
@@ -33,9 +52,12 @@ String un = (String) session.getAttribute("userName");
 }
 
 .footer{
-	margin-top:85px;
-	margin-bottom:0 !important;
-	
+    background: #6AE6F;
+    z-index: 100;
+    text-align: center;
+    margin: 0;
+    padding: 8px 0;
+    flex-shrink: 0;
 }
 </style>
 
@@ -104,7 +126,7 @@ if (login == null) {
 	<div class="center">
 
 		<form name="MyForm" method="POST"
-			action="<%=request.getContextPath()%>/FMlogout">
+			action="<%=request.getContextPath()%>/FMlogout" style="margin:0; padding:0; flex:1 0 auto; display:flex; flex-direction:column;">
 
 			<%
 			Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
