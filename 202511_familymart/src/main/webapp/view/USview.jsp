@@ -101,7 +101,7 @@ span.table2 input[type="checkbox"] {
 
 	
 	
-	//11月
+	//ナビゲーションバーのボタンの画面遷移
 	function moveShopItem(){
 	window.location.href = "<%=request.getContextPath()%>/view/SHtest.jsp";
 	}
@@ -146,6 +146,7 @@ span.table2 input[type="checkbox"] {
 <!--		}-->
 <!--	}-->
 
+    //ユーザ権限変更処理
 	function go_access(num){
 		var len = num;
 		var str = "";
@@ -176,12 +177,13 @@ span.table2 input[type="checkbox"] {
 		}
 	}
 
+    //ユーザ登録画面の遷移
 	function user_Regist(){
 		document.MyForm.actionId.value = 'userRegist';
 		document.MyForm.action = "<%= request.getContextPath() %>/view/USregist.jsp"
 		document.MyForm.submit();
 	}
-
+    //ユーザ更新画面の遷移
 	function move(Command){
 		document.MyForm.actionId.value = "update";
 		var values = Command.split(','); // , 区切;
@@ -191,7 +193,7 @@ span.table2 input[type="checkbox"] {
 		document.MyForm.action = "<%= request.getContextPath() %>/view/USregist.jsp"
 		document.MyForm.submit();
 	}
-
+    //ユーザ削除処理
 	function deletes(num){
 		var len = num ;
 		var str = "";
