@@ -1,4 +1,4 @@
-<%@ page import="java.sql.*, model.MyDBAccess,control.Shopfam,java.util.*,java.net.*,control.Shopfam2"
+<%@ page import="java.sql.*,dbaccess.MyDBAccess,control.Shopfam,java.util.*,java.net.*,control.Shopfam2"
     language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%

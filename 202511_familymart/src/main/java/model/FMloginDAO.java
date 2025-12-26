@@ -3,6 +3,7 @@ package model;
 import java.sql.ResultSet;
 
 import control.UserInfo;
+import dbaccess.MyDBAccess;
 // FMloginで
 // FMloginDAO loginDAO = new FMloginDAO;
 // ResultSet rs = loginDAO.setUserInfo(userId);

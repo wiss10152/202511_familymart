@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import control.Shopinfo;
+import dbaccess.MyDBAccess;
 
 public class FMsearchDAO {
 	private String sendSQLSentence(String shp, String edit, String prefectures) {

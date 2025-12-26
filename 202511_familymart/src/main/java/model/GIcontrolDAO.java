@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import control.Itemfam;
+import dbaccess.MyDBAccess;
 
 public class GIcontrolDAO {
 	private String sendSQLSentence(String item) {

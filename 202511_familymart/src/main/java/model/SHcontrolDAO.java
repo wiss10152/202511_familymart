@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import control.Itemfam;
+import dbaccess.MyDBAccess;
 
 public class SHcontrolDAO {
 	public String sendSQLSentence(String pre) {

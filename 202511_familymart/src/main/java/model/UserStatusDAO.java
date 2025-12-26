@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import dbaccess.MyDBAccess;
+
 public class UserStatusDAO {
 	public boolean idCheck(String userId) {
 		MyDBAccess model = new MyDBAccess();

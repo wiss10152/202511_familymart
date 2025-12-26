@@ -1,4 +1,4 @@
-<%@ page import="java.sql.*, java.net.*, model.MyDBAccess"%>
+<%@ page import="java.sql.*, java.net.*,dbaccess.MyDBAccess"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page import="jakarta.servlet.http.HttpSession"%>
 

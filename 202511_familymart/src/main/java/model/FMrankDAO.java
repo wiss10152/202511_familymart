@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import control.RANKInfo;
+import dbaccess.MyDBAccess;
 
 public class FMrankDAO {
 	private String sendSQLSentence(String pre, String edit) {

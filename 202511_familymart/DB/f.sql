@@ -44,7 +44,7 @@ WITH (
 ALTER TABLE public."出店計画"
   OWNER TO postgres;
 
-
+ALTER TABLE public."出店計画" ADD 店舗オーナー character varying(8);
 
 -- Table: public."商品データ"
 

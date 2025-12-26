@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import control.Shopinfo;
+import dbaccess.MyDBAccess;
 
 public class MyStoreDAO {
 	// MY店舗一覧取得

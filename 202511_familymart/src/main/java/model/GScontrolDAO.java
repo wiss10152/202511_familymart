@@ -6,6 +6,7 @@ import java.util.List;
 
 import control.Shopfam;
 import control.Shopfam2;
+import dbaccess.MyDBAccess;
 
 public class GScontrolDAO {
 	private String sendSQLSentence(String shop, String potision) {

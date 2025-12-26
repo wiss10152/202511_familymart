@@ -1,5 +1,5 @@
 <%@ page
-	import="java.util.*, java.sql.*, java.net.*,model.MyDBAccess,control.RANKInfo, java.net.URLEncoder"
+	import="java.util.*, java.sql.*, java.net.*,dbaccess.MyDBAccess,control.RANKInfo, java.net.URLEncoder"
 	language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
