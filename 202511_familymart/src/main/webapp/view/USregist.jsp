@@ -16,100 +16,95 @@
 	rel="icon" type="img/x-icon" />
 <title>ユーザ登録</title>
 <style>
-
 .password-wrapper {
-    position: relative;
-    display: inline-block;
+	position: relative;
+	display: inline-block;
 }
 
 .eye-icon {
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    user-select: none;
-    font-size: 18px;
+	position: absolute;
+	right: 8px;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+	user-select: none;
+	font-size: 18px;
 }
 
 .center form .tb {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+	width: 100%;
+	display: flex;
+	justify-content: center;
 }
 
 .tb2 {
-    margin-top: -70px;
-    border: 1px solid #90EE90;
-    border-radius: 6px;
-    overflow: hidden;          
-    background: #fff;
+	margin-top: -70px;
+	border: 1px solid #90EE90;
+	border-radius: 6px;
+	overflow: hidden;
+	background: #fff;
 }
 
 .fm-table {
-    border-collapse: collapse;
-    margin: 0 auto;
+	border-collapse: collapse;
+	margin: 0 auto;
 }
 
 .fm-table td {
-    padding: 10px 14px;
-    vertical-align: middle;
-    border-top: 1px solid #90EE90;
+	padding: 10px 14px;
+	vertical-align: middle;
+	border-top: 1px solid #90EE90;
 }
 
 .fm-table tr:first-child td {
-    border-top: none;
+	border-top: none;
 }
-
-
 
 .fm-table td:first-child {
-    width: 220px;
-    background: green;
-    color: white;
-    font-weight: 700;
-    text-align: left;
-    border-right: 1px solid #90EE90;
+	width: 220px;
+	background: green;
+	color: white;
+	font-weight: 700;
+	text-align: left;
+	border-right: 1px solid #90EE90;
 }
 
-
-.fm-table input[type="text"],
-.fm-table input[type="password"] {
-    width: 320px;
-    height: 36px;
-    padding: 6px 10px;
-    font-size: 14px;
-    border: 1px solid #b5b5b5;
-    border-radius: 4px;
-    background-color: #fff;
-    box-sizing: border-box;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+.fm-table input[type="text"], .fm-table input[type="password"] {
+	width: 320px;
+	height: 36px;
+	padding: 6px 10px;
+	font-size: 14px;
+	border: 1px solid #b5b5b5;
+	border-radius: 4px;
+	background-color: #fff;
+	box-sizing: border-box;
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.fm-table input[type="text"]:focus,
-.fm-table input[type="password"]:focus {
-    outline: none;
-    border-color: #4da3ff;
-    box-shadow: 0 0 0 2px rgba(77, 163, 255, 0.15);
+.fm-table input[type="text"]:focus, .fm-table input[type="password"]:focus
+	{
+	outline: none;
+	border-color: #4da3ff;
+	box-shadow: 0 0 0 2px rgba(77, 163, 255, 0.15);
 }
 
 .fm-table input[disabled] {
-    background-color: #f3f3f3;
-    color: #666;
-    cursor: not-allowed;
+	background-color: #f3f3f3;
+	color: #666;
+	cursor: not-allowed;
 }
 
 .footer1 {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin-top:15px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+	margin-top: 15px;
 }
 
-.footer1 input{
-background-color: #ADADAD;
+.footer1 input {
+	background-color: #ADADAD;
 	cursor: pointer;
 	border: none;
 	width: 100px;
@@ -120,13 +115,13 @@ background-color: #ADADAD;
 	background-color: #C4C4C4;
 }
 
-h1{
-display:inline-block;
-
+h1 {
+	display: inline-block;
 }
 </style>
 <script type="text/javascript">
 
+//パスワードの表示・非表示の切り替え
 window.onload = function () {
 
     const pwd0 = document.getElementsByName("passWord")[0];
@@ -148,7 +143,7 @@ window.onload = function () {
 
 
 
-
+//ナビゲーションバーのボタンの画面遷移
 function moveShopItem(){
 window.location.href = "<%=request.getContextPath()%>/view/SHtest.jsp";
 }
@@ -240,7 +235,7 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 <!--	}-->
 
 
-
+    //ユーザ登録・更新・エラー処理
 	function Registration(actionId){
 		// 8月　エラーメッセージが一番上のものしか表示されていなかったので、エラー項目をすべて表示するように修正
 		var errorUserID 		= "";
@@ -364,8 +359,8 @@ event.value = event.value.replace(/[^a-zA-Z0-9]/g, '');
 			<button class="btn2" onclick="moveUserList();">ユーザ管理</button>
 		</div>
 		<div class="btn">
-                    <button class="btn2" onclick="moveMyStore();">MY店舗</button>
-                </div>
+			<button class="btn2" onclick="moveMyStore();">MY店舗</button>
+		</div>
 		<%
 				}
 				%>
@@ -401,78 +396,83 @@ event.value = event.value.replace(/[^a-zA-Z0-9]/g, '');
 					ユーザ<%=change%>画面
 				</h1>
 			</div>
-<div class="end">
-			<br>
+			<div class="end">
+				<br>
 
-			<%-- ><form name="myForm" method="POST" action="#"> --%>
-			<div class="tb">
-				<div class="tb2">
-					<table class="fm-table">
-						<tr>
-							<td align="left">ユーザID(半角英数字)：</td>
-							<td><input pattern="[a-zA-Z0-9]+" type="text" name="userId" id="usernameInput" placeholder="半角英数字のみ入力可能"
-								style="ime-mode: disabled" size="40" maxlength="8" required
-								value="<%=user_id%>" <%=disabled%> oninput="removeSymbols(this)" /></td>
-						</tr>
+				<%-- ><form name="myForm" method="POST" action="#"> --%>
+				<div class="tb">
+					<div class="tb2">
+						<table class="fm-table">
+							<tr>
+								<td align="left">ユーザID(半角英数字)：</td>
+								<td><input pattern="[a-zA-Z0-9]+" type="text" name="userId"
+									id="usernameInput" placeholder="半角英数字のみ入力可能"
+									style="ime-mode: disabled" size="40" maxlength="8" required
+									value="<%=user_id%>" <%=disabled%>
+									oninput="removeSymbols(this)" /></td>
+							</tr>
 
-						<tr>
-							<td align="left">ユーザ名(半角英数字)：</td>
-							<td><input pattern="[a-zA-Z0-9]+" type="text"  id="usernameInput"placeholder="半角英数字のみ入力可能"
-								name="username" style="ime-mode: disabled" size="40"
-								maxlength="8" required value="<%=user_name%>" oninput="removeSymbols(this)"></td>
-						</tr>
+							<tr>
+								<td align="left">ユーザ名(半角英数字)：</td>
+								<td><input pattern="[a-zA-Z0-9]+" type="text"
+									id="usernameInput" placeholder="半角英数字のみ入力可能" name="username"
+									style="ime-mode: disabled" size="40" maxlength="8" required
+									value="<%=user_name%>" oninput="removeSymbols(this)"></td>
+							</tr>
 
-						<%
-						if ("userRegist".equals(actionId)) {
-						%>
-						<tr>
-							<td align="left">パスワード(半角英数字)：</td>
-							<td><div class="password-wrapper">
-									<input pattern="[a-zA-Z0-9]+" type="password"id="usernameInput" placeholder="半角英数字のみ入力可能"
-										name="passWord" style="ime-mode: disabled" size="40"
-										maxlength="40" required oninput="removeSymbols(this)"> <span id="eyeIcon0"
-										class="eye-icon">👁</span>
-								</div></td>
-						</tr>
-						<tr>
-							<td align="left">確認用パスワード：</td>
-							<td>
-								<div class="password-wrapper">
-									<input pattern="[a-zA-Z0-9]+" type="password"id="usernameInput" placeholder="半角英数字のみ入力可能"
-										name="ConPassword" style="ime-mode: disabled" size="40"
-										maxlength="40" required oninput="removeSymbols(this)"> <span id="eyeIcon1"
-										class="eye-icon">👁</span>
-								</div>
-                            
-							</td>
-						</tr>
-						<%
-						} else {
-						%>
-						<input type="hidden" name="passWord" value="">
-						<input type="hidden" name="conPassword" value="">
-						<%
-						}
-						%>
-					</table>
+							<%
+							if ("userRegist".equals(actionId)) {
+							%>
+							<tr>
+								<td align="left">パスワード(半角英数字)：</td>
+								<td><div class="password-wrapper">
+										<input pattern="[a-zA-Z0-9]+" type="password"
+											id="usernameInput" placeholder="半角英数字のみ入力可能" name="passWord"
+											style="ime-mode: disabled" size="40" maxlength="40" required
+											oninput="removeSymbols(this)"> <span id="eyeIcon0"
+											class="eye-icon">👁</span>
+									</div></td>
+							</tr>
+							<tr>
+								<td align="left">確認用パスワード：</td>
+								<td>
+									<div class="password-wrapper">
+										<input pattern="[a-zA-Z0-9]+" type="password"
+											id="usernameInput" placeholder="半角英数字のみ入力可能"
+											name="ConPassword" style="ime-mode: disabled" size="40"
+											maxlength="40" required oninput="removeSymbols(this)">
+										<span id="eyeIcon1" class="eye-icon">👁</span>
+									</div>
+
+								</td>
+							</tr>
+							<%
+							} else {
+							%>
+							<input type="hidden" name="passWord" value="">
+							<input type="hidden" name="conPassword" value="">
+							<%
+							}
+							%>
+						</table>
+					</div>
 				</div>
-			</div>
-			<div class="footer1">
-				<input type="button" class="button" value="戻る"
-					onclick="history_back();"> <input type="button"
-					onClick="Registration('<%=actionId%>')" value="<%=change%>">
-			</div>
+				<div class="footer1">
+					<input type="button" class="button" value="戻る"
+						onclick="history_back();"> <input type="button"
+						onClick="Registration('<%=actionId%>')" value="<%=change%>">
+				</div>
 
-			<div>
-				<input type="hidden" name="actionId" value="<%=actionId%>">
-				<%
-				if ("update".equals(actionId)) {
-				%>
-				<input type="hidden" name="userId" value="<%=user_id%>">
-				<%
-				}
-				%>
-            </div>
+				<div>
+					<input type="hidden" name="actionId" value="<%=actionId%>">
+					<%
+					if ("update".equals(actionId)) {
+					%>
+					<input type="hidden" name="userId" value="<%=user_id%>">
+					<%
+					}
+					%>
+				</div>
 
 			</div>
 		</form>
