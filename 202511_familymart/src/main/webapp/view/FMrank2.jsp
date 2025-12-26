@@ -5,6 +5,8 @@
 
 <%
 request.setCharacterEncoding("windows-31j");
+
+//管理者ログイン確認（未ログインの場合はログイン画面へ遷移）
 Boolean login = (Boolean) session.getAttribute("adminFlg");
 if (login == null) {
 	pageContext.forward("/view/login.jsp");
@@ -19,6 +21,7 @@ if(displayName == null) displayName = pre;
 int pageNo = 1;
 int limit = 10;
 
+//pageパラメータ取得（不正値は1ページ目にする）
 if (request.getParameter("page") != null) {
 	try {
 		pageNo = Integer.parseInt(request.getParameter("page"));
@@ -36,10 +39,12 @@ String queryBase = "&pre=" + URLEncoder.encode(pre, "UTF-8") + "&edit=" + edit +
 
 String tableHTML = "<table border=1 align=center>";
 
+//データが存在する場合のみ表を作成
 if (rankname != null && rankname.size() > 0) {
 
 	
-	if (edit.equals("true")) {
+	// 店舗ランキング表示の場合
+if (edit.equals("true")) {
 
 		tableHTML += "<tr align='center' bgcolor='008000'>"
 		+ "<td width='40px'><font color='white'>順位</font></td>"
@@ -59,7 +64,8 @@ if (rankname != null && rankname.size() > 0) {
 		}
 
 		
-	} else {
+		// 商品ランキング表示の場合
+} else {
 
 		tableHTML += "<tr align='center' bgcolor='008000'>"
 		+ "<td width='40px'><font color='white'>順位</font></td>"
@@ -239,6 +245,7 @@ a {
 	</div>
 	<script>
 (function () {
+	// iframe の高さをランキング内容に合わせて自動調整する処理
     function resizeIframe() {
         const iframe = parent.document.getElementById("wakuFrame");
         if (!iframe) return;

@@ -61,6 +61,7 @@
 	
 <script>
 (function(){
+	// iframe の高さをコンテンツ量に合わせて調整する処理
 	function resizeIframe(){
 		const iframe = parent.document.getElementById("wakuFrame");
 		if(!iframe) return;
@@ -71,6 +72,8 @@
 		const rect = content.getBoundingClientRect();
 		const contentHeight = rect.top + rect.height + 50;
 		const screenHeight = parent.window.innerHeight - 85;
+		
+		// 画面高さとコンテンツ高さの大きい方を反映
 		const finalHeight = Math.max(contentHeight, screenHeight);
 
 		iframe.style.height = Math.ceil(finalHeight) + "px";
@@ -92,6 +95,7 @@
 			<%= tableHTML2 %>
 		</span>
 		
+			<!-- 住所がある場合のみ Google Map を表示 -->
 		<% if(encodeAddress != null && !encodeAddress.isEmpty()){ %>
 			<iframe  class="iframe-display" width="34%" height="225" style="border:0; margin-top: 20px; 
 				margin-bottom: 10px;" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"

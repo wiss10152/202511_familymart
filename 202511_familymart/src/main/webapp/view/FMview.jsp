@@ -4,12 +4,14 @@
 <%
 request.setCharacterEncoding("windows-31j");
 
+//管理者ログイン確認（未ログインの場合はログイン画面へ遷移）
 Boolean login = (Boolean) session.getAttribute("adminFlg");
 if (login == null) {
 	pageContext.forward("/view/login.jsp");
 	return;
 }
 
+//コントローラから渡された店舗情報リスト
 List<Shopinfo> shopname = (List<Shopinfo>) request.getAttribute("shopdata");
 
 String edit = (String) request.getAttribute("edit");
@@ -41,6 +43,7 @@ if (prefectures == null)
 	rel="stylesheet">
 
 <style>
+/* iframe背景を透過しつつスクロールを抑制 */
 body {
 	background: none !important;
 	overflow: hidden;
@@ -56,9 +59,12 @@ margin-top:-50px;
 </style>
 
 <script>
+
+//1ページあたりの表示件数
 const pageSize = 10;
 let currentPage = 1;
 
+//指定ページのデータ表示処理
 function renderPage(page) {
     currentPage = page;
 
@@ -74,6 +80,7 @@ function renderPage(page) {
     renderPager(totalPage);
 }
 
+//ページャー生成処理
 function renderPager(totalPage) {
     const pager = document.getElementById("pager");
     pager.innerHTML = "";
@@ -99,10 +106,12 @@ function renderPager(totalPage) {
         pager.appendChild(sp);
     };
 
-    if (currentPage > 1) addLink("<<", currentPage - 1);
+    // ページ移動（前へ）
+if (currentPage > 1) addLink("<<", currentPage - 1);
     else addSpan("<<");
 
-    if (totalPage <= 7) {
+// ページ分岐（少件数 / 多件数対応）
+if (totalPage <= 7) {
         for (let p = 1; p <= totalPage; p++) {
             if (p === currentPage) addSpan(String(p), true);
             else addLink(String(p), p);
@@ -134,12 +143,14 @@ function renderPager(totalPage) {
         }
     }
 
-    if (currentPage < totalPage) addLink(">>", currentPage + 1);
+// ページ移動（次へ）
+if (currentPage < totalPage) addLink(">>", currentPage + 1);
     else addSpan(">>");
 }
 
 const currentEdit = "<%=edit%>"; // true / false / ""
 
+//店舗状態変更処理
 function changeStatus(btn, shopId, nextDeleted) {
     fetch(
         'Delete?shop=' + shopId + '&deleted=' + nextDeleted,
@@ -164,6 +175,7 @@ function changeStatus(btn, shopId, nextDeleted) {
     });
 }
 
+//画面ロード時に1ページ目表示
 window.addEventListener("DOMContentLoaded", () => {
     renderPage(1);
 });
@@ -182,6 +194,7 @@ window.addEventListener("DOMContentLoaded", () => {
 				if (shopname != null && shopname.size() > 0) {
 				%>
 
+								<!-- 店舗一覧テーブル -->
 				<table border="1" align="center">
 					<tr bgcolor="008000">
 						<td><font color="white">店舗名</font></td>
@@ -207,6 +220,7 @@ window.addEventListener("DOMContentLoaded", () => {
 							href="https://www.google.co.jp/maps/place/<%=s.uriShopAdr%>"
 							target="_blank"> <%=s.shopAdr%>
 						</a></td>
+												<!-- 管理者のみ状態変更ボタン表示 -->
 						<td>
 							<%
 							if (Boolean.TRUE.equals(adminFlg)) {
@@ -245,6 +259,7 @@ window.addEventListener("DOMContentLoaded", () => {
 	</div>
 	<script>
 (function () {
+	// iframe の高さをコンテンツ量に合わせて自動調整
     function resizeIframe() {
         const iframe = parent.document.getElementById("wakuFrame");
         if (!iframe) return;

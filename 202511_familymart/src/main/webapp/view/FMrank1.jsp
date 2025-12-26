@@ -45,32 +45,39 @@ margin-top:-80px;
 %>
 
 //11月
+//商品画面へ遷移する処理
 function moveShopItem(){
 window.location.href = "<%=request.getContextPath()%>/view/SHtest.jsp";
 }
 
+//都道府県画面へ遷移する処理
 function movePrefecture(){
 window.location.href = "<%=request.getContextPath()%>/view/FMtest.jsp";
 }
 
+//ユーザー管理画面へ遷移する処理
 function moveUserList(){
 window.location.href = "<%=request.getContextPath()%>/USshow";
 }
 
+//売上ランキング画面へ遷移する処理
 function moveRank(){
 window.location.href = "<%=request.getContextPath()%>/view/FMrank1.jsp";
 }
 
+//ログアウト確認後ログイン画面へ遷移する処理
 function logOut(){
 if(confirm("ログアウトします。よろしいですか？")){
     window.location.href = "<%=request.getContextPath()%>/view/login.jsp";
 }
 }
 
+//ホーム画面へ遷移する処理
 function moveHome(){
 window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp";
 }
 
+//マイ店舗画面へ遷移する処理
 function moveMyStore(){
 	window.location.href = "<%=request.getContextPath()%>/MyStoreServlet"
 }
@@ -162,7 +169,8 @@ function moveMyStore(){
 
 	var selectedItemText = "総合";
 
-	function selectItem(clickedElement){
+		// 項目を選択し表示名を更新して検索を実行する処理
+function selectItem(clickedElement){
 	var allItems = clickedElement.parentNode.querySelectorAll('.selectable-item');
 	allItems.forEach(function(item){
 		item.classList.remove('selected');
@@ -185,7 +193,8 @@ function moveMyStore(){
 		"kyushu-okinawa": ["福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"]
 	};
 
-	function filterRegion(regionKey){
+	// 地方を選択して該当都道府県のランキングを表示する処理
+function filterRegion(regionKey){
 		var prefsArray = regions[regionKey];
 		if(!prefsArray) return;
 
@@ -214,7 +223,8 @@ function moveMyStore(){
 		var edit = document.getElementById("label2").checked;
 	}
 	
-	function updateDisplayName(name){
+	// 画面の地域名表示を更新する処理
+function updateDisplayName(name){
 	    document.getElementById("displayNameText").textContent = name;
 	}
 

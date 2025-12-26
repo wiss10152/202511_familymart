@@ -42,20 +42,32 @@ if (login == null) {
 }
 %>
 
+//商品画面へ遷移する処理
 function moveShopItem(){ window.location.href = "<%=request.getContextPath()%>/view/SHtest.jsp"; }
+
+//都道府県画面へ遷移する処理
 function movePrefecture(){ window.location.href = "<%=request.getContextPath()%>/view/FMtest.jsp"; }
+
+//ユーザー管理画面へ遷移する処理
 function moveUserList(){ window.location.href = "<%=request.getContextPath()%>/USshow"; }
+
+//売上ランキング画面へ遷移する処理
 function moveRank(){ window.location.href = "<%=request.getContextPath()%>/view/FMrank1.jsp"; }
+
+//ホーム画面へ遷移する処理
 function moveHome(){ window.location.href = "<%=request.getContextPath()%>/view/USgeneral.jsp"; }
+//ログアウト確認後ログイン画面へ遷移する処理
 function logOut(){
 	if(confirm("ログアウトします。よろしいですか？")){
 		window.location.href = "<%=request.getContextPath()%>/view/login.jsp";
 	}
 }
+//マイ店舗画面へ遷移する処理
 function moveMyStore(){
 	window.location.href = "<%=request.getContextPath()%>/MyStoreServlet"
 }
 
+//地方を開閉する処理
 function toggleRegion(regionId){
 	var content = document.getElementById(regionId);
 	var icon = document.querySelector('[data-region-id="' + regionId + '"] .toggle-icon');
@@ -69,6 +81,8 @@ function toggleRegion(regionId){
 	checkAllRegionStatus();
 }
 
+
+//すべての地方を一括で開閉する処理
 function toggleAllRegions(button){
 	var allSections = document.querySelectorAll('.region-content');
 	var isOpening = button.getAttribute('data-action') === 'open';
@@ -85,6 +99,7 @@ function toggleAllRegions(button){
 	checkAllRegionStatus();
 }
 
+//「すべて開く / すべて閉じる」ボタン表示を切り替える処理
 function checkAllRegionStatus(){
 	var allSections = document.querySelectorAll('.region-content');
 	var openCount = 0;
@@ -106,6 +121,7 @@ function checkAllRegionStatus(){
 	}
 }
 
+//地方単位で都道府県チェックを一括ON/OFFする処理
 function toggleSectionPrefectures(allCheckbox, regionId){
 	var contentDiv = document.getElementById(regionId);
 	if(!contentDiv)return;
@@ -116,6 +132,7 @@ function toggleSectionPrefectures(allCheckbox, regionId){
 	syncAllFromPrefectures();
 }
 
+//サイドナビ条件で検索を実行する処理
 function searchBySidenav(searchType){
 	var shp = document.getElementById("seatxt_sidenav").value;
 	var status = document.querySelector('input[name="edit_status"]:checked').value;
@@ -154,6 +171,7 @@ function searchBySidenav(searchType){
 }
 
 
+//すべてチェック操作を反映する処理
 function checkAllPrefecturesStatus(){
 	const allChk = document.getElementById("checkingAll");
 	const items = document.querySelectorAll('input[name="prefecture_status"]');
@@ -162,6 +180,7 @@ function checkAllPrefecturesStatus(){
 		});
 }
 
+//都道府県チェック状況から　すべてを同期する処理
 function syncAllFromPrefectures(){
 	const allChk = document.getElementById("checkingAll");
 	const items = document.querySelectorAll('input[name="prefecture_status"]');
@@ -182,6 +201,7 @@ function syncAllFromPrefectures(){
 	}
 }
 
+//地方ごとのチェック状態を同期する処理
 function syncRegionFromPrefectures(regionId){
 	const regionDiv = document.getElementById(regionId);
 	if (!regionDiv) return;
@@ -211,6 +231,7 @@ function syncRegionFromPrefectures(regionId){
 	
 }
 
+//画面読み込み時にチェック状態を初期同期する処理
 document.addEventListener("DOMContentLoaded", function(){
 	syncAllFromPrefectures();
 });
