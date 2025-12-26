@@ -26,12 +26,14 @@ List<Shopinfo> shopList = (List<Shopinfo>) request.getAttribute("myStoreList");
 <title>MY店舗</title>
 <script type="text/javascript">
 
+//セッションの確認
 <%request.setCharacterEncoding("windows-31j");
 Boolean login = (Boolean) session.getAttribute("adminFlg");
 if (login == null) {
 	pageContext.forward("/view/login.jsp");
 }%>
 
+//ナビゲーションバーのボタンの画面遷移
 function moveShopItem(){
     window.location.href = "<%=request.getContextPath()%>/view/SHtest.jsp";
 }
@@ -61,6 +63,7 @@ function moveMyStore(){
 	window.location.href = "<%=request.getContextPath()%>/MyStoreServlet";
 }
 
+//入力の確認
 function checkInput(){
 	const value = document.getElementById("shopName").value.trim();
 	if (value === ""){
@@ -71,6 +74,7 @@ function checkInput(){
 	}
 }
 
+//MY店舗の登録・削除の処理
 function checkRegist(text){
 	if (confirm(text + "をMY店舗として登録しますか？")){
 		return true;

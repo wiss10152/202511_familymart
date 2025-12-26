@@ -99,7 +99,7 @@ html, body {
 		waku.location = "<%=request.getContextPath()%>\/SHsearch?str=" + encodeURI(text);
 	}
 
-// labelの中身によって選択か検索を判別
+// labelの中身によって選択か検索を判別する
 	function SearchGenreSelect(label, elem){
 		
 		selectItem(label, elem);
@@ -144,7 +144,7 @@ html, body {
 				style="height: 50px; margin: 5px; float: left;">
 
 			<div class="btn">
-				<button class="btn2" onclick="moveHome();">ホーム</button>
+				<button class="btn2" onclick="moveHome();">メニュー</button>
 			</div>
 
 			<div class="btn">

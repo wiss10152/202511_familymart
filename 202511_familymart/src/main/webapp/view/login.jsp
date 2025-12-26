@@ -113,7 +113,7 @@ margin-bottom:14px;
 
 </style>
 <script type="text/javascript">
-
+//パスワードの表示・非表示切り替え
 window.onload = function () {
     const pwd = document.getElementsByName("password")[0];
     const eye = document.getElementById("eyeIcon");

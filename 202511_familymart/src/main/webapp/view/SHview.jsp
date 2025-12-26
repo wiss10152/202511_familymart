@@ -11,15 +11,15 @@ if (login == null) {
 }
 %>
 
-<%
+<%//商品のリストを取得
 List<Itemfam> itemname = (List<Itemfam>) request.getAttribute("itemfam");
-
+//検索条件の取得
 String gen = (String) request.getAttribute("gen");
 String str = (String) request.getAttribute("str");
 
 int pageNo = 1;
 int limit = 10;
-
+//ページ番号の取得
 if (request.getParameter("page") != null) {
 	try {
 		pageNo = Integer.parseInt(request.getParameter("page"));
@@ -27,23 +27,23 @@ if (request.getParameter("page") != null) {
 		pageNo = 1;
 	}
 }
-
+//総商品数、総ページ数の計算
 int total = itemname != null ? itemname.size() : 0;
 int totalPage = (int) Math.ceil((double) total / limit);
 if (totalPage <= 0)
 	totalPage = 1;
-
+//
 if (pageNo > totalPage)
 	pageNo = totalPage;
 if (pageNo < 1)
 	pageNo = 1;
-
+//表示する商品範囲の計算
 int start = (pageNo - 1) * limit;
 int end = Math.min(start + limit, total);
 
 String Itemtable = "";
 String pageHTML = "";
-
+//商品のリスト表示
 if (itemname != null && itemname.size() > 0) {
 
 	Itemtable += "<table border=1 align=center>";
@@ -198,12 +198,12 @@ a {
 		</div>
 	</div>
 	<script>
+	//フレームの高さ調整
 (function () {
     function resizeIframe() {
         let finalHeight = 0;
-
         const iframe = parent.document.getElementById("wakuFrame");
-        if (!iframe) return;
+         if (!iframe) return;
 
         const content = document.querySelector(".tableArea");
         if (!content) return;

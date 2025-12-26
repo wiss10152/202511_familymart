@@ -123,17 +123,17 @@ h1 {
 
 //パスワードの表示・非表示の切り替え
 window.onload = function () {
-
+//要素の取得
     const pwd0 = document.getElementsByName("passWord")[0];
     const pwd1 = document.getElementsByName("ConPassword")[0];
     const eye0 = document.getElementById("eyeIcon0");
     const eye1 = document.getElementById("eyeIcon1");
-
+//パスワードのイベントリスナーの設定
     if(eye0 && pwd0) {
         eye0.addEventListener("mouseover", function () { pwd0.type = "text"; });
         eye0.addEventListener("mouseout", function () { pwd0.type = "password"; });
         }
-
+//確認用パスワードのイベントリスナーの設定
     if(eye1 && pwd1) {
          eye1.addEventListener("mouseover", function () { pwd1.type = "text"; });
          eye1.addEventListener("mouseout", function () { pwd1.type = "password"; });
@@ -224,7 +224,7 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 			alert(errorUserID + errorUserName + errorUserPass + errorCheckPass + "が未入力です。");
 			return;
 		}
-
+        //パスワードと確認用パスワードの一致の確認をし、不一致の場合アラートを表示し返す
 		if(actionId === "userRegist" || (document.MyForm.passWord && document.MyForm.passWord.value !== "")){
 			if(document.MyForm.passWord.value != document.MyForm.ConPassword.value){
 				alert("パスワードが一致していません");
@@ -233,7 +233,7 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 		}
 		
 		 
-		
+		//更新や作成時に確認ダイアログを表示
 		var msg = (actionId === "update") ? "更新" : "作成";
 		if(confirm("ユーザID[" +userIdValue + "]を" + msg + "します。よろしいですか？")){
 			document.MyForm.actionId.value = actionId;
@@ -242,7 +242,7 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 		}
 		
 	}
-
+    //戻るボタンの処理
     function history_back(){
 		document.MyForm.action = "<%=request.getContextPath()%>
 	/USshow";

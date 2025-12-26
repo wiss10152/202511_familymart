@@ -58,10 +58,10 @@ body, .center {
 </style>
 
 <script type="text/javascript">
-
+//要素の取得
 window.onload = function () {
 	const inputerror = document.getElementById("inputerror");
-
+//ログイン時のアラート停止処理
 	if (loginAlert) {
 	 loginAlert.remove();
 	}
@@ -77,7 +77,7 @@ window.onload = function () {
 			return;
 		}
 	}
-
+//ナビゲーションバーボタンの画面遷移
 	function moveShopItem(){
 		document.MyForm.action = "<%=request.getContextPath()%>/view/SHtest.jsp"
 		document.MyForm.submit();		//↑ここの文で違うページに遷移するという意味になる
