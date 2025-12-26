@@ -53,7 +53,7 @@ html, body {
 	if (login == null) {
 		pageContext.forward("/view/login.jsp");
 	}%>
-	
+// 画面上部のナビゲーションの画面遷移処理
 	function moveShopItem(){
 	    window.location.href = "<%=request.getContextPath()%>/view/SHtest.jsp";
 	}
@@ -217,26 +217,21 @@ html, body {
 				</div>
 			</div>
 		</div>
-		<!--		<div class="menu">-->
-		<!--			<h1></h1>-->
-
-		<!--			<div class="grid-container"></div>-->
-		<!--		</div>-->
 		<div class="USmenu">
 			<h1>商品一覧</h1>
 		</div>
 
 		<div id="contentWrapper">
 
-			<!--			 8月　インラインフレームでSHview.jspを表示する。最初は白紙。属性名wakuはsenditemとsearchWordで使用 -->
+			<!--			 インラインフレームでSHview.jspを表示する。最初は白紙。属性名wakuはsenditemとsearchWordで使用 -->
 			<div id="wakuWrapper">
 				<iframe id="wakuFrame" name="waku" src="about:blank" frameborder="0"></iframe>
 			</div>
 		</div>
 
-		<!--	自動で総合を表示するscript-->
+		<!--	自動で総合を表示するscript  -->
 		<script>
-			SearchGenreSelect("genre", document.getElementById("pre0"))
+			SearchGenreSelect("genre", document.getElementById("pre0"));
 		</script>
 
 		<div class="footer">
