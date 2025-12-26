@@ -133,19 +133,6 @@ span.table2 input[type="checkbox"] {
 	}
 
 
-
-	
-	
-
-<!--	function logOut(){-->
-<!--		if(confirm("ログアウトします。よろしいですか？")){-->
-<!--			document.MyForm.action = "<%= request.getContextPath() %>/FMlogout"-->
-<!--			document.MyForm.submit();-->
-<!--		} else {-->
-<!--			return;-->
-<!--		}-->
-<!--	}-->
-
     //ユーザ権限変更処理
 	function go_access(num){
 		var len = num;
@@ -224,10 +211,6 @@ span.table2 input[type="checkbox"] {
 		}
 	}
 
-<!--	function movePrefecture(){-->
-<!--		document.MyForm.action = "<%= request.getContextPath() %>/view/USgeneral.jsp"-->
-<!--		document.MyForm.submit();-->
-<!--	}-->
 
 	//jspへの直アクセスを防ぐ
 <%
@@ -299,20 +282,6 @@ span.table2 input[type="checkbox"] {
 
 		<form name="MyForm" method="POST"
 			action="<%= request.getContextPath() %>/FMlogout">
-			<%--
-		<div class="button-panel">
-			<% out.print("ユーザ名 : " + session.getAttribute("userName"));%>
-			<a style="margin-left: 20px" class="button" name="logout" onClick="logOut();"><img
-			src="<%= request.getContextPath() %>/view/img/153.142.124.217 (2).gif"></a>
-		</div>
-
-		<div class="button2">
-			<input type="submit" class="button" value="ユーザページへ" onclick="movePrefecture();">
-		</div>
---%>
-			<!--			<a href="#" onclick=go_portal();><img src="<%= request.getContextPath() %>/view/img/familymart.png"></a>-->
-
-
 
 			<br>
 			<%-- テーブルの表示--%>
@@ -356,8 +325,8 @@ span.table2 input[type="checkbox"] {
 					<td><input type="checkbox" name="chkBox<%=num%>"
 						style="width: 17px; height: 17px;" value="<%=user_id%>"
 						<%if (!hasPermission) {
-	out.print("disabled='disabled'");
-}%>></td>
+							out.print("disabled='disabled'");
+						}%>></td>
 					<td>
 						<%
 						if (hasPermission) {
@@ -407,8 +376,8 @@ span.table2 input[type="checkbox"] {
 						<%
 						} else {
 						%> <%=user_id%> <%
- }
- %>
+						 }
+ 						%>
 					</td>
 
 					<td><%=user_name%></td>

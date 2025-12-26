@@ -28,6 +28,8 @@ public class GIcontrol extends HttpServlet{
 	/*
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	
+// 商品詳細取得
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException{
 

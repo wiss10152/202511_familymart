@@ -25,15 +25,11 @@ public class USregist extends HttpServlet {
 		super();
 	}
 
+// ユーザ登録、ユーザ情報更新
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
 		HttpSession session = request.getSession(true);
-		
-//		Boolean mngObj = (Boolean) session.getAttribute("management_flg");
-//		boolean isSuperUser = (mngObj != null && mngObj);
-
-//		String[] ArrayUserId = (String[])session.getAttribute("kizo");
 
 		String userId			= request.getParameter("userId");
 		String username		= request.getParameter("username");

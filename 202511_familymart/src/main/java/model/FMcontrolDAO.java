@@ -38,7 +38,7 @@ public class FMcontrolDAO {
 		return sql;
 	}
 
-	// 8月　店舗データをリストに入れる。リクエストで呼び出している 9/22
+	// 店舗データをリストに入れる。リクエストで呼び出している 9/22
 	public List<Shopinfo> setShopDataList(String pre, String edit) {
 		List<Shopinfo> ShopList = new ArrayList<Shopinfo>();
 
@@ -71,6 +71,7 @@ public class FMcontrolDAO {
 		return ShopList;
 	}
 
+	// 出店状況を変更する処理
 	public int delete(String shopId, String deleted) {
 		MyDBAccess model = new MyDBAccess();
 		try {

@@ -19,6 +19,7 @@ public class FMrank extends HttpServlet {
 		super();
 	}
 
+// ランキング取得
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 

@@ -19,6 +19,7 @@ public class FMsearchDAO {
 		sql.append("FROM 出店計画 ");
 		sql.append("WHERE 店舗名 LIKE '%").append(shp).append("%' ");
 
+// editの値で出店済みかを判断
 		if ("true".equals(edit)) {
 			sql.append("AND deleted = false ");
 		} else if ("false".equals(edit)) {

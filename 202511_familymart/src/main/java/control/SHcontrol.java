@@ -28,6 +28,8 @@ public class SHcontrol extends HttpServlet{
 	/*
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	
+// 商品一覧表示
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException,IOException{
 

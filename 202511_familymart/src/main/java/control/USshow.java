@@ -26,6 +26,7 @@ public class USshow extends HttpServlet {
 	 * @see HttpServlet#HttpServlet()
 	 */
 
+// ユーザ一覧取得
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		

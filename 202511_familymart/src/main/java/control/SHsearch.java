@@ -15,6 +15,8 @@ import model.SHsearchDAO;
 /*
  * Servlet implementation class SHsearch
  */
+
+// 商品検索
 @WebServlet("/SHsearch")
 public class SHsearch extends HttpServlet {
 	private static final long serialVersionUID = 1L;

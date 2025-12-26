@@ -20,6 +20,7 @@ public class SHsearchDAO {
 		return sql;
 	}
 
+// 検索ワードに沿った商品一覧を取得
 	public List<Itemfam> setItemDataList(String str) {
 
 		List<Itemfam> ItemList = new ArrayList<>();

@@ -27,6 +27,7 @@ public class UserStatusDAO {
 		return isRegistered;
 	}
 	
+// ユーザ登録
 	public void userRegist(String username, String userId,
 			String hashedpassword, String createuser, String updateuser) {
 		MyDBAccess model = new MyDBAccess();
@@ -49,6 +50,7 @@ public class UserStatusDAO {
 		}
 	}
 	
+// ユーザ情報変更
 	public void userUpdate(String username, String userId,
 			String hashedpassword,  String updateuser) {
 		MyDBAccess model = new MyDBAccess();
@@ -69,6 +71,7 @@ public class UserStatusDAO {
 		}
 	}
 	
+// ユーザ一覧
 	public List<HashMap<String, String>> setUserList(boolean adminflg) {
 		ResultSet rs = null;
 		String sql = "SELECT * FROM ユーザ情報 where delete_flg = 'false' order by user_id ASC ";
@@ -97,6 +100,7 @@ public class UserStatusDAO {
 		return userList;
 	}
 	
+// 作成者取得
 	public String getCreatorId(MyDBAccess model, String userId) throws Exception{
 		String creatorId = null;
 		String sql = "SELECT create_user FROM ユーザ情報 WHERE user_id='" + userId + "'";
@@ -108,6 +112,7 @@ public class UserStatusDAO {
 		return creatorId;
 	}
 
+// ユーザ権限変更
 	public void usAccess(String currentUserId, String[] userIdList, boolean isSuperUser){
 		Boolean adminflg = false;
 		String str = ""; // コンソール表示用
@@ -155,6 +160,7 @@ public class UserStatusDAO {
 		}
 	}
 
+// ユーザ削除
 	public void usDelete(String currentUserId, String[] userIdList, boolean isSuperUser){
 
 		MyDBAccess model = new MyDBAccess();

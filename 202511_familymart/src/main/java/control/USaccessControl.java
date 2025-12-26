@@ -14,6 +14,7 @@ import model.UserStatusDAO;
 @WebServlet("/USaccessControl")
 public class USaccessControl extends HttpServlet{
 
+// ユーザ権限変更、ユーザ情報削除
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		

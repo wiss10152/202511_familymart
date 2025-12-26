@@ -29,6 +29,8 @@ public class GScontrol extends HttpServlet {
 	/*
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	
+// 店舗詳細取得
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 

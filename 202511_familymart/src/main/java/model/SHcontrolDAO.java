@@ -12,7 +12,7 @@ public class SHcontrolDAO {
 	public String sendSQLSentence(String pre) {
 		String sql = "";
 
-		// 8月　発売予定と新商品は日付指定が必要なためSQLを別枠で、それ以外は通常通りジャンルで分ける。
+		// 発売予定と新商品は日付指定が必要なためSQLを別枠で、それ以外は通常通りジャンルで分ける。
 		if(pre.equals("発売予定")) { // 2017/8/8以降の商品は発売予定と判定
 			sql ="SELECT "
 				+ "商品コード,商品名,販売会社,ジャンル,to_Char(販売日, 'YYYY/MM/DD')販売日,価格,画像 "
@@ -51,7 +51,7 @@ public class SHcontrolDAO {
 		return sql;
 	}
 
-	// 8月　ジャンル分けした商品データをリストに入れる。リクエストで呼び出している 9/22
+	// ジャンル分けした商品データをリストに入れる。リクエストで呼び出している 9/22
 	public List<Itemfam> setItemDataList(String pre){
 		List<Itemfam> ItemList = new ArrayList<Itemfam>();
 
@@ -74,7 +74,7 @@ public class SHcontrolDAO {
 				setItem.price		 = rs.getInt("価格");
 				setItem.img			 = rs.getString("画像");
 
-				// 8月　新商品判定を追加。1=発売予定 0=新商品 -1=既存商品
+				// 新商品判定を追加。1=発売予定 0=新商品 -1=既存商品
 				if(("2017/08/08").compareTo(rs.getString("販売日")) <= 0) {
 					setItem.newItemJudge = 1;
 				} else if(("2017/07/01").compareTo(rs.getString("販売日")) <= 0) {
