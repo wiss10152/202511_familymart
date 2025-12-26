@@ -91,26 +91,6 @@ function moveMyStore(){
 		waku.location = "<%= request.getContextPath() %>/FMrank?pre=" + encodeURIComponent(text) + "&edit=" + editValue;
 	}
 
-<!--	var flag = false;-->
-<!--	function logout() {-->
-<!--		if(confirm("ログアウトします。よろしいですか？")){-->
-<!--			flag = true;-->
-<!--			document.Logout.action = "<%= request.getContextPath()%>/FMlogout"-->
-<!--			document.Logout.submit();-->
-<!--		} else {-->
-<!--			return;-->
-<!--		}-->
-<!--	}-->
-
-<!--	function movePrefecture(){-->
-<!--		document.MyForm.action = "<%= request.getContextPath()%>/view/FMtest.jsp"-->
-<!--		document.MyForm.submit();-->
-<!--	}-->
-
-<!--	function moveUserList(){-->
-<!--		document.MyForm.action = "<%= request.getContextPath() %>/view/USgeneral.jsp"-->
-<!--		document.MyForm.submit();-->
-<!--	}-->
 
 	// 8月　プルダウンメニューの項目をラジオボタンで切り替えるため、JavaScript側で導入する。
 	//		頭の悪そうなプログラムなので、DBで管理するのも一考？
@@ -332,8 +312,7 @@ function moveMyStore(){
 								onclick="filterRegion('kyushu-okinawa')">九州・沖縄</button>
 						</div>
 
-						<%-- <input type="submit" class="rank-button" value="売上順位表示"
-				onclick="send();" style="display: none;"> --%>
+						
 
 					</div>
 				</div>

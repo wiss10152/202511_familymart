@@ -173,12 +173,6 @@ if (login == null) {
 					</a>
 				</div>
 			</div>
-			<!--<div class="sidenav">-->
-			<!--			<p></p>-->
-			<!--			<a href="#"></a> <a href="#"></a> <a href="#"></a>-->
-			<!--		</div>-->
-			<!--            <br>-->
-
 			<div class="USmenu">
 				<h1>メニュー</h1>
 			</div>

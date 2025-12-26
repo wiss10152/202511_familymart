@@ -17,8 +17,8 @@
 .USmenu {
 	margin-left: 160px;
 }
- 
- /* ボタンの固定 */
+
+/* ボタンの固定 */
 .toggle-all-buttons {
 	display: flex;
 	justify-content: center;
@@ -26,11 +26,10 @@
 }
 
 /* 間隔調整 */
-.all-region{
-margin-bottom:1px;
-box-shadow:0 1px 0 #fff;
+.all-region {
+	margin-bottom: 1px;
+	box-shadow: 0 1px 0 #fff;
 }
-
 </style>
 <title>店舗一覧</title>
 
@@ -107,13 +106,6 @@ function checkAllRegionStatus(){
 	}
 }
 
-// function toggleAllPrefectures(allCheckbox){
-//	var allPrefectures = document.querySelectorAll('input[name="prefecture_status"]');
-//	for(var i=0;i<allPrefectures.length;i++){
-//		allPrefectures[i].checked = allCheckbox.checked;
-//	}
-//}
-
 function toggleSectionPrefectures(allCheckbox, regionId){
 	var contentDiv = document.getElementById(regionId);
 	if(!contentDiv)return;
@@ -187,7 +179,6 @@ function syncAllFromPrefectures(){
 		allChk.indeterminate = false;
 	} else {
 		allChk.checked = false;
-		// allChk.indeterminate = true; // 中間状態
 	}
 }
 
@@ -216,7 +207,6 @@ function syncRegionFromPrefectures(regionId){
 		regionAllChk.indeterminate = false;
 	} else {
 		regionAllChk.checked = false;
-		// regionAllChk.indeterminate = true;
 	}
 	
 }

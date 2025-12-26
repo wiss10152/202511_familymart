@@ -8,7 +8,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<link href="<%= request.getContextPath() %>/view/css/W0051.css"
+<link href="<%=request.getContextPath()%>/view/css/W0051.css"
 	rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/view/css/W0052.css"
 	rel="stylesheet" type="text/css" />
@@ -187,54 +187,6 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 			}
 
 
-
-
-<%-- <% if((Boolean)session.getAttribute("isRegisteredUserId")){	//登録時同じIDを使っている人がいた場合のアラートのプログラム
-	session.setAttribute("isRegisteredUserId", false);
-%>
-	alert("このIDは使われています。違うIDでお試しください。");
-<% } %>
-
-<%
-	String adminuserId	= (String)session.getAttribute("userId");
-	String updateFlg	= (String)request.getAttribute("updateFlg");
-	String actionId		= request.getParameter("actionId");
-	String[] kizou		= (String[])session.getAttribute("kizo");			//7月追加	既存のIDかどうかを判断する変数
-%>
-
-<%
-	String user_id 	 = "";
-	String user_name = "";
-	String disabled  = "";												//7月追加 更新時書き込み不可に使う変数
-	String change  = "";
-
-	if(actionId.equals("update")){
-		user_id = request.getParameter("userId");
-		user_name = request.getParameter("username");
-		session.setAttribute("updateId", user_id);
-		disabled = "disabled";							 //7月新規 更新時書き込み不可に変更
-	}
-
-	if(actionId.equals("update")) {
-		change  = "更新";
-    } else {
-		change  = "登録";
-		actionId = "userRegist";
-	}
-%> --%>
-<!--	var flag = false;-->
-
-<!--	function logout() {-->
-<!--		if(confirm("ログアウトします。よろしいですか？")){-->
-<!--			flag = true;-->
-<!--			document.MyForm.action = "<%= request.getContextPath() %>/FMlogout";-->
-<!--			document.MyForm.submit();-->
-<!--		} else {-->
-<!--			return;-->
-<!--		}-->
-<!--	}-->
-
-
     //ユーザ登録・更新・エラー処理
 	function Registration(actionId){
 		// 8月　エラーメッセージが一番上のものしか表示されていなかったので、エラー項目をすべて表示するように修正
@@ -285,32 +237,26 @@ function togglePasswordVisibility(input, passwordVisibleIcon, passwordHiddenIcon
 		var msg = (actionId === "update") ? "更新" : "作成";
 		if(confirm("ユーザID[" +userIdValue + "]を" + msg + "します。よろしいですか？")){
 			document.MyForm.actionId.value = actionId;
-			document.MyForm.action = "<%= request.getContextPath() %>/USregist";
+			document.MyForm.action = "<%=request.getContextPath()%>/USregist";
 			document.MyForm.submit();
 		}
 		
 	}
 
     function history_back(){
-		document.MyForm.action = "<%= request.getContextPath()%>/USshow";
+		document.MyForm.action = "<%=request.getContextPath()%>
+	/USshow";
 		document.MyForm.submit();
 	}
-
-<% if(Boolean.TRUE.equals(session.getAttribute("isRegisteredUserId"))){ %>
+<%if (Boolean.TRUE.equals(session.getAttribute("isRegisteredUserId"))) {%>
 	alert("このIDは使われています。違うIDをお試しください。");
-	<% session.setAttribute("isRegisteredUserId", false); %>
-<% } %>
-
-
-//記号を除去し、半角英数字のみ許可
-function removeSymbols(event) {
-event.value = event.value.replace(/[^a-zA-Z0-9]/g, '');
-}
-
+<%session.setAttribute("isRegisteredUserId", false);%>
 	
-
-
-
+<%}%>
+	//記号を除去し、半角英数字のみ許可
+	function removeSymbols(event) {
+		event.value = event.value.replace(/[^a-zA-Z0-9]/g, '');
+	}
 </script>
 
 
@@ -318,19 +264,22 @@ event.value = event.value.replace(/[^a-zA-Z0-9]/g, '');
 
 <body>
 	<%
-			Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
-			String actionId = request.getParameter("actionId");
-			if(actionId == null)actionId = "userRegist";
-			
-			String user_id = request.getParameter("userId");
-			String user_name = request.getParameter("username");
-			
-			if(user_id == null) user_id = "";
-			if(user_name == null) user_name = "";
-			
-			String disabled = "update".equals(actionId) ? "disabled" : "";
-			String change = "update".equals(actionId) ? "更新" : "登録";
-			%>
+	Boolean adminFlg = (Boolean) session.getAttribute("adminFlg");
+	String actionId = request.getParameter("actionId");
+	if (actionId == null)
+		actionId = "userRegist";
+
+	String user_id = request.getParameter("userId");
+	String user_name = request.getParameter("username");
+
+	if (user_id == null)
+		user_id = "";
+	if (user_name == null)
+		user_name = "";
+
+	String disabled = "update".equals(actionId) ? "disabled" : "";
+	String change = "update".equals(actionId) ? "更新" : "登録";
+	%>
 
 	<div class="navbar">
 		<img src="<%=request.getContextPath()%>/view/img/familymart.png"
@@ -353,8 +302,8 @@ event.value = event.value.replace(/[^a-zA-Z0-9]/g, '');
 		</div>
 
 		<%
-				if (Boolean.TRUE.equals(adminFlg)) {
-				%>
+		if (Boolean.TRUE.equals(adminFlg)) {
+		%>
 		<div class="btn">
 			<button class="btn2" onclick="moveUserList();">ユーザ管理</button>
 		</div>
@@ -362,13 +311,13 @@ event.value = event.value.replace(/[^a-zA-Z0-9]/g, '');
 			<button class="btn2" onclick="moveMyStore();">MY店舗</button>
 		</div>
 		<%
-				}
-				%>
+		}
+		%>
 
 		<div class="button-panel">
 			<%
-					out.print("ユーザ名 : " + session.getAttribute("userName"));
-					%>
+			out.print("ユーザ名 : " + session.getAttribute("userName"));
+			%>
 			<a style="margin-left: 20px" class="button" name="logout"
 				onClick="logOut();"> <img
 				src="<%=request.getContextPath()%>/view/img/153.142.124.217 (2).gif">
@@ -378,20 +327,8 @@ event.value = event.value.replace(/[^a-zA-Z0-9]/g, '');
 
 	<div class="center">
 		<form name="MyForm" method="POST" action="#" onsubmit="return false;">
-			<%--ここで、Enter keyを押した場合の処理を行っている。キャンセルすると送信されない。↑ --%>
-			<!--	<div class="button-panel">-->
-			<!--		<%-- out.print("ユーザ名 : " + session.getAttribute("userName"));%>-->
-			<!--		<a style="margin-left: 20px" class="button" onClick="logout();">-->
-			<!--		<img src="<%= request.getContextPath() --%>/view/img/153.142.124.217 (2).gif"></a>-->
-			<!--	</div>-->
 
-
-			<%--
-			String userid = (String) request.getAttribute("userId");
-			String userName = (String) request.getAttribute("userName");
-			--%>
 			<div>
-				<!--				<img src="<%=request.getContextPath()%>/view/img/familymart.png">-->
 				<h1>
 					ユーザ<%=change%>画面
 				</h1>
@@ -399,7 +336,6 @@ event.value = event.value.replace(/[^a-zA-Z0-9]/g, '');
 			<div class="end">
 				<br>
 
-				<%-- ><form name="myForm" method="POST" action="#"> --%>
 				<div class="tb">
 					<div class="tb2">
 						<table class="fm-table">

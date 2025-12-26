@@ -167,9 +167,6 @@ window.onload = function () {
 <body>
 	<div class="center">
 		<h1>LOGIN</h1>
-<!--		<a href="#" onclick=go_portal();><img-->
-<!--			src="<%=request.getContextPath()%>/view/img/familymart.png"></a>-->
-
 		<div class="footer1">
 			<form name="myForm" method="POST" action="#">
 				<input type="text" maxlength="8"
